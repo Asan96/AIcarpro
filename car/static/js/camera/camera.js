@@ -1,13 +1,20 @@
 $('#open_camera').click(
     function () {
+        $('#open_camera').hide()
+        $('#close_camera').show()
         $.ajax({
             type : "POST",
-            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
             url : PUB_URL.dataOriginCamera,
-            data : {'isOpen':1},
+            data : {'open': 1},
             success : function(data) {
+                console.log(data)
                 if (data.ret){
-                    connect()
+                    connect(data.host)
+                    console.log('正在建立连接。。。')
+                }
+                else{
+                    console.log(data.msg)
                 }
             },
             error : function(e){
@@ -17,8 +24,8 @@ $('#open_camera').click(
         });
     }
 );
-function connect(){
-    let conn = new WebSocket("ws://127.0.0.1:36660/");
+function connect(host){
+    let conn = new WebSocket("ws://"+host+":36660/");
     conn.onopen = function (evt) {
         console.log('客户端成功建立连接。。')
     };
