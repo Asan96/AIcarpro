@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'plugin/img/favicon.ico' %}" type="image/x-icon" />
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
+    {% block title_name %}<title>主页</title>{% endblock %}
+</head>
+<style>
+    .div_block {
+        text-align: center;
+        height: 800px;
+        width: 70%;
+    }
+</style>
+{% block css %}
+{% endblock %}
+<body>
+    <div class="ui fixed inverted menu" style="height: 50px;">
+        <div class="ui container">
+            <a href="" class="header item">
+                {#          <img class="logo" src="assets/images/logo.png">#}
+                主页
+            </a>
+            <a href="../camera" class="item">实时监控</a>
+            <div class="ui simple dropdown item">
+                Dropdown <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="fixed.php#">链接选项</a>
+                    <a class="item" href="fixed.php#">链接选项</a>
+                    <div class="divider"></div>
+                    <div class="header">标题项</div>
+                    <div class="item">
+                        <i class="dropdown icon"></i>
+                        子菜单
+                        <div class="menu">
+                            <a class="item" href="fixed.php#">链接选项</a>
+                            <a class="item" href="fixed.php#">链接选项</a>
+                        </div>
+                    </div>
+                    <a class="item" href="fixed.php#">链接选项</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="div_block ui  very padded  container segment" style="margin-top: 5%;">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+{% block js %}
+    <script src="{% static 'plugin/js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'plugin/js/semantic.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+{% block script %}
+{% endblock %}
+</html>

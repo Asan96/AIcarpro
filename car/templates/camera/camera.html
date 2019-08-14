@@ -1,0 +1,54 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block css %}
+    <style>
+        #div_opera{
+            text-align: center;
+            width: 20%;
+            float: left;
+        }
+        #div_camera{
+            text-align: center;
+            height: 600px;
+            margin-left: 20px;
+            width: 75%;
+            float:left;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div style="visibility:hidden; width:0; height:0;">
+        <canvas id="canvas" width="320"  height="240"></canvas>
+    </div>
+    <div>
+        <video id="video" autoplay style="display: inline;"></video>
+        <img id="target" style="display:inline;"/>
+    </div>
+    <div id ="div_opera" class="ui  vertical menu">
+        <a class="item" id="open_camera">
+            开启摄像头
+        </a>
+        <a class="item">
+            关闭摄像头
+        </a>
+        <a class="item">
+            面部识别增加
+        </a>
+        <a class="item">
+            代码查看
+        </a>
+    </div>
+    <div id="div_camera">
+        <div class="ui raised very padded  container segment" style="width: 100%;height: 100%">
+            <div class="ui top attached label">小车摄像头原画面</div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/camera/camera.js' %}"></script>
+    <script>
+        let PUB_URL ={
+            "dataOriginCamera": "/camera/origin_camera/",
+        }
+    </script>
+{% endblock %}
