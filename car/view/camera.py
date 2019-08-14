@@ -11,15 +11,15 @@ import socket
 import json
 
 
-isOpen = 0
 host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
 
 def camera_page(request):
     return render(request, 'camera/camera.html')
 
 
-class VideoStreamingTest(object):
+class VideoStreaming(object):
     def __init__(self, port=36660):
+        print(host)
         self.server_socket = socket.socket()
         self.server_socket.bind((host, port))
         self.server_socket.listen(0)
@@ -27,7 +27,8 @@ class VideoStreamingTest(object):
         self.connection = self.connection.makefile('rb')
         self.host_name = socket.gethostname()
         self.host_ip = socket.gethostbyname(self.host_name)
-        self.streaming()
+        #self.streaming()
+        self.toJS()
 
     def streaming(self):
         try:
@@ -54,20 +55,24 @@ class VideoStreamingTest(object):
         finally:
             self.close()
 
+    def toJS(self):
+        print("Host: ", self.host_name + ' ' + self.host_ip)
+        print("Connection from: ", self.client_address)
+        print("to js...")
+        self.server_socket.send(b'1111')
+        self.close()
+
+
     def close(self):
             self.connection.close()
             self.server_socket.close()
 
 
 @csrf_exempt
-def origin_camera(request):
-    global isOpen
-    print(isOpen)
+def get_host(request):
     params = request.POST.dict()
-    isOpen = int(params['open']) if isOpen == 0 else 2
-    print(isOpen)
-    if isOpen == 1:
-        VideoStreamingTest()
+    if int(params['open']) == 1:
+        VideoStreaming()
         result = {'ret': True, 'msg': '服务端建立连接', 'host': host}
     else:
         result = {'ret': False, 'msg': '服务端已经建立建立！！'}

@@ -6,5 +6,5 @@ from car.view import camera
 urlpatterns = [
     path(r'', views.home_page_load),
     path(r'camera/', camera.camera_page),
-    path(r'camera/origin_camera/', camera.origin_camera)
+    path(r'camera/get_host/', camera.get_host)
 ]
