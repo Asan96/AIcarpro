@@ -1,0 +1,157 @@
+{% extends 'home.html' %}
+{% load  static %}
+{% block css %}
+    <style>
+        .contain_size{
+            width: 25%;
+            height: 100%;
+        }
+        .border_div{
+            border: black 1px solid;
+        }
+        .text_left{
+            text-align: left;
+        }
+        .left_div{
+            width: 400px;
+            height: 100%;
+            float: left;
+        }
+        .right_div{
+            width: 70%;
+            height: 90%;
+            padding-top: 2%;
+            float: left;
+        }
+    </style>
+{% endblock %}
+{% block self_content %}
+    <div class="left_div">
+        <div class="ui container  very padded segment contain_size">
+        <h4 class="ui horizontal divider header">
+            <i class="car icon"></i>
+            行动控制
+        </h4>
+        <div class="ui relaxed grid text_center">
+            <div class="equal width row">
+                <div class="column">
+                    <div class="ui ignored toggle animation checkbox">
+                        <input type="checkbox" name="animation" />
+                        <label>开关</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <button class="ui inverted orange button">
+                        <i class="undo icon"></i>旋转
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted orange button">
+                        <i class="arrow up icon"></i>前进
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted orange button" >
+                        <i class="arrow down icon"></i>后退
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted orange button" >
+                        <i class="arrow left icon"></i>左转
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted orange button" >
+                        右转
+                        <i class="arrow right icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header">
+            <i class="video icon"></i>
+            云台控制
+        </h4>
+        <div class="ui relaxed grid text_center">
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted green button" >
+                        <i class="arrow left icon"></i>向左
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted green button" >向右
+                        <i class="arrow right icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted green button" >
+                        <i class="arrow up icon"></i>向上
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted green button" >
+                        <i class="arrow down icon"></i>向下
+                    </button>
+                </div>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header">
+            <i class="cog icon"></i>
+            机械臂控制
+        </h4>
+        <div class="ui relaxed grid text_center">
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted violet button" >
+                        <i class="arrow left icon"></i>张开
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted violet button" >闭合
+                        <i class="arrow right icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted violet button" >
+                        <i class="arrow up icon"></i>向上
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted violet button" >
+                        <i class="arrow down icon"></i>向下
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
+                    <button class="ui inverted violet button" >
+                        <i class="arrow left icon"></i>向左
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted violet button" >向右
+                        <i class="arrow right icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="right_div">
+        <div class="ui container raised very padded segment contain_size">
+            <div class="ui top attached label text_center "><h4>相关代码</h4></div>
+            <h2 class="ui header">Dogs Roles with Humans</h2>
+            <p></p>
+            <p></p>
+        </div>
+    </div>
+{% endblock %}

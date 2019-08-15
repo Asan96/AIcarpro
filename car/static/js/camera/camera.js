@@ -56,7 +56,7 @@ function connect(){
 //
 //     getUserMedia.call(navigator, {
 //         video: true,
-//         audio: true
+//         voice: true
 //     }, function(localMediaStream) {
 //         video.src = window.URL.createObjectURL(localMediaStream);
 //         video.onloadedmetadata = function(e) {

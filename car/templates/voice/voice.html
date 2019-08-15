@@ -1,0 +1,36 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block css %}
+    <style>
+        .contain_size{
+            height: 100%;
+            width: 75%;
+            margin-top: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+
+
+    </style>
+{% endblock %}
+{% block self_content %}
+
+    <div class="ui container segment contain_size">
+        <div class="ui  segment">
+            <div class="ui  secondary menu">
+                <a class="item">
+                    语音控制
+                </a>
+                <a class="item">
+                    信息
+                </a>
+                <a class="item">
+                    朋友
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+{% endblock %}

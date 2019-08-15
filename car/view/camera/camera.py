@@ -13,6 +13,7 @@ import json
 
 host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
 
+
 def camera_page(request):
     return render(request, 'camera/camera.html')
 

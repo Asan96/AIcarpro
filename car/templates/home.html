@@ -3,51 +3,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="{% static 'plugin/img/favicon.ico' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'plugin/img/zksp.ico' %}" type="image/x-icon" />
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
     {% block title_name %}<title>主页</title>{% endblock %}
 </head>
 <style>
+    html,body{height:100%;overflow:hidden;}
     .div_block {
         text-align: center;
-        height: 800px;
-        width: 70%;
+        height: 90%;
+        width: 80%;
+    }
+    #main_menu{
+        text-align: center;
+        margin-bottom: 0px;
+    }
+    .text_center{
+        text-align: center;
     }
 </style>
 {% block css %}
 {% endblock %}
 <body>
-    <div class="ui fixed inverted menu" style="height: 50px;">
-        <div class="ui container">
-            <a href="" class="header item">
-                {#          <img class="logo" src="assets/images/logo.png">#}
-                主页
-            </a>
-            <a href="../camera" class="item">实时监控</a>
-            <div class="ui simple dropdown item">
-                Dropdown <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="fixed.php#">链接选项</a>
-                    <a class="item" href="fixed.php#">链接选项</a>
-                    <div class="divider"></div>
-                    <div class="header">标题项</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        子菜单
-                        <div class="menu">
-                            <a class="item" href="fixed.php#">链接选项</a>
-                            <a class="item" href="fixed.php#">链接选项</a>
-                        </div>
-                    </div>
-                    <a class="item" href="fixed.php#">链接选项</a>
-                </div>
-            </div>
-        </div>
+<div class="ui inverted pointing menu" id="main_menu">
+    <div class="ui container">
+        <div class="header item"><h4>AI 智能小车</h4></div>
+        <a href="{% url 'car:control' %}" class="item">
+            <i class="large gamepad icon"></i>运动控制
+        </a>
+        <a href="{% url 'car:voice' %}" class="item">
+            <i class="large microphone icon"></i>语音技术
+        </a>
+        <a href="{% url 'car:camera' %}" class="item">
+            <i class="large video icon"></i>视频处理
+        </a>
+        <a href="{% url 'car:image' %}" class="item">
+            <i class="large image icon"></i>图像识别
+        </a>
+        <a href="{% url 'car:code' %}" class="item">
+            <i class="large keyboard icon"></i>代码编辑
+        </a>
     </div>
-<div class="div_block ui  very padded  container segment" style="margin-top: 5%;">
-    {% block content %}
-    {% endblock %}
 </div>
+{#<div class="div_block ui container segment">#}
+{#    {% block content %}#}
+{#    {% endblock %}#}
+{#</div>#}
+{% block self_content %}
+{% endblock %}
 </body>
 {% block js %}
     <script src="{% static 'plugin/js/jquery-3.4.1.js' %}"></script>
