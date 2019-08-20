@@ -16,8 +16,9 @@
         }
     </style>
 {% endblock %}
-{% block content %}
+{% block self_content %}
     <div id ="div_opera" class="ui  vertical menu">
+    <button onclick="connect()">test</button>
         <a class="item" id="open_camera">
             开启摄像头
         </a>
@@ -48,7 +49,7 @@
     <script src="{% static 'js/camera/camera.js' %}"></script>
     <script>
         let PUB_URL ={
-            "dataGetHost": "/camera/get_host/",
+            "dataGetHost": "/camera/open_server/",
         }
     </script>
 {% endblock %}

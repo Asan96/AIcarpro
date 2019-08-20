@@ -11,7 +11,7 @@ from car.view.code import code
 app_name = 'car'
 
 urlpatterns = [
-    path(r'/', views.home_page_load),
+    path(r'', views.home_page_load),
 
 
     # 小车控制
@@ -24,8 +24,7 @@ urlpatterns = [
 
     # 视频处理
     path(r'camera/', camera.camera_page, name='camera'),
-    path(r'camera/get_host/', camera.get_host),
-
+    # path(r'open_server', camera.open_server),
 
     # 图像识别
     path(r'image/', image.image_page, name='image'),

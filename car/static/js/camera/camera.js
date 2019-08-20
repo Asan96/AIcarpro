@@ -2,14 +2,13 @@ $('#open_camera').click(
     function () {
         $('#open_camera').hide()
         $('#close_camera').show()
-        var t=setTimeout("connect()",5000)
+        connect()
         $.ajax({
             type : "POST",
             dataType: "json",
             url : PUB_URL.dataGetHost,
             data : {'open': '1'},
             success : function(data) {
-                console.log('1111111111111111')
                 console.log(data);
                 if (data.ret){
                     console.log('正在建立连接。。。')
@@ -26,25 +25,29 @@ $('#open_camera').click(
     }
 );
 function connect(){
-    let conn = new WebSocket("ws://127.0.0.1:36660/");
-    conn.onopen = function (evt) {
+    let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
+    socket.onopen = function (evt) {
+        socket.send('connected')
         console.log('客户端成功建立连接。。')
     };
-    // conn.onmessage = function (evt) {
-    //     let bytes = new Uint8Array(evt.data);
-    //     let data = "";
-    //     let len = bytes.byteLength;
-    //     for (let i = 0; i < len; ++i) {
-    //         data += String.fromCharCode(bytes[i]);
-    //     }
-    //     let img = document.getElementById("target");
-    //     img.src = "data:image/jpg;base64,"+window.btoa(data);
-    // };
-    conn.onclose = function() {
+    socket.onmessage = function (evt) {
+        // let bytes = new Uint8Array(evt.data);
+        // console.log(bytes)
+        // let data = "";
+        // let len = bytes.byteLength;
+        // for (let i = 0; i < len; ++i) {
+        //     data += String.fromCharCode(bytes[i]);
+        // }
+        // let img = document.getElementById("target");
+        // img.src = "data:image/jpg;base64,"+window.btoa(data);
+        // data = JSON.parse(evt.data).message
+        console.log(evt)
+    };
+    socket.onclose = function() {
         console.log("Closed");
     };
 
-    conn.onerror = function(err) {
+    socket.onerror = function(err) {
         console.log("Error: " + err);
     }}
 
@@ -92,6 +95,8 @@ function connect(){
 //         ctx.drawImage(video, 0, 0, 320, 240);
 //         var data = canvas.toDataURL('image/jpeg', 1.0);
 //         newblob = dataURItoBlob(data);
-//         ws.send(newblob);
-//     }, 250);
+//         socket.send(newblob);
+//     }, 250)
 // }
+
+
