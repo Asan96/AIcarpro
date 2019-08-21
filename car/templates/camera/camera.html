@@ -18,7 +18,6 @@
 {% endblock %}
 {% block self_content %}
     <div id ="div_opera" class="ui  vertical menu">
-    <button onclick="connect()">test</button>
         <a class="item" id="open_camera">
             开启摄像头
         </a>
@@ -35,21 +34,17 @@
     <div id="div_camera">
         <div class="ui raised very padded  container segment" style="width: 100%;height: 100%">
             <div class="ui top attached label">小车摄像头原画面</div>
+            <canvas id="canvas" width="640"  height="480" style="display: none;float: none"></canvas>
+            <img id="target" style="display:inline;" />
         </div>
-        <div style="visibility:hidden; width:0; height:0;">
-            <canvas id="canvas" width="320"  height="240"></canvas>
-        </div>
-        <div>
-            <video id="video" autoplay style="display: inline;"></video>
-            <img id="target" style="display:inline;"/>
-        </div>
+
     </div>
 {% endblock %}
 {% block script %}
     <script src="{% static 'js/camera/camera.js' %}"></script>
     <script>
         let PUB_URL ={
-            "dataGetHost": "/camera/open_server/",
+            "dataCloseServer": "/camera/close_server/",
         }
     </script>
 {% endblock %}

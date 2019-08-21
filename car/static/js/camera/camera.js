@@ -3,100 +3,63 @@ $('#open_camera').click(
         $('#open_camera').hide()
         $('#close_camera').show()
         connect()
-        $.ajax({
-            type : "POST",
-            dataType: "json",
-            url : PUB_URL.dataGetHost,
-            data : {'open': '1'},
-            success : function(data) {
-                console.log(data);
-                if (data.ret){
-                    console.log('正在建立连接。。。')
-                }
-                else{
-                    console.log(data.msg)
-                }
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        });
     }
 );
+$("#close_camera").click(function () {
+    $('#open_camera').show();
+    $('#close_camera').hide();
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : PUB_URL.dataCloseServer,
+        data : {},
+        success : function(data) {
+            if (data.ret){
+                console.log(data.msg)
+            }
+            else{
+                console.log(data.msg)
+            }
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+});
+
 function connect(){
     let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
+
     socket.onopen = function (evt) {
-        socket.send('connected')
+        socket.send('connected');
         console.log('客户端成功建立连接。。')
     };
+
     socket.onmessage = function (evt) {
-        // let bytes = new Uint8Array(evt.data);
-        // console.log(bytes)
-        // let data = "";
-        // let len = bytes.byteLength;
-        // for (let i = 0; i < len; ++i) {
-        //     data += String.fromCharCode(bytes[i]);
-        // }
-        // let img = document.getElementById("target");
-        // img.src = "data:image/jpg;base64,"+window.btoa(data);
-        // data = JSON.parse(evt.data).message
-        console.log(evt)
+        let blob = evt.data;
+        let reader = new FileReader();
+        let c =document.getElementById("canvas");
+        let cxt=c.getContext("2d");
+
+        reader.readAsDataURL(blob);
+        reader.onload = function(e) {
+            let img = document.getElementById("target");
+            img.src = this.result;
+            cxt.drawImage(img,0,0);
+        }
     };
     socket.onclose = function() {
         console.log("Closed");
+        socket.close()
     };
 
     socket.onerror = function(err) {
         console.log("Error: " + err);
-    }}
+    };
 
-//     var getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-//
-//     var video = document.getElementById('video');
-//     var canvas = document.getElementById('canvas');
-//     var ctx = canvas.getContext('2d');
-//
-//     getUserMedia.call(navigator, {
-//         video: true,
-//         voice: true
-//     }, function(localMediaStream) {
-//         video.src = window.URL.createObjectURL(localMediaStream);
-//         video.onloadedmetadata = function(e) {
-//             console.log("Label: " + localMediaStream.label);
-//             console.log("AudioTracks" , localMediaStream.getAudioTracks());
-//             console.log("VideoTracks" , localMediaStream.getVideoTracks());
-//         };
-//     }, function(e) {
-//         console.log('Reeeejected!', e);
-//     });
-//
-//     function dataURItoBlob(dataURI) {
-//         // convert base64/URLEncoded data component to raw binary data held in a string
-//         var byteString;
-//         if (dataURI.split(',')[0].indexOf('base64') >= 0)
-//             byteString = atob(dataURI.split(',')[1]);
-//         else
-//             byteString = unescape(dataURI.split(',')[1]);
-//
-//         // separate out the mime component
-//         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-//
-//         // write the bytes of the string to a typed array
-//         var ia = new Uint8Array(byteString.length);
-//         for (var i = 0; i < byteString.length; i++) {
-//             ia[i] = byteString.charCodeAt(i);
-//         }
-//
-//         return new Blob([ia], {type:mimeString});
-//     }
-//
-//     timer = setInterval(function () {
-//         ctx.drawImage(video, 0, 0, 320, 240);
-//         var data = canvas.toDataURL('image/jpeg', 1.0);
-//         newblob = dataURItoBlob(data);
-//         socket.send(newblob);
-//     }, 250)
-// }
+}
+
+
 
 
