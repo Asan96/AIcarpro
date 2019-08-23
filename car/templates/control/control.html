@@ -23,11 +23,18 @@
             padding-top: 2%;
             float: left;
         }
+
     </style>
 {% endblock %}
 {% block self_content %}
     <div class="left_div">
         <div class="ui container  very padded segment contain_size">
+            <div class="column" style="text-align: center">
+                <div class="ui ignored toggle animation checkbox">
+                    <input type="checkbox" id="car_switch" />
+                    <label>操作开关</label>
+                </div>
+            </div>
         <h4 class="ui horizontal divider header">
             <i class="car icon"></i>
             行动控制
@@ -35,37 +42,36 @@
         <div class="ui relaxed grid text_center">
             <div class="equal width row">
                 <div class="column">
-                    <div class="ui ignored toggle animation checkbox">
-                        <input type="checkbox" name="animation" />
-                        <label>开关</label>
-                    </div>
+                    <button class="ui inverted orange button btn" value="car_stop">
+                        <i class="undo icon"></i>停止
+                    </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted orange button">
+                    <button class="ui inverted orange button btn" value="car_rotate">
                         <i class="undo icon"></i>旋转
                     </button>
                 </div>
             </div>
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted orange button">
+                    <button class="ui inverted orange button btn" value="car_forward">
                         <i class="arrow up icon"></i>前进
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted orange button" >
+                    <button class="ui inverted orange button btn" value="car_backward">
                         <i class="arrow down icon"></i>后退
                     </button>
                 </div>
             </div>
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted orange button" >
+                    <button class="ui inverted orange button btn" value="car_left">
                         <i class="arrow left icon"></i>左转
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted orange button" >
+                    <button class="ui inverted orange button btn" value="car_right">
                         右转
                         <i class="arrow right icon"></i>
                     </button>
@@ -79,24 +85,24 @@
         <div class="ui relaxed grid text_center">
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted green button" >
+                    <button class="ui inverted green button btn" value="car_cam_left">
                         <i class="arrow left icon"></i>向左
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted green button" >向右
+                    <button class="ui inverted green button btn" value="car_cam_right">向右
                         <i class="arrow right icon"></i>
                     </button>
                 </div>
             </div>
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted green button" >
+                    <button class="ui inverted green button btn" value="car_cam_up">
                         <i class="arrow up icon"></i>向上
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted green button" >
+                    <button class="ui inverted green button btn" value="car_cam_down">
                         <i class="arrow down icon"></i>向下
                     </button>
                 </div>
@@ -109,36 +115,36 @@
         <div class="ui relaxed grid text_center">
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted violet button" >
+                    <button class="ui inverted violet button btn" value="car_arm_open">
                         <i class="arrow left icon"></i>张开
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted violet button" >闭合
+                    <button class="ui inverted violet button btn" value="car_arm_close">闭合
                         <i class="arrow right icon"></i>
                     </button>
                 </div>
             </div>
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted violet button" >
+                    <button class="ui inverted violet button btn" value="car_arm_up">
                         <i class="arrow up icon"></i>向上
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted violet button" >
+                    <button class="ui inverted violet button btn" value="car_arm_down">
                         <i class="arrow down icon"></i>向下
                     </button>
                 </div>
             </div>
             <div class="equal width row">
                 <div class="column">
-                    <button class="ui inverted violet button" >
+                    <button class="ui inverted violet button btn" value="car_arm_left">
                         <i class="arrow left icon"></i>向左
                     </button>
                 </div>
                 <div class="column">
-                    <button class="ui inverted violet button" >向右
+                    <button class="ui inverted violet button btn" value="car_arm_right">向右
                         <i class="arrow right icon"></i>
                     </button>
                 </div>
@@ -154,4 +160,12 @@
             <p></p>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let PUB_URL = {
+            "dataControlCommand":"{% url 'car:control_command' %}",
+        }
+    </script>
+    <script src="{% static 'js/control/control.js' %}"></script>
 {% endblock %}

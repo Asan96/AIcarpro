@@ -16,7 +16,7 @@ urlpatterns = [
 
     # 小车控制
     path(r'control/', control.control_page, name='control'),
-
+    path(r'control/control_command', control.control_command, name='control_command'),
 
     # 语音技术
     path(r'voice/', voice.voice_page, name='voice'),

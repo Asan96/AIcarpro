@@ -26,8 +26,6 @@ host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
 def camera_page(request):
     return render(request, 'camera/camera.html')
 
-car_server_socket = ''
-
 
 class VideoStreaming(object):
     def __init__(self, port=36660):
@@ -36,7 +34,6 @@ class VideoStreaming(object):
         self.server_socket = socket.socket()
         self.server_socket.bind((host, port))
         self.server_socket.listen(5)
-        car_server_socket = self.server_socket
         self.connection, self.client_address = self.server_socket.accept()
         self.connection = self.connection.makefile('rb')
         self.host_name = socket.gethostname()
