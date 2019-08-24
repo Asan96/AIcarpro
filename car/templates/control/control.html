@@ -1,5 +1,8 @@
 {% extends 'home.html' %}
 {% load  static %}
+{% block title_name %}
+    运动控制
+{% endblock %}
 {% block css %}
     <style>
         .contain_size{
@@ -127,6 +130,18 @@
             </div>
             <div class="equal width row">
                 <div class="column">
+                    <button class="ui inverted violet button btn" value="car_arm_forward">
+                        <i class="arrow up icon"></i>向前
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui inverted violet button btn" value="car_arm_backward">
+                        <i class="arrow down icon"></i>向后
+                    </button>
+                </div>
+            </div>
+            <div class="equal width row">
+                <div class="column">
                     <button class="ui inverted violet button btn" value="car_arm_up">
                         <i class="arrow up icon"></i>向上
                     </button>
@@ -164,7 +179,7 @@
 {% block script %}
     <script>
         let PUB_URL = {
-            "dataControlCommand":"{% url 'car:control_command' %}",
+            "dataCommand":"{% url 'car:get_command' %}",
         }
     </script>
     <script src="{% static 'js/control/control.js' %}"></script>

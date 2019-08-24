@@ -16,7 +16,7 @@ $('.btn').click(function () {
     $.ajax({
         type : "POST",
         dataType: "json",
-        url : PUB_URL.dataControlCommand,
+        url : PUB_URL.dataCommand,
         data : {'command':this.value},
         success : function(data) {
             if (data.ret){

@@ -7,6 +7,7 @@ from car.view.voice import voice
 from car.view.camera import camera
 from car.view.image import image
 from car.view.code import code
+from car.view import mqtt
 
 app_name = 'car'
 
@@ -16,7 +17,6 @@ urlpatterns = [
 
     # 小车控制
     path(r'control/', control.control_page, name='control'),
-    path(r'control/control_command', control.control_command, name='control_command'),
 
     # 语音技术
     path(r'voice/', voice.voice_page, name='voice'),
@@ -31,9 +31,9 @@ urlpatterns = [
 
 
     # 代码编辑
-    path(r'code/', code.code_page, name='code')
+    path(r'code/', code.code_page, name='code'),
 
-
-
+    # mqtt
+    path(r'get_command', mqtt.get_command, name='get_command'),
 
 ]

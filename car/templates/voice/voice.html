@@ -18,22 +18,28 @@
     <div class="ui container segment contain_size">
         <div class="ui  segment">
             <div class="ui  secondary menu">
-                <a class="item">
+                <button class="item btn" value="voice_control">
                     语音控制
-                </a>
-                <a class="item">
+                </button>
+                <button class="item btn" value="voice_chat">
                     语音对话
-                </a>
-                <a class="item">
+                </button>
+                <button class="item">
                     语音识别
-                </a>
-                <a class="item">
+                </button>
+                <button class="item">
                     语音合成
-                </a>
+                </button>
             </div>
         </div>
     </div>
 
 {% endblock %}
 {% block script %}
+    <script>
+        let PUB_URL = {
+            'dataCommand': '{% url 'car:get_command' %}',
+        }
+    </script>
+    <script src="{% static 'js/voice/voice.js' %}"></script>
 {% endblock %}
