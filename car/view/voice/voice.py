@@ -13,3 +13,15 @@ import json
 
 def voice_page(request):
     return render(request, 'voice/voice.html')
+
+
+def voice_text_page(request):
+    return render(request, 'voice/voice_text.html')
+
+
+def voice_recognize_page(request):
+    return render(request, 'voice/voice_recognize.html')
+
+
+def voice_composite_page(request):
+    return render(request, 'voice/voice_composite.html')

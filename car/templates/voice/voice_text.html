@@ -1,0 +1,26 @@
+{% extends 'voice/voice.html' %}
+{% load static %}
+{% block son_css %}
+    <style>
+        .text_size{
+            height: 600px;
+            overflow-y:scroll;
+        }
+        .font_left{
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+{% block pannel %}
+    <div class="ui attached  segment text_size" id="chat_panel">
+    </div>
+    <div class="ui bottom attached basic button" tabindex="0">
+        <div class="ui fluid action input">
+            <input type="text" placeholder="" id="word">
+            <div class="ui green button" id="send">发送</div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/voice/voice_text.js' %}"></script>
+{% endblock %}

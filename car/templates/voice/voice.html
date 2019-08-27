@@ -4,19 +4,20 @@
     <style>
         .contain_size{
             height: 100%;
-            width: 75%;
             margin-top: 0px;
             padding: 0px;
-            text-align: center;
         }
-
-
+        .segment_width{
+            width: 970px;
+        }
     </style>
+    {% block son_css %}
+    {% endblock %}
 {% endblock %}
 {% block self_content %}
 
-    <div class="ui container segment contain_size">
-        <div class="ui  segment">
+    <div class="ui container segment contain_size" style="width: 1000px;text-align: center;">
+        <div class="ui segment segment_width">
             <div class="ui  secondary menu">
                 <button class="item btn" value="voice_control">
                     语音控制
@@ -24,16 +25,26 @@
                 <button class="item btn" value="voice_chat">
                     语音对话
                 </button>
-                <button class="item">
+                <a class="item btn" href="{% url 'car:voice_recognize' %}">
                     语音识别
-                </button>
-                <button class="item">
+                </a>
+                <a class="item btn" href="{% url 'car:voice_composite' %}">
                     语音合成
+                </a>
+                <a class="item btn"  href="{% url 'car:voice_text' %}">
+                    文字对话
+                </a>
+                <button class="item btn" value="voice_audio">
+                    录音
+                </button>
+                <button class="item btn" value="voice_play">
+                    播放音频
                 </button>
             </div>
         </div>
+        {% block pannel %}
+        {% endblock %}
     </div>
-
 {% endblock %}
 {% block script %}
     <script>

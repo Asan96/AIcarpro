@@ -9,17 +9,9 @@
 </head>
 <style>
     html,body{height:100%;overflow:hidden;}
-    .div_block {
-        text-align: center;
-        height: 90%;
-        width: 80%;
-    }
     #main_menu{
         text-align: center;
         margin-bottom: 0px;
-    }
-    .text_center{
-        text-align: center;
     }
 </style>
 {% block css %}
@@ -45,16 +37,13 @@
         </a>
     </div>
 </div>
-{#<div class="div_block ui container segment">#}
-{#    {% block content %}#}
-{#    {% endblock %}#}
-{#</div>#}
 {% block self_content %}
 {% endblock %}
 </body>
 {% block js %}
     <script src="{% static 'plugin/js/jquery-3.4.1.js' %}"></script>
     <script src="{% static 'plugin/js/semantic.js' %}"></script>
+    <script src="{% static 'plugin/js/sweetalert.js' %}"></script>
     <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
 {% block script %}
