@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{% static 'plugin/img/zksp.ico' %}" type="image/x-icon" />
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/timeTo.css" %}">
     <title>{% block title_name %}主页{% endblock %}</title>
 </head>
 <style>
@@ -43,8 +44,8 @@
 {% block js %}
     <script src="{% static 'plugin/js/jquery-3.4.1.js' %}"></script>
     <script src="{% static 'plugin/js/semantic.js' %}"></script>
-    <script src="{% static 'plugin/js/sweetalert.js' %}"></script>
     <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'plugin/js/jquery.time-to.js' %}"></script>
 {% endblock %}
 {% block script %}
 {% endblock %}

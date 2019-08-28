@@ -8,13 +8,29 @@
     </style>
 {% endblock %}
 {% block pannel %}
-    <div class="ui attached  segment text_size" id="chat_panel">
-    </div>
-    <div class="ui bottom attached basic button" tabindex="0">
-        <div class="ui fluid action input">
-            <input type="text" placeholder="" id="word">
-            <div class="ui green button" id="send">发送</div>
-        </div>
-    </div>
-
+    <button class="ui inverted green labeled icon button btnn" value="voice_recognize_start">
+        <i class="play icon"></i> 开始
+    </button>
+    <button class="ui inverted red labeled icon button btnn" value="voice_recognize_stop">
+        <i class="stop icon"></i> 停止
+    </button>
+    <div class="ui divider"></div>
+    <div id="countdown"></div>
+{% endblock %}
+{% block script %}
+    <script>
+        let PUB_URL = {
+            'dataRecognize':'{% url 'car:voice_recognize'%}'
+        }
+    </script>
+    <script src="{% static ' js/voice/voice_recognize.js' %}"></script>
+    <script>
+        $('#countdown').timeTo({
+            seconds: 10,
+            displayHours: false,
+            fontSize: 40,
+            captionSize: 14,
+            theme:'black'
+        })
+    </script>
 {% endblock %}

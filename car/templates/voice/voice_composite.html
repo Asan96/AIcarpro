@@ -12,8 +12,16 @@
     </div>
     <div class="ui bottom attached basic button" tabindex="0">
         <div class="ui fluid action input">
-            <input type="text" placeholder="" id="word">
-            <div class="ui green button" id="send">发送</div>
+            <input type="text" placeholder="" id="composite_text">
+            <div class="ui green button" id="composite">合成</div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let PUB_URL = {
+            'dataTextComposite':'{% url 'car:voice_text_composite' %}',
+        }
+    </script>
+    <script src="{% static 'js/voice/voice_composite.js' %}"></script>
 {% endblock %}

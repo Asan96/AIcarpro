@@ -1,12 +1,14 @@
-$('.btn').click(function () {
-    $.ajax(
-        {
+$('#composite').click(function () {
+    let text = $('#composite_text').val();
+    if (text.length<=30 && text.length >0){
+        $.ajax({
             type : "POST",
             dataType: "json",
-            url : PUB_URL.dataCommand,
-            data : {'command':this.value},
+            url : PUB_URL.dataTextComposite,
+            data : {'text':text},
             success : function(data) {
                 if (data.ret){
+                    $('#composite_text').val('');
                 }
                 else{
                     console.log(data.msg)
@@ -16,6 +18,6 @@ $('.btn').click(function () {
                 console.log(e.status);
                 console.log(e.responseText);
             }
-        }
-    )
+        });
+    }
 });

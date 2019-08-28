@@ -10,6 +10,8 @@ import numpy as np
 import cv2
 import socket
 import threading
+import io
+from PIL import Image
 import asyncio
 
 
@@ -84,18 +86,31 @@ class MyConsumer(WebsocketConsumer):
         print(text_data)
         stream = VideoStreaming().streaming()
         result = stream.__next__()
+        faceCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_frontalface_alt.xml')
         while result:
             first = result.find(b'\xff\xd8')
             last = result.find(b'\xff\xd9')
             if first != -1 and last != -1:
                 jpg = result[first:last + 2]
                 image = cv2.imdecode(np.frombuffer(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                faces = faceCascade.detectMultiScale(
+                    gray,
+                    scaleFactor=1.2,
+                    minNeighbors=5,
+                    minSize=(20, 20)
+                )
+                for (x, y, w, h) in faces:
+                    cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                r, buf = cv2.imencode(".jpg", image)
+                bytes_image = Image.fromarray(np.uint8(buf)).tobytes()
                 cv2.imshow('image', image)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-                self.send_str(jpg)
+                print(jpg)
+                print('*****************************')
+                self.send_str(bytes_image)
                 result = stream.send(result)
-                # print(jpg)
                 if not result:
                     self.disconnect()
 

@@ -19,21 +19,31 @@ def get_command(request):
     return HttpResponse(json.dumps(result))
 
 
-def mqtt_send(command=None):
-    def on_connect(client, userdata, flags, rc):
-        print("Connected with result code " + str(rc))
-    client = mqtt.Client('ai_car0001_pc')
-    client.username_pw_set(USER, PASSWORD)
-    client.on_connect = on_connect
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
 
-    client.connect(HOST, PORT, 60)
+
+def on_message(client, userdata, msg):
+    # print("主题:"+msg.topic+" 消息:"+str(msg.payload.decode('utf-8')))
+    msg = msg.payload.decode('utf-8')
+    print(msg)
+
+
+client = mqtt.Client('ai_car0001_pc')
+client.username_pw_set(USER, PASSWORD)
+client.on_connect = on_connect
+client.connect(HOST, PORT, 60)
+client.on_message = on_message
+client.subscribe('ai_car_pi0001')
+client.loop_start()
+
+
+def mqtt_send(command=None):
     if command:
-        client.publish('ai_car0001', command, 1)
-        client.loop()
+        client.publish('ai_car_pc0001', command, 1)
         return {'ret': True, 'msg': ''}
     else:
         return {'ret': True, 'msg': '指令不得为空！'}
-
 
 
 
