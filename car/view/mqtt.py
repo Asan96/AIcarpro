@@ -2,6 +2,7 @@
 # coding=utf-8
 import paho.mqtt.client as mqtt
 import json
+from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -9,6 +10,11 @@ HOST = 'www.3000iot.com'
 PORT = 1883
 USER = 'NBguest'
 PASSWORD = 'NBguest12'
+
+
+def voice_recognize_page(request, params=None):
+    if params:
+        return render(request, 'voice/voice_recognize.html', json.dumps(params))
 
 
 @csrf_exempt
@@ -26,7 +32,10 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     # print("主题:"+msg.topic+" 消息:"+str(msg.payload.decode('utf-8')))
     msg = msg.payload.decode('utf-8')
-    print(msg)
+    if msg.startswith('voice_recognize'):
+        text = msg.split(":")[1]
+        print(text)
+        voice_recognize_page(params=json.dumps(text))
 
 
 client = mqtt.Client('ai_car0001_pc')

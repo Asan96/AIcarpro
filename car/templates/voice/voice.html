@@ -15,39 +15,27 @@
     {% endblock %}
 {% endblock %}
 {% block self_content %}
-
     <div class="ui container segment contain_size" style="width: 1000px;text-align: center;">
         <div class="ui segment segment_width">
             <div class="ui  secondary menu">
-                <button class="item btn" value="voice_control">
-                    语音控制
-                </button>
-                <button class="item btn" value="voice_chat">
-                    语音对话
-                </button>
-                <a class="item btn" href="{% url 'car:voice_recognize_page' %}">
+                <a class="item" href="{% url 'car:voice_chat_control_page' %}">
+                    控制对话
+                </a>
+                <a class="item" href="{% url 'car:voice_recognize_page' %}">
                     语音识别
                 </a>
-                <a class="item btn" href="{% url 'car:voice_composite_page' %}">
+                <a class="item" href="{% url 'car:voice_composite_page' %}">
                     语音合成
                 </a>
-                <a class="item btn"  href="{% url 'car:voice_text_page' %}">
+                <a class="item"  href="{% url 'car:voice_text_chat_page' %}">
                     文字对话
                 </a>
-                <button class="item btn" value="voice_audio">
+                <a class="item" href="{% url 'car:voice_audio_play_page' %}">
                     录音播放
-                </button>
+                </a>
             </div>
         </div>
         {% block pannel %}
         {% endblock %}
     </div>
-{% endblock %}
-{% block script %}
-    <script>
-        let PUB_URL = {
-            'dataCommand': '{% url 'car:get_command' %}',
-        }
-    </script>
-    <script src="{% static 'js/voice/voice.js' %}"></script>
 {% endblock %}

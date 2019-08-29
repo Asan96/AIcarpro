@@ -20,12 +20,15 @@ urlpatterns = [
 
     # 语音技术
     path(r'voice/', voice.voice_page, name='voice'),
-    path(r'voice_text_page/', voice.voice_text_page,name='voice_text_page'),
+    path(r'voice_text_chat_page/', voice.voice_text_chat_page,name='voice_text_chat_page'),
+    path(r'voice_chat_control_page/', voice.voice_chat_control_page,name='voice_chat_control_page'),
     path(r'voice_recognize_page/', voice.voice_recognize_page, name='voice_recognize_page'),
     path(r'voice_composite_page/', voice.voice_composite_page, name='voice_composite_page'),
+    path(r'voice_audio_play_page/', voice.voice_audio_play_page, name='voice_audio_play_page'),
     path(r'voice_text_chat/', voice.voice_text_chat, name='voice_text_chat'),
     path(r'voice_text_composite/', voice.voice_text_composite, name='voice_text_composite'),
     path(r'voice_recognize/', voice.voice_recognize, name='voice_recognize'),
+    path(r'voice_audio_play/', voice.voice_audio_play, name='voice_audio_play'),
 
 
     # 视频处理

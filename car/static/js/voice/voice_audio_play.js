@@ -1,10 +1,20 @@
-$('.btn').click(function () {
+$('#btn_start').click(function () {
+    $('#countdown').show();
+    $('#countdown').timeTo({
+        seconds: 10,
+        displayHours: false,
+        fontSize: 40,
+        captionSize: 14,
+        theme:'red'
+    })
+});
+$('.btn_audio').click(function () {
     $.ajax(
         {
             type : "POST",
             dataType: "json",
-            url : PUB_URL.dataCommand,
-            data : {'command':this.value},
+            url : Voice_URL.dataVoiceAudioPlay,
+            data : {'operate':this.value},
             success : function(data) {
                 if (data.ret){
                 }

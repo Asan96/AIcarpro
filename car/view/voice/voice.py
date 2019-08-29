@@ -16,8 +16,8 @@ def voice_page(request):
     return render(request, 'voice/voice.html')
 
 
-def voice_text_page(request):
-    return render(request, 'voice/voice_text.html')
+def voice_text_chat_page(request):
+    return render(request, 'voice/voice_text_chat.html')
 
 
 def voice_recognize_page(request):
@@ -28,10 +28,18 @@ def voice_composite_page(request):
     return render(request, 'voice/voice_composite.html')
 
 
+def voice_audio_play_page(request):
+    return render(request, 'voice/voice_audio_play.html')
+
+
+def voice_chat_control_page(request):
+    return render(request, 'voice/voice_chat_control.html')
+
+
 @csrf_exempt
 def voice_text_chat(request):
     word = request.POST.get('word', '')
-    word = 'voice_text_chat'+':'+word
+    word = 'voice_text_chat:'+word
     ret = mqtt_send(word)
     return HttpResponse(json.dumps(ret))
 
@@ -39,7 +47,7 @@ def voice_text_chat(request):
 @csrf_exempt
 def voice_text_composite(request):
     text = request.POST.get('text', '')
-    text = 'voice_text_composite'+':'+text
+    text = 'voice_text_composite:'+text
     ret = mqtt_send(text)
     return HttpResponse(json.dumps(ret))
 
@@ -49,3 +57,11 @@ def voice_recognize(request):
     operate = request.POST.get('operate', '')
     ret = mqtt_send(operate)
     return HttpResponse(json.dumps(ret))
+
+
+@csrf_exempt
+def voice_audio_play(request):
+    operate = request.POST.get('operate', '')
+    ret = mqtt_send(operate)
+    return HttpResponse(json.dumps(ret))
+

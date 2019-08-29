@@ -1,14 +1,13 @@
-$('#composite').click(function () {
-    let text = $('#composite_text').val();
-    if (text.length<=30 && text.length >0){
-        $.ajax({
+$('.btn_voice').click(function () {
+    console.log(this.value)
+    $.ajax(
+        {
             type : "POST",
             dataType: "json",
-            url : Voice_URL.dataTextComposite,
-            data : {'text':text},
+            url : PUB_URL.dataCommand,
+            data : {'command':this.value},
             success : function(data) {
                 if (data.ret){
-                    $('#composite_text').val('');
                 }
                 else{
                     console.log(data.msg)
@@ -18,6 +17,6 @@ $('#composite').click(function () {
                 console.log(e.status);
                 console.log(e.responseText);
             }
-        });
-    }
+        }
+    )
 });

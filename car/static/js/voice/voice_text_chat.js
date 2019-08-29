@@ -7,7 +7,7 @@ $('#send').click(function () {
         $.ajax({
             type : "POST",
             dataType: "json",
-            url : PUB_URL.dataTextChat,
+            url : Voice_URL.dataTextChat,
             data : {'word':word},
             success : function(data) {
                 if (data.ret){

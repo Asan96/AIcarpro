@@ -21,11 +21,11 @@
         </div>
     </div>
 {% endblock %}
-{% block script %}
+{% block voice_script %}
     <script>
-        let PUB_URL = {
+        let Voice_URL = {
             'dataTextChat':'{% url 'car:voice_text_chat'%}',
         }
     </script>
-    <script src="{% static 'js/voice/voice_text.js' %}"></script>
+    <script src="{% static 'js/voice/voice_text_chat.js' %}"></script>
 {% endblock %}

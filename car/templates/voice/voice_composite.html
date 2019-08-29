@@ -8,18 +8,16 @@
     </style>
 {% endblock %}
 {% block pannel %}
-    <div class="ui attached  segment text_size" id="chat_panel">
+    <div class="ui divider"></div>
+    <div class="ui fluid action input">
+        <input type="text" placeholder="" id="composite_text">
+        <div class="ui green button" id="composite">合成</div>
     </div>
-    <div class="ui bottom attached basic button" tabindex="0">
-        <div class="ui fluid action input">
-            <input type="text" placeholder="" id="composite_text">
-            <div class="ui green button" id="composite">合成</div>
-        </div>
-    </div>
+    <div class="ui divider"></div>
 {% endblock %}
-{% block script %}
+{% block voice_script %}
     <script>
-        let PUB_URL = {
+        let Voice_URL = {
             'dataTextComposite':'{% url 'car:voice_text_composite' %}',
         }
     </script>

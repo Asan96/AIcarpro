@@ -1,0 +1,21 @@
+{% extends 'voice/voice.html' %}
+{% load static %}
+{% block pannel %}
+    <div class="ui divider"></div>
+    <button class="ui inverted red labeled icon button btn_voice" value="voice_control">
+        <i class="comment alternate outline icon"></i>语音控制
+    </button>
+    <button class="ui inverted red labeled icon button btn_voice" value="voice_chat">
+         <i class="game icon"></i>语音对话
+    </button>
+    <div class="ui divider"></div>
+
+{% endblock %}
+{% block voice_script %}
+    <script>
+        let PUB_URL = {
+            'dataCommand': '{% url 'car:get_command' %}',
+        }
+    </script>
+    <script src="{% static 'js/voice/voice_chat_control.js' %}"></script>
+{% endblock %}
