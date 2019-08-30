@@ -1,13 +1,44 @@
+let time_func;
+let recognize_params = $('#recognize_params').val();
+if (recognize_params){
+    console.log(recognize_params)
+}
+function btn_show(){
+    $('#btn_start').attr('disabled', false);
+    $('#countdown').hide()
+}
 $('#btn_start').click(function () {
+    $('#btn_start').attr('disabled', true);
     $('#countdown').show();
     $('#countdown').timeTo({
-        seconds: 10,
+        seconds: 30,
         displayHours: false,
         fontSize: 40,
         captionSize: 14,
         theme:'red'
-    })
+    });
+    clearTimeout(time_func);
+    time_func = setTimeout(btn_show, 30000);
 });
+$('#btn_stop').click(function () {
+    btn_show()
+});
+
+
+// $('#btn_start').click(function () {
+//     $('#btn_start').hide();
+//     $('#countdown').show();
+//     $('#countdown').timeTo({
+//         seconds: 30,
+//         displayHours: false,
+//         fontSize: 40,
+//         captionSize: 14,
+//         theme:'red'
+//     })
+// });
+// $('#btn_stop').click(function () {
+//     $('#countdown').hide()
+// });
 $('.btn_audio').click(function () {
     $.ajax(
         {

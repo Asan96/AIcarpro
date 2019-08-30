@@ -1,5 +1,4 @@
 $('.btn_voice').click(function () {
-    console.log(this.value)
     $.ajax(
         {
             type : "POST",
