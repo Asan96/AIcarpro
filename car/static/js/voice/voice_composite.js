@@ -1,6 +1,6 @@
 $('#composite').click(function () {
     let text = $('#composite_text').val();
-    if (text.length<=30 && text.length >0){
+    if (text.length<=200 && text.length >0){
         $.ajax({
             type : "POST",
             dataType: "json",
@@ -19,5 +19,7 @@ $('#composite').click(function () {
                 console.log(e.responseText);
             }
         });
+    }else {
+        alert('字数限制在二百字以内！')
     }
 });
