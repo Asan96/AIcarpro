@@ -46,7 +46,10 @@ function connect(){
         reader.onload = function(e) {
             let img = document.getElementById("target");
             img.src = this.result;
-            cxt.drawImage(img,0,0);
+            ctx.save();
+            cxt.drawImage(img);
+            cxt.scale(640,480);
+
         }
     };
     socket.onclose = function() {

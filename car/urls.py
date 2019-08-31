@@ -37,6 +37,7 @@ urlpatterns = [
 
     # 图像识别
     path(r'image/', image.image_page, name='image'),
+    path(r'open_image_file/', image.open_image_file, name='open_image_file'),
 
 
     # 代码编辑

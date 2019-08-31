@@ -1,5 +1,42 @@
 {% extends 'home.html' %}
 {% load  static %}
 {% block title_name %}
-    运动控制
+    图像处理
+{% endblock %}
+{% block css %}
+    <style>
+        .contain_size{
+            height: 100%;
+            margin-top: 0px;
+            padding: 0px;
+        }
+        .img_size{
+            display:none;
+            width: 640px;
+            height: 480px;
+            border: 2px inset black;
+        }
+    </style>
+{% endblock %}
+{% block self_content %}
+    <div class="ui container segment contain_size" style="width: 1000px;text-align: center;">
+        <div class="ui placeholder segment">
+            <div class="ui icon header">
+                <i class="folder open icon"></i>
+                打开一个jpg、jpeg或png格式图片来进行图像处理
+            </div>
+            <div class="ui primary button" id="btn_open_file">打开文件</div>
+        </div>
+        <div class="ui divider"></div>
+        <img id="img_main" class="img_size" />
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        let Image_URL={
+            'dataOpenImageFile':'{% url 'car:open_image_file' %}',
+        }
+    </script>
+    <script src="{% static 'js/image/image.js' %}"></script>
 {% endblock %}
