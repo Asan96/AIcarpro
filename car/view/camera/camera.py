@@ -22,8 +22,7 @@ que = queue.Queue()
 lock = threading.Lock()
 count = 0
 
-# 此处可能出现 socket.gaierror: [Errno 11001] getaddrinfo failed 错误
-host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
+host = socket.gethostbyname(socket.gethostname())
 
 
 def camera_page(request):

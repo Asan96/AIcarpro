@@ -4,8 +4,10 @@ import wave
 import threading
 import socket
 import win32ui
+myname = socket.gethostname()
 
-
-host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
-print(host)
+# hostname = socket.gethostbyname()
+myaddr = socket.gethostbyname(socket.gethostname())
+# host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
+print(myaddr)
 
