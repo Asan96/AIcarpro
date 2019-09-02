@@ -8,16 +8,18 @@
         .contain_size{
             width: 25%;
             height: 100%;
+            border-bottom: 0px;
         }
 
         .left_div{
             width: 400px;
             height: 100%;
             float: left;
+            overflow: auto;
         }
         .right_div{
             width: 70%;
-            height: 90%;
+            height: 100%;
             padding-top: 2%;
             float: left;
         }
@@ -26,7 +28,7 @@
 {% endblock %}
 {% block self_content %}
     <div class="left_div">
-        <div class="ui container  very padded segment contain_size">
+        <div class="ui container very padded segment contain_size" style="border-bottom: none">
             <div class="column" style="text-align: center">
                 <div class="ui ignored toggle animation checkbox">
                     <input type="checkbox" id="car_switch" />
@@ -165,7 +167,7 @@
     <div class="right_div">
         <div class="ui container raised very padded segment contain_size">
             <div class="ui top attached label text_center "><h4>相关代码</h4></div>
-            <h2 class="ui header">Dogs Roles with Humans</h2>
+            <h2 class="ui header"></h2>
             <p></p>
             <p></p>
         </div>

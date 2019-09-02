@@ -5,32 +5,58 @@
 {% endblock %}
 {% block css %}
     <style>
-        .contain_size{
-            height: 100%;
-            margin-top: 0px;
-            padding: 0px;
-        }
         .img_size{
-            display:none;
             width: 640px;
             height: 480px;
-            border: 2px inset black;
+            border: 2px solid black;
+        }
+        .left_div{
+            width: 20%;
+            height: 100%;
+            float: left;
+            border-right: 1px solid grey;
+            overflow:auto;
+        }
+        .right_div{
+            width: 80%;
+            height: 100%;
+            padding-top: 1%;
+            float: right;
+            text-align: center;
+            overflow:auto;
         }
     </style>
 {% endblock %}
 {% block self_content %}
-    <div class="ui container segment contain_size" style="width: 1000px;text-align: center;">
-        <div class="ui placeholder segment">
-            <div class="ui icon header">
-                <i class="folder open icon"></i>
-                打开一个jpg、jpeg或png格式图片来进行图像处理
+    <div class="left_div">
+        <div class="ui fluid vertical menu">
+            <div class="item">
+                <h3>基于OpenCV的图像处理</h3>
             </div>
-            <div class="ui primary button" id="btn_open_file">打开文件</div>
+            <a class="item" href="{% url 'car:image_show_page' %}"><h4 class="ui header">图像读取</h4><p>读入、显示和保存图像</p></a>
+            <a class="item"><h4 class="ui header">绘图函数</h4><p>画线、矩形、圆、椭圆、多边形及添加文字</p></a>
+            <a class="item"><h4 class="ui header">图像的基础操作</h4><p>获取图像信息，修改像素值、图像ROI</p></a>
+            <a class="item"><h4 class="ui header">图像的算数运算</h4><p>图像加法、图像混合、按位运算</p></a>
+            <a class="item"><h4 class="ui header">颜色空间转换</h4><p>转换颜色空间、物体跟踪</p></a>
+            <a class="item"><h4 class="ui header">几何变换</h4><p>扩展缩放、平移、旋转、仿射变换、透视变换</p></a>
+            <a class="item"><h4 class="ui header">图像阈值</h4><p>简单阈值、自适应阈值、二值化</p></a>
+            <a class="item"><h4 class="ui header">图像平滑</h4><p>均值滤波、高斯滤波、中值滤波、双边滤波</p></a>
+            <a class="item"><h4 class="ui header">形态学转换</h4><p>腐蚀、膨胀、开运算、闭运算、形态学梯度、礼帽、黑帽</p></a>
+            <a class="item"><h4 class="ui header">图像梯度</h4><p>Sobel算子、Scharr算子、Laplacian算子</p></a>
+        </div>
+    </div>
+    <div class="right_div">
+        <h2 class="header">
+            请选择一张图片或者使用示例图片
+        </h2>
+        <div class="ui green button"  data-tooltip="请选择jpg、jpeg或png格式图片" data-position="bottom center" id="btn_open_file">
+            <i class="folder open icon"></i>打开图片
         </div>
         <div class="ui divider"></div>
-        <img id="img_main" class="img_size" />
+        <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
+        {% block image_content %}
+        {% endblock %}
     </div>
-
 {% endblock %}
 {% block script %}
     <script>

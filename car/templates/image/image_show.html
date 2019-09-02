@@ -1,0 +1,22 @@
+{% extends 'image/image.html' %}
+{% load  static %}
+{% block title_name %}
+    图像读取
+{% endblock %}
+{% block image_content %}
+    <div class="ui divider"></div>
+    <button class="ui grey button show_btn" value="gray_img">灰度读入</button>
+    <button class="ui red button show_btn" value="color_img">彩色读入</button>
+    <button class="ui teal button show_btn" value="show_img">显示图片</button>
+    <button class="ui yellow button show_btn" value="save_img">保存图片</button>
+
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        let ImgShowUrl = {
+            'dataImgShow': '{% url 'car:image_show'%}',
+        }
+    </script>
+    <script src="{% static 'js/image/image_show.js' %}"></script>
+{% endblock %}

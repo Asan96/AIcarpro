@@ -38,6 +38,8 @@ urlpatterns = [
     # 图像识别
     path(r'image/', image.image_page, name='image'),
     path(r'open_image_file/', image.open_image_file, name='open_image_file'),
+    path(r'image_show_page/', image.image_show_page, name='image_show_page'),
+    path(r'image_show/', image.image_show, name='image_show'),
 
 
     # 代码编辑

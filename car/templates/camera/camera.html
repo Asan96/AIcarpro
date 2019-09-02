@@ -14,6 +14,12 @@
             width: 75%;
             float:left;
         }
+        #target{
+            display:inline;
+            width: 640px;
+            height: 480px;
+            border: 2px solid black;
+        }
     </style>
 {% endblock %}
 {% block self_content %}
@@ -35,7 +41,7 @@
         <div class="ui raised very padded  container segment" style="width: 100%;height: 100%">
             <div class="ui top attached label">小车摄像头原画面</div>
             <canvas id="canvas" width="640"  height="480" style="display: none;float: none"></canvas>
-            <img id="target" style="display:inline;" />
+            <img id="target" />
         </div>
 
     </div>
