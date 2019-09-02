@@ -6,5 +6,6 @@ import socket
 import win32ui
 
 
-
+host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
+print(host)
 
