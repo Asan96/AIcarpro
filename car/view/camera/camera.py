@@ -22,7 +22,7 @@ que = queue.Queue()
 lock = threading.Lock()
 count = 0
 
-host = socket.gethostbyname(socket.getfqdn(socket.gethostname()))
+host = socket.gethostbyname(socket.gethostname())
 
 
 def camera_page(request):
