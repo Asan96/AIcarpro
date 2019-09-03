@@ -9,7 +9,6 @@ $('#btn_open_file').click(function () {
         data : {},
         success : function(data) {
             if (data.ret){
-                console.log(data.msg);
                 img_path = data.msg;
                 $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
                 if (!show_flag){

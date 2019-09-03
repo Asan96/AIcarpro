@@ -160,7 +160,7 @@ def image_show(request):
 class Draw(object):
     def __init__(self, params):
         self.p = params
-        self.path = 'car'+params['img_path']
+        self.path = 'car'+params['img_path'] if not params['img_path'].startswith('car') else params['img_path']
         print(self.path)
         self.operate = params['operate']
         self.R = int(params['R'])
@@ -175,6 +175,7 @@ class Draw(object):
 
     def img_write(self, img):
         write_path = img_show_dic[self.path.split('.')[1]]
+        print(write_path)
         cv2.imwrite(write_path, img)
         return {'ret': True, 'msg': write_path}
 
