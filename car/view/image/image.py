@@ -76,7 +76,6 @@ img_show_dic = {
 }
 
 
-
 @csrf_exempt
 def image_show(request):
     '''
