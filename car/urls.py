@@ -39,7 +39,9 @@ urlpatterns = [
     path(r'image/', image.image_page, name='image'),
     path(r'open_image_file/', image.open_image_file, name='open_image_file'),
     path(r'image_show_page/', image.image_show_page, name='image_show_page'),
+    path(r'image_draw_page/', image.image_draw_page, name='image_draw_page'),
     path(r'image_show/', image.image_show, name='image_show'),
+    path(r'img_draw/', image.img_draw, name='img_draw'),
 
 
     # 代码编辑

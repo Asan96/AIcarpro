@@ -1,0 +1,280 @@
+{% extends 'image/image.html' %}
+{% load  static %}
+{% block title_name %}
+    图像读取
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .checkbox{
+            float: left;
+            margin-top: 50px;
+        }
+    .small_input{
+        width: 80px;
+    }
+    .gap{
+        margin-top: 10px;
+    }
+    </style>
+{% endblock %}
+{% block image_content %}
+    <div class="ui form" style="margin-left: 100px;float: left;">
+        <div class="grouped fields">
+            <label style="font-size: 18px">绘图操作</label>
+            <div class="field">
+                <div class="ui slider checkbox">
+                    <input type="radio" name="throughput" value="draw_line" checked="checked">
+                    <label style="font-size: 16px;color: grey">画线</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui slider checkbox">
+                    <input type="radio" name="throughput" value="draw_rectangle">
+                    <label style="font-size: 16px;color: grey">画矩形</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui slider checkbox">
+                    <input type="radio" name="throughput" value="draw_circle">
+                    <label style="font-size: 16px;color: grey">画圆形</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui slider checkbox checked">
+                    <input type="radio" name="throughput" value="draw_oval">
+                    <label style="font-size: 16px;color: grey">画椭圆形</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui slider checkbox checked">
+                    <input type="radio" name="throughput" value="draw_ploygon">
+                    <label style="font-size: 16px;color: grey">画多边形</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui slider checkbox checked">
+                    <input type="radio" name="throughput" value="add_text">
+                    <label style="font-size: 16px;color: grey">添加文字</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div id="draw_line" class="draw">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入线的起点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="line_start_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="line_start_y">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入线的终点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="line_end_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="line_end_y">
+            </div>
+        </div>
+    </div>
+    <div id="draw_rectangle" class="draw" hidden="hidden">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入矩形左上角顶点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="left_up_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="left_up_y">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入矩形右下角顶点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="right_down_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="right_down_y">
+            </div>
+        </div>
+    </div>
+    <div id="draw_circle" class="draw" hidden="hidden">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入圆形中心点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="circle_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="circle_y">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入圆形半径长度
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="r" class="coordinate" id="circle_r">
+            </div>
+        </div>
+    </div>
+    <div id="draw_oval" class="draw" hidden="hidden">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入椭圆中心点坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="oval_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="oval_y">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入椭圆长轴和短轴的长度
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="a" class="coordinate" id="oval_a">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="b" class="coordinate" id="oval_b">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入椭圆旋转角度（顺时针）
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="angle" class="coordinate" id="oval_angle">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入椭圆弧起始和终止的角度
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="start" class="coordinate" id="oval_start_angle">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="end" class="coordinate" id="oval_end_angle">
+            </div>
+        </div>
+    </div>
+    <div id="draw_ploygon" class="draw" hidden="hidden">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入多边形顶点1的坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="ploygon_x1">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="ploygon_y1">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入多边形顶点2的坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="ploygon_x2">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="ploygon_y2">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入多边形顶点3的坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="ploygon_x3">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="ploygon_y3">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入多边形顶点4的坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="ploygon_x4">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="ploygon_y4">
+            </div>
+        </div>
+    </div>
+    <div id="add_text" class="draw" hidden="hidden">
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入添加的文字
+            </div>
+            <div class="ui input">
+                <input type="text" placeholder="输入字数限二十字以内" class="coordinate" id="add_text">
+            </div>
+        </div>
+        <div class="inline field gap">
+            <div class="ui right pointing label">
+                输入添加的位置坐标
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="x" class="coordinate" id="add_text_x">
+            </div>
+            <div class="ui input small_input">
+                <input type="text" placeholder="y" class="coordinate" id="add_text_y">
+            </div>
+        </div>
+    </div>
+    <div class="inline field gap">
+        <div class="ui right pointing label">
+            输入RGB色彩值
+        </div>
+        <div class="ui input small_input">
+            <input type="text" placeholder="R" class="color_RGB" id="color_R">
+        </div>
+        <div class="ui input small_input">
+            <input type="text" placeholder="G" class="color_RGB" id="color_G">
+        </div>
+        <div class="ui input small_input">
+            <input type="text" placeholder="B" class="color_RGB" id="color_B">
+        </div>
+    </div>
+    <div class="inline field gap">
+        <div class="ui green animated  button gap" tabindex="0" id="btn_draw">
+            <div class="visible content">生成图形</div>
+            <div class="hidden content">
+                <i class="right image icon"></i>
+            </div>
+        </div>
+        <div class="ui red animated  button gap" tabindex="0" id="btn_clear">
+            <div class="visible content">清空数据</div>
+            <div class="hidden content">
+                <i class="right eraser icon"></i>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        let ImgDrawUrl = {
+            'dataImgDraw': '{% url 'car:img_draw'%}',
+        }
+    </script>
+    <script src="{% static 'js/image/image_draw.js' %}"></script>
+{% endblock %}
