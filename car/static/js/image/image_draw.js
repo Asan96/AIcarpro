@@ -95,6 +95,63 @@ $('#btn_draw').click(function () {
                 post_data(params)
             }
             break
+        case "draw_oval":
+            let oval_x = $('#oval_x').val()
+            let oval_y = $('#oval_y').val()
+            let oval_a = $('#oval_a').val()
+            let oval_b = $('#oval_b').val()
+            let oval_angle = $('#oval_angle').val()
+            let oval_start_angle = $('#oval_start_angle').val()
+            let oval_end_angle = $('#oval_end_angle').val()
+            if (!regix([oval_x,oval_y,oval_a,oval_b,oval_angle,oval_start_angle,oval_end_angle])){
+                alert('坐标、长度角度必须为正整数！')
+            }else{
+                params['oval_x'] = oval_x
+                params['oval_y'] = oval_y
+                params['oval_a'] = oval_a
+                params['oval_b'] = oval_b
+                params['oval_angle'] = oval_angle
+                params['oval_start_angle'] = oval_start_angle
+                params['oval_end_angle'] = oval_end_angle
+                post_data(params)
+            }
+            break
+        case "draw_ploygon":
+            let ploygon_x1 = $('#ploygon_x1').val()
+            let ploygon_y1 = $('#ploygon_y1').val()
+            let ploygon_x2 = $('#ploygon_x2').val()
+            let ploygon_y2 = $('#ploygon_y2').val()
+            let ploygon_x3 = $('#ploygon_x3').val()
+            let ploygon_y3 = $('#ploygon_y3').val()
+            let ploygon_x4 = $('#ploygon_x4').val()
+            let ploygon_y4 = $('#ploygon_y4').val()
+            if (!regix([ploygon_x1,ploygon_y1,ploygon_x2,ploygon_y2,ploygon_x3, ploygon_y3,ploygon_x4,ploygon_y4])){
+                alert('坐标必须为正整数！')
+            }else {
+                params['ploygon_x1'] = ploygon_x1
+                params['ploygon_y1'] = ploygon_y1
+                params['ploygon_x2'] = ploygon_x2
+                params['ploygon_y2'] = ploygon_y2
+                params['ploygon_x3'] = ploygon_x3
+                params['ploygon_y3'] = ploygon_y3
+                params['ploygon_x4'] = ploygon_x4
+                params['ploygon_y4'] = ploygon_y4
+                post_data(params)
+            }
+            break
+        case "add_text":
+            let words = $('#words').val()
+            let add_text_x = $('#add_text_x').val()
+            let add_text_y = $('#add_text_y').val()
+            if (!regix([add_text_x, add_text_y])){
+                alert('坐标必须为正整数！')
+            }else{
+                params['words'] = words
+                params['add_text_x'] = add_text_x
+                params['add_text_y'] = add_text_y
+                post_data(params)
+            }
+            break
     }
 
 });

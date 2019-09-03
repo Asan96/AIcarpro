@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tkinter import filedialog
-
+from PIL import Image, ImageDraw, ImageFont
 
 import numpy as np
 import cv2
@@ -161,6 +161,7 @@ class Draw(object):
     def __init__(self, params):
         self.p = params
         self.path = 'car'+params['img_path']
+        print(self.path)
         self.operate = params['operate']
         self.R = int(params['R'])
         self.G = int(params['G'])
@@ -200,6 +201,45 @@ class Draw(object):
         img = cv2.circle(self.img, (x, y), r, (self.R, self.G, self.B), 2)
         return self.img_write(img)
 
+    def draw_oval(self):
+        x = int(self.p['oval_x'])
+        y = int(self.p['oval_y'])
+        a = int(self.p['oval_a'])
+        b = int(self.p['oval_b'])
+        angle = int(self.p['oval_angle'])
+        start_angle = int(self.p['oval_start_angle'])
+        end_angle = int(self.p['oval_end_angle'])
+        img = cv2.ellipse(self.img, (x, y), (a, b), angle, start_angle, end_angle, (self.R, self.G, self.B), 2)
+        return self.img_write(img)
+
+    def draw_ploygon(self):
+        x1 = int(self.p['ploygon_x1'])
+        y1 = int(self.p['ploygon_y1'])
+        x2 = int(self.p['ploygon_x2'])
+        y2 = int(self.p['ploygon_y2'])
+        x3 = int(self.p['ploygon_x3'])
+        y3 = int(self.p['ploygon_y3'])
+        x4 = int(self.p['ploygon_x4'])
+        y4 = int(self.p['ploygon_y4'])
+        pts = np.array([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], np.int32)
+        pts = pts.reshape((-1, 1, 2))
+        img = cv2.polylines(self.img, [pts], True, (self.R, self.G, self.B), 2)
+        return self.img_write(img)
+
+    def add_text(self):
+        words = self.p['words']
+        x = int(self.p['add_text_x'])
+        y = int(self.p['add_text_y'])
+        cv2_img = cv2.cvtColor(self.img, cv2.COLOR_BGR2RGB)  # cv2和PIL中颜色的hex码的储存顺序不同
+        pil_img = Image.fromarray(cv2_img)
+        # 生成画笔
+        draw = ImageDraw.Draw(pil_img)
+        # 第一个参数是字体文件的路径，第二个是字体大小
+        font = ImageFont.truetype("car/static/plugin/font/simhei.ttf", 26, encoding="utf-8")
+        # 第一个参数是文字的起始坐标，第二个需要输出的文字，第三个是字体颜色，第四个是字体类型
+        draw.text((x, y), words, (self.R, self.G, self.B), font=font)
+        img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR) # PIL图片转cv2
+        return self.img_write(img)
 
 @csrf_exempt
 def img_draw(request):
@@ -212,6 +252,12 @@ def img_draw(request):
         result = draw.draw_rectangle()
     elif operate == 'draw_circle':
         result = draw.draw_circle()
+    elif operate == 'draw_oval':
+        result = draw.draw_oval()
+    elif operate == 'draw_ploygon':
+        result = draw.draw_ploygon()
+    elif operate == 'add_text':
+        result = draw.add_text()
     else:
         result = {'ret': False, 'msg': '无操作'}
     return HttpResponse(json.dumps(result))
