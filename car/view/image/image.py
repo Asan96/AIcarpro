@@ -236,10 +236,10 @@ class Draw(object):
         # 生成画笔
         draw = ImageDraw.Draw(pil_img)
         # 第一个参数是字体文件的路径，第二个是字体大小
-        font = ImageFont.truetype("car/static/plugin/font/simhei.ttf", 26, encoding="utf-8")
+        font = ImageFont.truetype("car/static/plugin/font/simhei.ttf", 30, encoding="utf-8")
         # 第一个参数是文字的起始坐标，第二个需要输出的文字，第三个是字体颜色，第四个是字体类型
         draw.text((x, y), words, (self.R, self.G, self.B), font=font)
-        img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR) # PIL图片转cv2
+        img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)  # PIL图片转cv2
         return self.img_write(img)
 
 @csrf_exempt
