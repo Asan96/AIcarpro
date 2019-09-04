@@ -13,14 +13,14 @@ $('.btn_base').click(function () {
         case "change_pixel":
             $('#div_pixel').hide();
             $('#btn_change_pixel').click(function () {
-                let params_arr = ['pixel_x', 'pixel_y']
-                if (!judgeNum(params_arr)){
+                let change_pixel_params = ['pixel_x', 'pixel_y'];
+                if (!judgeNum(change_pixel_params)){
                     alert('位置坐标请输入正整数！')
                 }else if(!color){
                     alert('请选择像素值！')
                 }
                 else {
-                    params = addParams(params, params_arr);
+                    params = addParams(params, change_pixel_params);
                     params['color'] = color;
                     post_data(params)
                 }
@@ -28,16 +28,35 @@ $('.btn_base').click(function () {
             });
             break;
         case "img_roi":
-            let params_arr1 = ['pixel_x1','pixel_x2','pixel_y1','pixel_y2'];
+            let show_roi_params = ['pixel_x1','pixel_x2','pixel_y1','pixel_y2'];
             $('#btn_show_roi').click(function () {
-                if(!judgeNum(params_arr1)){
-                    alert('坐标必须为正整数！')
+                if(!judgeNum(show_roi_params)){
+                    alert('截取矩形ROI范围必须为正整数！')
                 }
                 else{
-                    params = addParams(params, params_arr1);
+                    params = addParams(params, show_roi_params);
+                    params['type'] = 'show';
                     post_data(params)
                 }
+            });
+            let move_roi_params = ['pixel_x1','pixel_x2','pixel_y1','pixel_y2','pixel_x3','pixel_x4','pixel_y3','pixel_y4'];
+            $('#btn_move_roi').click(function () {
+                if(!judgeNum(move_roi_params)){
+                    alert('移动目标范围必须为正整数！')
+                }
+                else{
+                    params = addParams(params, move_roi_params);
+                    params['type'] = 'move';
+                    post_data(params)
+                }
+            });
+            break;
+        case "extended_fillet":
+            $('#btn_boundary').click(function () {
+                params['side'] = $('#side').val();
+                post_data(params)
             })
+
 
     }
 });
@@ -54,9 +73,13 @@ function post_data(params) {
             if (data.ret){
                 switch (data.type) {
                     case "attribute":
-                        td_attribute(data);
+                        callback_attribute(data);
                     case "change_pixel":
-                        callback_change_pixel(data)
+                        callback_change_pixel(data);
+                    case "img_roi":
+                        callback_image_roi(data);
+                    case "extended_fillet":
+                        callback_extended_fillet(data)
                 }
             }
             else{
@@ -69,7 +92,7 @@ function post_data(params) {
         }
     });
 }
-function td_attribute(data) {
+function callback_attribute(data) {
     let shape = data.shape;
     $('#suffix').text(img_path.split('.')[1]);
     $('#row').text(shape[0]);
@@ -82,13 +105,30 @@ function td_attribute(data) {
     $('#pixel').text(data.pixel);
 }
 
-$('#btn_clear_pixel').click(function () {
-    $('.coordinate').val('');
-});
-
 function callback_change_pixel(data) {
     $('#div_pixel').show();
     $('#old_pixel').text(data.old_pixel);
     $('#new_pixel').text(data.new_pixel);
 }
 
+function callback_image_roi(data){
+    if (data.order === 'move'){
+        $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
+    }
+}
+
+function callback_extended_fillet(data){
+    $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
+}
+
+$('#btn_clear_pixel').click(function () {
+    $('.coordinate').val('');
+});
+
+
+$('#btn_clear_roi1').click(function () {
+    $('.coordinate_show').val('')
+});
+$('#btn_clear_roi2').click(function () {
+    $('.coordinate_move').val('')
+});

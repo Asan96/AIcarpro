@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tkinter import filedialog
 from PIL import Image, ImageDraw, ImageFont
+from matplotlib import pyplot as plt
 
 import numpy as np
 import cv2
@@ -15,6 +16,7 @@ import os
 import win32ui
 import shutil
 import tkinter as tk
+
 import queue
 
 img_dic = {
@@ -275,10 +277,8 @@ def image_draw(request):
         result = draw.draw_oval()
     elif operate == 'draw_ploygon':
         result = draw.draw_ploygon()
-    elif operate == 'add_text':
-        result = draw.add_text()
     else:
-        result = {'ret': False, 'msg': '无操作'}
+        result = draw.add_text()
     return HttpResponse(json.dumps(result))
 
 
@@ -286,7 +286,6 @@ class Base(object):
     def __init__(self, params):
         self.path = path_norm(params['img_path'])
         self.p = params
-        print(self.path)
         self.img = cv2.imread(self.path)
 
     def attribute(self):
@@ -294,7 +293,7 @@ class Base(object):
             shape = self.img.shape
             pixel = self.img.size
             dtype = str(self.img.dtype)
-            return {'ret': True, 'type': 'attribute', 'shape': shape, 'pixel': pixel, 'dtype': dtype, 'msg':''}
+            return {'ret': True, 'type': 'attribute', 'shape': shape, 'pixel': pixel, 'dtype': dtype, 'msg': self.path}
         else:
             return {'ret': False, 'msg': '没有图片路径，获取不到图片属性！'}
 
@@ -313,6 +312,57 @@ class Base(object):
         new_pixel = str(img[x, y])
         return {'ret': True, 'type': "change_pixel", 'msg': write_path, 'old_pixel': old_pixel, 'new_pixel':new_pixel}
 
+    def img_roi(self):
+        x1 = int(self.p['pixel_x1'])
+        x2 = int(self.p['pixel_x2'])
+        y1 = int(self.p['pixel_y1'])
+        y2 = int(self.p['pixel_y2'])
+        shape = self.img.shape
+        if not (x1 < x2 and y1 < y2 and y2 < shape[1] and x2 < shape[0]):
+            return {'ret': False, 'msg': "输入参数非法，范围必须小于图片大小且开始值小于结束值"}
+        if self.p['type'] == 'move':
+            x3 = int(self.p['pixel_x3'])
+            x4 = int(self.p['pixel_x4'])
+            y3 = int(self.p['pixel_y3'])
+            y4 = int(self.p['pixel_y4'])
+            if not (x3 < x4 and y3 < y4 and y4 < shape[0] and x4 < shape[1]):
+                return {'ret': False, 'msg': "输入参数非法，范围必须小于图片大小且开始值小于结束值"}
+            try:
+                self.img[x3:x4, y3:y4] = self.img[x1:x2, y1:y2]
+                write_path = img_show_dic[self.path.split('.')[1]]
+                cv2.imwrite(write_path, self.img)
+                return {'ret': True, 'type': 'img_roi', 'order': 'move', 'msg': write_path}
+            except Exception as e:
+                print(e)
+                return {'ret': False, 'msg': "输入参数非法，移动范围必须对应！"}
+
+        else:
+            roi = self.img[x1:x2, y1:y2]
+            cv2.imshow('ROI', roi)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            return {'ret': True, 'type': "img_roi", 'order': 'show'}
+
+    def extended_fillet(self):
+        print(self.p)
+        a = int(self.p['side'])
+        blue = [255, 0, 0]
+        write_path = img_show_dic[self.path.split('.')[1]]
+        replicate = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REPLICATE)
+        reflect = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REFLECT)
+        reflect101 = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REFLECT101)
+        warp = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_WRAP)
+        constant = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_CONSTANT, value=blue)
+
+        plt.subplot(231), plt.imshow(self.img, 'gray'), plt.title('ORIGINAL')
+        plt.subplot(232), plt.imshow(replicate, 'gray'), plt.title('REPLICATE')
+        plt.subplot(233), plt.imshow(reflect, 'gray'), plt.title('REFLECT')
+        plt.subplot(234), plt.imshow(reflect101, 'gray'), plt.title('REFLECT101')
+        plt.subplot(235), plt.imshow(warp, 'gray'), plt.title('WARP')
+        plt.subplot(236), plt.imshow(constant, 'gray'), plt.title('CONSTANT')
+        plt.savefig(write_path)
+        return {'ret': True, 'type': "extended_fillet", 'msg': write_path}
+
 
 @csrf_exempt
 def image_base(request):
@@ -323,6 +373,10 @@ def image_base(request):
         result = base.attribute()
     elif order == 'change_pixel':
         result = base.change_pixel()
+    elif order == 'img_roi':
+        result = base.img_roi()
+    elif order == 'extended_fillet':
+        result = base.extended_fillet()
     else:
         result = {'ret': False, 'msg': '操作指令异常!'}
     return HttpResponse(json.dumps(result))

@@ -84,54 +84,65 @@
         <div class="ui divider"></div>
         <div class="inline field">
             <div class="ui right pointing large orange label">
-                输入截取矩形ROI像素点行数（x轴）范围
+                截取矩形RO I像素点行数（x轴）范围
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="start" class="coordinate" id="pixel_x1">
+                <input type="text" placeholder="start" class="coordinate_show" id="pixel_x1">
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="end" class="coordinate" id="pixel_x2">
+                <input type="text" placeholder="end" class="coordinate_show" id="pixel_x2">
             </div>
             <div class="ui right pointing large orange label">
-                输入截取矩形R O I像素点列数（y轴）范围
+                截取矩形RO I像素点列数（y轴）范围
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="start" class="coordinate" id="pixel_y1">
+                <input type="text" placeholder="start" class="coordinate_show" id="pixel_y1">
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="end" class="coordinate" id="pixel_y2">
+                <input type="text" placeholder="end" class="coordinate_show" id="pixel_y2">
             </div>
-            <button class="ui orange button btn_base" data-tooltip="必须填写截取矩形ROI范围"
-                    data-position="bottom center" value="btn_show_roi">显示ROI</button>
+            <button class="ui orange button" data-tooltip="必须填写截取矩形ROI范围"
+                    data-position="bottom center" id="btn_show_roi">显示ROI</button>
             <button class="ui icon red button" data-tooltip="清除" data-position="bottom center" id="btn_clear_roi1">
                 <i class="icon close"></i>
             </button>
         </div>
         <div class="inline field" style="padding-top: 10px">
             <div class="ui right pointing large green label">
-                输入移动目标位置像素点行数（x轴）范围
+                移动目标位置像素点行数（x轴）范围
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="start" class="coordinate" id="pixel_x3">
+                <input type="text" placeholder="start" class="coordinate_move" id="pixel_x3">
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="end" class="coordinate" id="pixel_x4">
+                <input type="text" placeholder="end" class="coordinate_move" id="pixel_x4">
             </div>
             <div class="ui right pointing large green label">
-                输入移动目标位置像素点列数（y轴）范围
+                移动目标位置像素点列数（y轴）范围
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="start" class="coordinate" id="pixel_y3">
+                <input type="text" placeholder="start" class="coordinate_move" id="pixel_y3">
             </div>
             <div class="ui input small_input">
-                <input type="text" placeholder="end" class="coordinate" id="pixel_y4">
+                <input type="text" placeholder="end" class="coordinate_move" id="pixel_y4">
             </div>
-            <button class="ui green button btn_base" data-tooltip="必须填写截取ROI范围和移动目标位置范围"
-                    data-position="bottom center" value="btn_move_roi">移动ROI</button>
+            <button class="ui green button" data-tooltip="必须填写截取ROI范围和移动目标位置范围"
+                    data-position="bottom center" id="btn_move_roi">移动ROI</button>
             <button class="ui icon red button" data-tooltip="清除" data-position="bottom center" id="btn_clear_roi2">
                 <i class="icon close"></i>
             </button>
         </div>
+    </div>
+    <div class="inline field div_base" id="extended_fillet">
+        <div class="ui divider"></div>
+        <div class="ui right pointing large orange label">
+            输入边界值大小（四边采用相同值）
+        </div>
+        <div class="ui input small_input">
+            <input type="text" placeholder="start" id="side">
+        </div>
+        <button class="ui green button" data-tooltip="生成主要的五种类型边界"
+                data-position="bottom center" id="btn_boundary">生成边界</button>
     </div>
 {% endblock %}
 {% block script %}
