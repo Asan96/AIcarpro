@@ -45,6 +45,7 @@ function td_attribute(data) {
     if (shape.length === 3){
         $('#aisle').text(shape[2])
     }
+    $('#size').text(shape[1]+'x'+shape[0]);
     $('#dtype').text(data.dtype);
-    $('#size').text(data.size)
+    $('#pixel').text(data.pixel);
 }

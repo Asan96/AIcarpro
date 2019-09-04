@@ -292,12 +292,9 @@ class Base(object):
     def attribute(self):
         if self.path:
             shape = self.img.shape
-            size = self.img.size
+            pixel = self.img.size
             dtype = str(self.img.dtype)
-            print(shape)
-            print(size)
-            print(dtype)
-            return {'ret': True, 'type': 'attribute', 'shape': shape, 'size': size, 'dtype': dtype, 'msg':''}
+            return {'ret': True, 'type': 'attribute', 'shape': shape, 'pixel': pixel, 'dtype': dtype, 'msg':''}
         else:
             return {'ret': False, 'msg': '没有图片路径，获取不到图片属性！'}
 
