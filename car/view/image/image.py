@@ -197,10 +197,10 @@ class Draw(object):
         return {'ret': True, 'msg': write_path}
 
     def draw_line(self):
-        x1 = int(self.p['start_x'])
-        y1 = int(self.p['start_y'])
-        x2 = int(self.p['end_x'])
-        y2 = int(self.p['end_y'])
+        x1 = int(self.p['line_start_x'])
+        y1 = int(self.p['line_start_y'])
+        x2 = int(self.p['line_end_x'])
+        y2 = int(self.p['line_end_y'])
         img = cv2.line(self.img, (x1, y1), (x2, y2), self.BGR, 2)
         return self.img_write(img)
 
@@ -298,6 +298,21 @@ class Base(object):
         else:
             return {'ret': False, 'msg': '没有图片路径，获取不到图片属性！'}
 
+    def change_pixel(self):
+        x = int(self.p['pixel_x'])
+        y = int(self.p['pixel_y'])
+        rgb_lst = self.p['color'].split(',')
+        R = int(rgb_lst[0])
+        G = int(rgb_lst[1])
+        B = int(rgb_lst[2])
+        write_path = img_show_dic[self.path.split('.')[1]]
+        cv2.imwrite(write_path, self.img)
+        img = cv2.imread(write_path)
+        old_pixel = str(img[x, y])
+        img[x, y] = [B, G, R]
+        new_pixel = str(img[x, y])
+        return {'ret': True, 'type': "change_pixel", 'msg': write_path, 'old_pixel': old_pixel, 'new_pixel':new_pixel}
+
 
 @csrf_exempt
 def image_base(request):
@@ -306,6 +321,9 @@ def image_base(request):
     base = Base(params)
     if order == 'attribute':
         result = base.attribute()
+    elif order == 'change_pixel':
+        result = base.change_pixel()
     else:
         result = {'ret': False, 'msg': '操作指令异常!'}
     return HttpResponse(json.dumps(result))
+
