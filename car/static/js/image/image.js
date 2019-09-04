@@ -1,3 +1,4 @@
+let color
 let img_path = $('#img_main').attr('src');
 let show_flag = 0;
 $('#btn_open_file').click(function () {
@@ -23,4 +24,15 @@ $('#btn_open_file').click(function () {
             console.log(e);
         }
     });
+});
+
+
+$('.paigusu').paigusu({
+    color : '#1926dc',
+},function(event,obj){
+    // console.log(event);
+    // console.log(obj.rgb);
+    color = obj.rgb;
+
+    $(event).css('color','#' + obj.hex)
 });

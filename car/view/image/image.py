@@ -36,6 +36,20 @@ def image_draw_page(request):
     return render(request, 'image/image_draw.html')
 
 
+def image_base_page(request):
+    return render(request, 'image/image_base.html')
+
+
+def path_norm(path):
+    """
+    路径处理
+    :param path:
+    :return:
+    """
+    if not path.startswith('car'):
+        return 'car'+path
+    return path
+
 def write_img(imgpath):
     '''
     图片缓存到app目录
@@ -122,7 +136,7 @@ def image_show(request):
     global gray_flag
     order = request.POST.get('order', '')
     path = request.POST.get('img_path', '')
-    img_path = path if path.startswith('car') else 'car'+path
+    img_path = path_norm(path)
     write_path = img_show_dic[img_path.split('.')[1]]
     name = path.split('/')[-1]
     if order == 'gray_img':
@@ -160,12 +174,15 @@ def image_show(request):
 class Draw(object):
     def __init__(self, params):
         self.p = params
-        self.path = 'car'+params['img_path'] if not params['img_path'].startswith('car') else params['img_path']
+        self.path = path_norm(params['img_path'])
         print(self.path)
         self.operate = params['operate']
-        self.R = int(params['R'])
-        self.G = int(params['G'])
-        self.B = int(params['B'])
+        self.RGB_lst = params['color'].split(',')
+        self.R = int(self.RGB_lst[0])
+        self.G = int(self.RGB_lst[1])
+        self.B = int(self.RGB_lst[2])
+        self.BGR = (self.B, self.G, self.R)
+        self.RGB = (self.R, self.G, self.B)
         self.img = cv2.imread(self.path)
 
     def get_size(self):
@@ -184,7 +201,7 @@ class Draw(object):
         y1 = int(self.p['start_y'])
         x2 = int(self.p['end_x'])
         y2 = int(self.p['end_y'])
-        img = cv2.line(self.img, (x1, y1), (x2, y2), (self.R, self.G, self.B), 2)
+        img = cv2.line(self.img, (x1, y1), (x2, y2), self.BGR, 2)
         return self.img_write(img)
 
     def draw_rectangle(self):
@@ -192,14 +209,14 @@ class Draw(object):
         y1 = int(self.p['left_up_y'])
         x2 = int(self.p['right_down_x'])
         y2 = int(self.p['right_down_y'])
-        img = cv2.rectangle(self.img, (x1, y1), (x2, y2), (self.R, self.G, self.B), 2)
+        img = cv2.rectangle(self.img, (x1, y1), (x2, y2), self.BGR, 2)
         return self.img_write(img)
 
     def draw_circle(self):
         x = int(self.p['circle_x'])
         y = int(self.p['circle_y'])
         r = int(self.p['circle_r'])
-        img = cv2.circle(self.img, (x, y), r, (self.R, self.G, self.B), 2)
+        img = cv2.circle(self.img, (x, y), r, self.BGR, 2)
         return self.img_write(img)
 
     def draw_oval(self):
@@ -210,7 +227,7 @@ class Draw(object):
         angle = int(self.p['oval_angle'])
         start_angle = int(self.p['oval_start_angle'])
         end_angle = int(self.p['oval_end_angle'])
-        img = cv2.ellipse(self.img, (x, y), (a, b), angle, start_angle, end_angle, (self.R, self.G, self.B), 2)
+        img = cv2.ellipse(self.img, (x, y), (a, b), angle, start_angle, end_angle, self.BGR, 2)
         return self.img_write(img)
 
     def draw_ploygon(self):
@@ -224,7 +241,7 @@ class Draw(object):
         y4 = int(self.p['ploygon_y4'])
         pts = np.array([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], np.int32)
         pts = pts.reshape((-1, 1, 2))
-        img = cv2.polylines(self.img, [pts], True, (self.R, self.G, self.B), 2)
+        img = cv2.polylines(self.img, [pts], True, self.BGR, 2)
         return self.img_write(img)
 
     def add_text(self):
@@ -238,12 +255,13 @@ class Draw(object):
         # 第一个参数是字体文件的路径，第二个是字体大小
         font = ImageFont.truetype("car/static/plugin/font/simhei.ttf", 30, encoding="utf-8")
         # 第一个参数是文字的起始坐标，第二个需要输出的文字，第三个是字体颜色，第四个是字体类型
-        draw.text((x, y), words, (self.R, self.G, self.B), font=font)
+        draw.text((x, y), words, self.RGB, font=font)
         img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)  # PIL图片转cv2
         return self.img_write(img)
 
+
 @csrf_exempt
-def img_draw(request):
+def image_draw(request):
     params = request.POST.dict()
     operate = params.get('operate', '')
     draw = Draw(params)
@@ -261,4 +279,36 @@ def img_draw(request):
         result = draw.add_text()
     else:
         result = {'ret': False, 'msg': '无操作'}
+    return HttpResponse(json.dumps(result))
+
+
+class Base(object):
+    def __init__(self, params):
+        self.path = path_norm(params['img_path'])
+        self.p = params
+        print(self.path)
+        self.img = cv2.imread(self.path)
+
+    def attribute(self):
+        if self.path:
+            shape = self.img.shape
+            size = self.img.size
+            dtype = str(self.img.dtype)
+            print(shape)
+            print(size)
+            print(dtype)
+            return {'ret': True, 'type': 'attribute', 'shape': shape, 'size': size, 'dtype': dtype, 'msg':''}
+        else:
+            return {'ret': False, 'msg': '没有图片路径，获取不到图片属性！'}
+
+
+@csrf_exempt
+def image_base(request):
+    params = request.POST.dict()
+    order = params.get('order', '')
+    base = Base(params)
+    if order == 'attribute':
+        result = base.attribute()
+    else:
+        result = {'ret': False, 'msg': '操作指令异常!'}
     return HttpResponse(json.dumps(result))

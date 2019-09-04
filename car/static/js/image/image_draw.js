@@ -11,16 +11,6 @@ $('.checkbox').change(
         $('#'+operate).show()
     }
 );
-function regix_RGB(num_lst){
-        for(let i =0;i<num_lst.length;i++)
-    {
-        let num = num_lst[i]
-        if(!num||!reg.test(num)||num<0||num>255){
-            return false
-        }
-    }
-    return true
-}
 function regix(num_lst){
     for(let i =0;i<num_lst.length;i++)
     {
@@ -34,18 +24,14 @@ function regix(num_lst){
 }
 $('#btn_draw').click(function () {
     let params;
-    let R = $('#color_R').val()
-    let G = $('#color_G').val()
-    let B = $('#color_B').val()
-    if (!regix_RGB([R,G,B])){
-        alert('颜色必须为0-255之间的正整数！')
-    }else{
+    if (!color){
+        alert('请选择绘制图形的颜色！')
+    }
+    else{
         params = {
             'operate': operate,
             'img_path': img_path,
-            'R': R,
-            'G': G,
-            'B': B,
+            'color':color,
         }
     }
     switch (operate) {

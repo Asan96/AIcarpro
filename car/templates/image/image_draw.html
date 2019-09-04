@@ -1,7 +1,7 @@
 {% extends 'image/image.html' %}
 {% load  static %}
 {% block title_name %}
-    图像读取
+    绘图操作
 {% endblock %}
 {% block css %}
     {{ block.super }}
@@ -242,17 +242,11 @@
     </div>
     <div class="inline field gap">
         <div class="ui right pointing label">
-            输入RGB色彩值(0-255)
+            选择RGB色彩值
         </div>
-        <div class="ui input small_input">
-            <input type="text" placeholder="B" class="color_RGB" id="color_B">
-        </div>
-        <div class="ui input small_input">
-            <input type="text" placeholder="G" class="color_RGB" id="color_G">
-        </div>
-        <div class="ui input small_input">
-            <input type="text" placeholder="R" class="color_RGB" id="color_R">
-        </div>
+        <button class="ui circular medium icon paigusu button ">
+            <i class="icon paint brush"></i>
+        </button>
     </div>
     <div class="inline field gap">
         <div class="ui green animated  button gap" tabindex="0" id="btn_draw">
@@ -273,7 +267,7 @@
     {{ block.super }}
     <script>
         let ImgDrawUrl = {
-            'dataImgDraw': '{% url 'car:img_draw'%}',
+            'dataImgDraw': '{% url 'car:image_draw'%}',
         }
     </script>
     <script src="{% static 'js/image/image_draw.js' %}"></script>

@@ -1,0 +1,57 @@
+{% extends 'image/image.html' %}
+{% load  static %}
+{% block title_name %}
+    图像基础操作
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .div_base{
+            display: none;
+        }
+    </style>
+{% endblock %}
+{% block image_content %}
+    <div class="ui divider"></div>
+    <button class="ui button btn_base" data-tooltip="获取图像的行、列、通道、数据类型、像素数目" data-position="bottom center" value="attribute">图像属性</button>
+    <button class="ui button btn_base" value="change_pixel">修改像素值</button>
+    <button class="ui button btn_base" data-tooltip="图像感兴趣区域" data-position="bottom center" value="img_roi">图像ROI</button>
+    <button class="ui button btn_base" value="extended_fillet">扩充填边</button>
+    <div class="inline field div_base" id="attribute">
+        <div class="ui divider"></div>
+        <table class="ui very basic table" style="text-align: center">
+            <thead>
+            <tr>
+                <th>图片格式</th>
+                <th>行数</th>
+                <th>列数</th>
+                <th>通道数</th>
+                <th>数据类型</th>
+                <th>像素数目</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="suffix"></td>
+                <td id="row"></td>
+                <td id="col"></td>
+                <td id="aisle"></td>
+                <td id="dtype"></td>
+                <td id="size"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="inline field div_base" id="change_pixel">
+        <button class="ui paigusu button" id="tiaoseban">调色板</button>
+    </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        let ImgBaseUrl = {
+            'dataImgBase': '{% url 'car:image_base'%}',
+        }
+    </script>
+    <script src="{% static 'js/image/image_base.js' %}"></script>
+{% endblock %}

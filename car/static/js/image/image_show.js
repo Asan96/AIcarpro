@@ -10,7 +10,6 @@ $('.show_btn').click(function () {
         url : ImgShowUrl.dataImgShow,
         data : {'order':this.value, 'img_path':img_path},
         success : function(data) {
-            console.log(data)
             if (data.ret){
                 if (data.type == 1){
                     $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
