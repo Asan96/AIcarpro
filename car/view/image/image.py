@@ -52,6 +52,7 @@ def path_norm(path):
         return 'car'+path
     return path
 
+
 def write_img(imgpath):
     '''
     图片缓存到app目录
@@ -89,7 +90,7 @@ def open_image_file(request):
             result = {"ret": False, 'msg': msg}
     else:
         result = {"ret": False, 'msg': '请选择有效的图片路径!'}
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 img_show_dic = {
@@ -170,14 +171,13 @@ def image_show(request):
     else:
         img = cv2.imread(write_path)
         result = save_img(name, img)
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class Draw(object):
     def __init__(self, params):
         self.p = params
         self.path = path_norm(params['img_path'])
-        print(self.path)
         self.operate = params['operate']
         self.RGB_lst = params['color'].split(',')
         self.R = int(self.RGB_lst[0])
@@ -194,7 +194,6 @@ class Draw(object):
 
     def img_write(self, img):
         write_path = img_show_dic[self.path.split('.')[1]]
-        print(write_path)
         cv2.imwrite(write_path, img)
         return {'ret': True, 'msg': write_path}
 
@@ -279,7 +278,7 @@ def image_draw(request):
         result = draw.draw_ploygon()
     else:
         result = draw.add_text()
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class Base(object):
@@ -300,6 +299,9 @@ class Base(object):
     def change_pixel(self):
         x = int(self.p['pixel_x'])
         y = int(self.p['pixel_y'])
+        shape = self.img.shape
+        if x >= shape[0] or y >= shape[1]:
+            return {'ret': False, 'msg': "修改位置必须在图片内！"}
         rgb_lst = self.p['color'].split(',')
         R = int(rgb_lst[0])
         G = int(rgb_lst[1])
@@ -344,8 +346,10 @@ class Base(object):
             return {'ret': True, 'type': "img_roi", 'order': 'show'}
 
     def extended_fillet(self):
-        print(self.p)
         a = int(self.p['side'])
+        shape = self.img.shape
+        if a >= shape[0] or a >= shape[1]:
+            return {'ret': False, 'msg': '输入边界必须小于图片尺寸'}
         blue = [255, 0, 0]
         write_path = img_show_dic[self.path.split('.')[1]]
         replicate = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REPLICATE)
@@ -354,12 +358,12 @@ class Base(object):
         warp = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_WRAP)
         constant = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_CONSTANT, value=blue)
 
-        plt.subplot(231), plt.imshow(self.img, 'gray'), plt.title('ORIGINAL')
-        plt.subplot(232), plt.imshow(replicate, 'gray'), plt.title('REPLICATE')
-        plt.subplot(233), plt.imshow(reflect, 'gray'), plt.title('REFLECT')
-        plt.subplot(234), plt.imshow(reflect101, 'gray'), plt.title('REFLECT101')
-        plt.subplot(235), plt.imshow(warp, 'gray'), plt.title('WARP')
-        plt.subplot(236), plt.imshow(constant, 'gray'), plt.title('CONSTANT')
+        plt.subplot(231), plt.imshow(self.img), plt.title('ORIGINAL')
+        plt.subplot(232), plt.imshow(replicate), plt.title('REPLICATE')
+        plt.subplot(233), plt.imshow(reflect), plt.title('REFLECT')
+        plt.subplot(234), plt.imshow(reflect101), plt.title('REFLECT101')
+        plt.subplot(235), plt.imshow(warp), plt.title('WARP')
+        plt.subplot(236), plt.imshow(constant), plt.title('CONSTANT')
         plt.savefig(write_path)
         return {'ret': True, 'type': "extended_fillet", 'msg': write_path}
 
@@ -379,5 +383,5 @@ def image_base(request):
         result = base.extended_fillet()
     else:
         result = {'ret': False, 'msg': '操作指令异常!'}
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result), content_type='application/json')
 

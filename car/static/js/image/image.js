@@ -1,5 +1,6 @@
 let color;
 let reg=/^[0-9]+.?[0-9]*$/;
+let loading_path = '/static/plugin/img/loading.gif';
 /* 数字判断*/
 function regix(num_lst){
     for(let i =0;i<num_lst.length;i++)
@@ -68,10 +69,18 @@ function addParams(params,arr) {
  * */
 function judgeNum(arr) {
     for (let i =0; i<arr.length;i++){
-        let num = $('#'+arr[i]).val();
+        let num = Number($('#'+arr[i]).val());
         if(!num||!reg.test(num)||num<0){
             return false
         }
     }
     return true
+}
+/**
+ * 清空class的值
+ * */
+function clear(class_arr) {
+    for (let i =0;i<class_arr.length;i++){
+        $('.'+class_arr[i]).val('')
+    }
 }
