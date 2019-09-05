@@ -6,7 +6,11 @@ $('.btn_base').click(function () {
         'img_path': img_path,
         'order': order
     };
-    console.log(params);
+    let origin_path = img_path;
+    if(img_path.startsWith('car')){
+        origin_path = img_path.split('car')[1]
+    }
+    $('#img_main').attr('src', origin_path +'?'+Math.random());
     clear(['coordinate', 'coordinate_show', 'coordinate_move','side']);
     $('#'+order).show();
     switch (order) {
@@ -88,7 +92,12 @@ function callback_image_roi(data){
 }
 
 function callback_extended_fillet(data){
-    $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
+    if (data.error){
+        $('#img_main').attr('src', data.path.split('car')[1]+'?'+Math.random());
+        alert(data.msg)
+    }else{
+        $('#img_main').attr('src', data.path.split('car')[1]+'?'+Math.random());
+    }
     $('#btn_boundary').attr('disabled',false);
 }
 

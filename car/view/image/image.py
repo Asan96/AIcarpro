@@ -348,24 +348,27 @@ class Base(object):
     def extended_fillet(self):
         a = int(self.p['side'])
         shape = self.img.shape
+
+        b, g, r = cv2.split(self.img)
+        img = cv2.merge([r, g, b])
         if a >= shape[0] or a >= shape[1]:
-            return {'ret': False, 'msg': '输入边界必须小于图片尺寸'}
+            return {'ret': True, 'type': "extended_fillet", 'error': True, 'path': self.path, 'msg': '输入边界必须小于图片尺寸'}
         blue = [255, 0, 0]
         write_path = img_show_dic[self.path.split('.')[1]]
-        replicate = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REPLICATE)
-        reflect = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REFLECT)
-        reflect101 = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_REFLECT101)
-        warp = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_WRAP)
-        constant = cv2.copyMakeBorder(self.img, a, a, a, a, cv2.BORDER_CONSTANT, value=blue)
+        replicate = cv2.copyMakeBorder(img, a, a, a, a, cv2.BORDER_REPLICATE)
+        reflect = cv2.copyMakeBorder(img, a, a, a, a, cv2.BORDER_REFLECT)
+        reflect101 = cv2.copyMakeBorder(img, a, a, a, a, cv2.BORDER_REFLECT101)
+        warp = cv2.copyMakeBorder(img, a, a, a, a, cv2.BORDER_WRAP)
+        constant = cv2.copyMakeBorder(img, a, a, a, a, cv2.BORDER_CONSTANT, value=blue)
 
-        plt.subplot(231), plt.imshow(self.img), plt.title('ORIGINAL')
+        plt.subplot(231), plt.imshow(img), plt.title('ORIGINAL')
         plt.subplot(232), plt.imshow(replicate), plt.title('REPLICATE')
         plt.subplot(233), plt.imshow(reflect), plt.title('REFLECT')
         plt.subplot(234), plt.imshow(reflect101), plt.title('REFLECT101')
         plt.subplot(235), plt.imshow(warp), plt.title('WARP')
         plt.subplot(236), plt.imshow(constant), plt.title('CONSTANT')
         plt.savefig(write_path)
-        return {'ret': True, 'type': "extended_fillet", 'msg': write_path}
+        return {'ret': True, 'type': "extended_fillet", 'error': False, 'path': write_path}
 
 
 @csrf_exempt
