@@ -16,10 +16,10 @@
 {% endblock %}
 {% block image_content %}
     <div class="ui divider"></div>
-    <button class="ui button btn_base" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">图像属性</button>
-    <button class="ui button btn_base" data-tooltip="修改像素值看不到明显效果" data-position="bottom center" value="change_pixel">修改像素值</button>
-    <button class="ui button btn_base" data-tooltip="图像感兴趣区域" data-position="bottom center" value="img_roi">图像ROI</button>
-    <button class="ui button btn_base" value="extended_fillet">扩充填边</button>
+    <button class="ui teal button btn_base" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">图像属性</button>
+    <button class="ui teal button btn_base" data-tooltip="修改像素值看不到明显效果" data-position="bottom center" value="change_pixel">修改像素值</button>
+    <button class="ui teal button btn_base" data-tooltip="图像感兴趣区域的显示或移动" data-position="bottom center" value="img_roi">图像ROI</button>
+    <button class="ui teal button btn_base" data-tooltip="多种边界类型对比" data-position="bottom center" value="extended_fillet">扩充填边</button>
     <div class="inline field div_base" id="attribute">
         <div class="ui divider"></div>
         <table class="ui very basic table" style="text-align: center">
@@ -49,7 +49,7 @@
     </div>
     <div class="inline field div_base" id="change_pixel">
         <div class="ui divider"></div>
-        <div class="ui right pointing large label">
+        <div class="ui right pointing large orange basic label">
             输入修改位置坐标
         </div>
         <div class="ui input small_input">
@@ -69,11 +69,11 @@
         </button>
         <div class="inline field" style="margin-top: 10px" id="div_pixel">
             <div class="ui blue labels">
-                <a class="ui large label">
+                <a class="ui large basic label">
                     修改前的像素值
                     <div class="detail" id="old_pixel"></div>
                 </a>
-                <a class="ui large label">
+                <a class="ui large basic label">
                     修改后的像素值
                     <div class="detail" id="new_pixel"></div>
                 </a>
@@ -83,7 +83,7 @@
     <div class="inline field div_base" id="img_roi">
         <div class="ui divider"></div>
         <div class="inline field">
-            <div class="ui right pointing large orange label">
+            <div class="ui right pointing large orange basic label">
                 截取矩形RO I像素点行数（x轴）范围
             </div>
             <div class="ui input small_input">
@@ -92,7 +92,7 @@
             <div class="ui input small_input">
                 <input type="text" placeholder="end" class="coordinate_show" id="pixel_x2">
             </div>
-            <div class="ui right pointing large orange label">
+            <div class="ui right pointing large orange basic label">
                 截取矩形RO I像素点列数（y轴）范围
             </div>
             <div class="ui input small_input">
@@ -102,13 +102,13 @@
                 <input type="text" placeholder="end" class="coordinate_show" id="pixel_y2">
             </div>
             <button class="ui orange button" data-tooltip="必须填写截取矩形ROI范围"
-                    data-position="bottom center" id="btn_show_roi">显示ROI</button>
+                    data-position="bottom center" id="btn_show_roi">显示</button>
             <button class="ui icon red button" data-tooltip="清除" data-position="bottom center" id="btn_clear_roi1">
                 <i class="icon close"></i>
             </button>
         </div>
         <div class="inline field" style="padding-top: 10px">
-            <div class="ui right pointing large green label">
+            <div class="ui right pointing large green basic label">
                 移动目标位置像素点行数（x轴）范围
             </div>
             <div class="ui input small_input">
@@ -117,7 +117,7 @@
             <div class="ui input small_input">
                 <input type="text" placeholder="end" class="coordinate_move" id="pixel_x4">
             </div>
-            <div class="ui right pointing large green label">
+            <div class="ui right pointing large green basic label">
                 移动目标位置像素点列数（y轴）范围
             </div>
             <div class="ui input small_input">
@@ -127,7 +127,7 @@
                 <input type="text" placeholder="end" class="coordinate_move" id="pixel_y4">
             </div>
             <button class="ui green button" data-tooltip="必须填写截取ROI范围和移动目标位置范围"
-                    data-position="bottom center" id="btn_move_roi">移动ROI</button>
+                    data-position="bottom center" id="btn_move_roi">移动</button>
             <button class="ui icon red button" data-tooltip="清除" data-position="bottom center" id="btn_clear_roi2">
                 <i class="icon close"></i>
             </button>
@@ -135,7 +135,7 @@
     </div>
     <div class="inline field div_base" id="extended_fillet">
         <div class="ui divider"></div>
-        <div class="ui right pointing large orange label">
+        <div class="ui right pointing large orange basic label">
             输入边界值大小（四边采用相同值）
         </div>
         <div class="ui action input">
