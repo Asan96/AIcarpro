@@ -89,7 +89,7 @@ def open_image_file(request):
         else:
             result = {"ret": False, 'msg': msg}
     else:
-        result = {"ret": False, 'msg': '请选择有效的图片路径!'}
+        result = {"ret": False, 'msg': '请选择jpg、jpeg或png等图片格式!'}
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 
@@ -132,7 +132,7 @@ gray_flag = 0
 @csrf_exempt
 def image_show(request):
     '''
-    图片读取
+    图像显示
     :param request:
     :return:
     '''

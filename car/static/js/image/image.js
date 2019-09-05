@@ -34,7 +34,7 @@ $('#btn_open_file').click(function () {
                 }
             }
             else{
-                console.log(data.msg)
+                alert(data.msg)
             }
         },
         error : function(e){
