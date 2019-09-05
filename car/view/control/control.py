@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from car.view.camera.camera import VideoStreaming
 import numpy as np
 import cv2
 import socket
@@ -14,3 +15,6 @@ def control_page(request):
     return render(request, 'control/control.html')
 
 
+@csrf_exempt
+def camera_open(request):
+    VideoStreaming()

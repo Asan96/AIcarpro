@@ -104,9 +104,9 @@ class MyConsumer(WebsocketConsumer):
                     cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
                 r, buf = cv2.imencode(".jpg", image)
                 bytes_image = Image.fromarray(np.uint8(buf)).tobytes()
-                cv2.imshow('image', image)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+                # cv2.imshow('image', image)
+                # if cv2.waitKey(1) & 0xFF == ord('q'):
+                #     break
                 print(jpg)
                 print('*****************************')
                 self.send_str(bytes_image)

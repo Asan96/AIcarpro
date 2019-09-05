@@ -3,7 +3,6 @@ $(function () {
 });
 $('#car_switch').change(function () {
     let swit = $('#car_switch').prop("checked")
-    console.log(swit)
     if (swit){
         $('.btn').attr('disabled',false)
     }
@@ -32,3 +31,39 @@ $('.btn').click(function () {
     });
     console.log(this.value)
 });
+
+$('#camera_switch').change(function () {
+    let cam_switch = $('#camera_switch').prop("checked");
+    if (cam_switch){
+        connect()
+    }
+});
+
+function connect(){
+    let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
+
+    socket.onopen = function (evt) {
+        socket.send('connected');
+        console.log('客户端成功建立连接。。')
+    };
+
+    socket.onmessage = function (evt) {
+        let blob = evt.data;
+        let reader = new FileReader();
+
+        reader.readAsDataURL(blob);
+        reader.onload = function(e) {
+            let img = document.getElementById("target");
+            img.src = this.result;
+
+        }
+    };
+    socket.onclose = function() {
+        console.log("Closed");
+        socket.close()
+    };
+
+    socket.onerror = function(err) {
+        console.log("Error: " + err);
+    };
+}

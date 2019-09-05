@@ -23,16 +23,37 @@
             padding-top: 2%;
             float: left;
         }
-
+        .text_center{
+            text-align: center;
+        }
+        #target{
+            width: 640px;
+            height: 480px;
+            border: 2px solid black;
+        }
     </style>
 {% endblock %}
 {% block self_content %}
     <div class="left_div">
         <div class="ui container very padded segment contain_size" style="border-bottom: none">
+            <h4 class="ui horizontal divider header">
+                <i class="camera icon"></i>
+                摄像头
+            </h4>
+            <div class="column" style="text-align: center">
+                <div class="ui ignored toggle animation checkbox">
+                    <input type="checkbox" id="camera_switch" />
+                    <label>开关</label>
+                </div>
+            </div>
+            <h4 class="ui horizontal divider header">
+                <i class="wrench icon"></i>
+                操作
+            </h4>
             <div class="column" style="text-align: center">
                 <div class="ui ignored toggle animation checkbox">
                     <input type="checkbox" id="car_switch" />
-                    <label>操作开关</label>
+                    <label>开关</label>
                 </div>
             </div>
         <h4 class="ui horizontal divider header">
@@ -165,11 +186,9 @@
     </div>
     </div>
     <div class="right_div">
-        <div class="ui container raised very padded segment contain_size">
-            <div class="ui top attached label text_center "><h4>相关代码</h4></div>
-            <h2 class="ui header"></h2>
-            <p></p>
-            <p></p>
+        <div class="ui container raised padded segment" style="width: 700px;height: 550px">
+            <div class="ui top attached label text_center "><h4>摄像头画面</h4></div>
+            <img id="target" class="ui centered image"/>
         </div>
     </div>
 {% endblock %}

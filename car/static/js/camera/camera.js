@@ -39,16 +39,11 @@ function connect(){
     socket.onmessage = function (evt) {
         let blob = evt.data;
         let reader = new FileReader();
-        let c =document.getElementById("canvas");
-        let cxt=c.getContext("2d");
 
         reader.readAsDataURL(blob);
         reader.onload = function(e) {
             let img = document.getElementById("target");
             img.src = this.result;
-            ctx.save();
-            cxt.drawImage(img);
-            cxt.scale(640,480);
 
         }
     };
@@ -60,7 +55,6 @@ function connect(){
     socket.onerror = function(err) {
         console.log("Error: " + err);
     };
-
 }
 
 
