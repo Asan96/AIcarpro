@@ -21,7 +21,6 @@ def voice_recognize_page(request, params=None):
 def get_command(request):
     command = request.POST.get('command')
     result = mqtt_send(command)
-    print(result)
     return HttpResponse(json.dumps(result))
 
 
@@ -34,7 +33,6 @@ def on_message(client, userdata, msg):
     msg = msg.payload.decode('utf-8')
     if msg.startswith('voice_recognize'):
         text = msg.split(":")[1]
-        print(text)
         voice_recognize_page(params=json.dumps(text))
 
 

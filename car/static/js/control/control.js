@@ -35,35 +35,34 @@ $('.btn').click(function () {
 $('#camera_switch').change(function () {
     let cam_switch = $('#camera_switch').prop("checked");
     if (cam_switch){
-        connect()
+        connect('origin_cam')
     }
 });
 
-function connect(){
-    let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
-
-    socket.onopen = function (evt) {
-        socket.send('connected');
-        console.log('客户端成功建立连接。。')
-    };
-
-    socket.onmessage = function (evt) {
-        let blob = evt.data;
-        let reader = new FileReader();
-
-        reader.readAsDataURL(blob);
-        reader.onload = function(e) {
-            let img = document.getElementById("target");
-            img.src = this.result;
-
-        }
-    };
-    socket.onclose = function() {
-        console.log("Closed");
-        socket.close()
-    };
-
-    socket.onerror = function(err) {
-        console.log("Error: " + err);
-    };
-}
+// function connect(){
+//     let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
+//     socket.onopen = function (evt) {
+//         socket.send('origin_cam');
+//         console.log('客户端成功建立连接。。')
+//     };
+//
+//     socket.onmessage = function (evt) {
+//         let blob = evt.data;
+//         let reader = new FileReader();
+//
+//         reader.readAsDataURL(blob);
+//         reader.onload = function(e) {
+//             let img = document.getElementById("target");
+//             img.src = this.result;
+//
+//         }
+//     };
+//     socket.onclose = function() {
+//         console.log("Closed");
+//         socket.close()
+//     };
+//
+//     socket.onerror = function(err) {
+//         console.log("Error: " + err);
+//     };
+// }

@@ -2,7 +2,7 @@ $('#open_camera').click(
     function () {
         $('#open_camera').hide()
         $('#close_camera').show()
-        connect()
+        connect('face_cam')
     }
 );
 $("#close_camera").click(function () {
@@ -28,34 +28,33 @@ $("#close_camera").click(function () {
     });
 });
 
-function connect(){
-    let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
-
-    socket.onopen = function (evt) {
-        socket.send('connected');
-        console.log('客户端成功建立连接。。')
-    };
-
-    socket.onmessage = function (evt) {
-        let blob = evt.data;
-        let reader = new FileReader();
-
-        reader.readAsDataURL(blob);
-        reader.onload = function(e) {
-            let img = document.getElementById("target");
-            img.src = this.result;
-
-        }
-    };
-    socket.onclose = function() {
-        console.log("Closed");
-        socket.close()
-    };
-
-    socket.onerror = function(err) {
-        console.log("Error: " + err);
-    };
-}
+// function connect(){
+//     let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
+//     socket.onopen = function (evt) {
+//         socket.send('face_cam');
+//         console.log('客户端成功建立连接。。')
+//     };
+//
+//     socket.onmessage = function (evt) {
+//         let blob = evt.data;
+//         let reader = new FileReader();
+//
+//         reader.readAsDataURL(blob);
+//         reader.onload = function(e) {
+//             let img = document.getElementById("target");
+//             img.src = this.result;
+//
+//         }
+//     };
+//     socket.onclose = function() {
+//         console.log("Closed");
+//         socket.close()
+//     };
+//
+//     socket.onerror = function(err) {
+//         console.log("Error: " + err);
+//     };
+// }
 
 
 
