@@ -1,5 +1,6 @@
 $(function () {
     $('.btn').attr('disabled',true);
+    $('#target').attr('src', '/static/plugin/img/cam.jpg')
 });
 $('#car_switch').change(function () {
     let swit = $('#car_switch').prop("checked")
@@ -36,6 +37,12 @@ $('#camera_switch').change(function () {
     let cam_switch = $('#camera_switch').prop("checked");
     if (cam_switch){
         connect('origin_cam')
+    }
+    else{
+        if (last_socket){
+            last_socket.close()
+        }
+        $('#target').attr('src', '/static/plugin/img/cam.jpg')
     }
 });
 

@@ -89,7 +89,6 @@ class Video(object):
                 yield jpg
 
 
-
     def face_cam(self):
         Stream = self.video_stream.streaming()
         faceCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_frontalface_alt.xml')
@@ -154,7 +153,6 @@ class MyConsumer(WebsocketConsumer):
 
     def send_str(self, message):
         self.send(bytes_data=message)
-
 
 
 @csrf_exempt
