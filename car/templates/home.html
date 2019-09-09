@@ -6,6 +6,8 @@
     <link rel="shortcut icon" href="{% static 'plugin/img/zksp.ico' %}" type="image/x-icon" />
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/timeTo.css" %}">
+    {% block stylesheet %}
+    {% endblock %}
     <title>{% block title_name %}主页{% endblock %}</title>
 </head>
 <style>

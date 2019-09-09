@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'home.html' %}
+{% load  static %}
+{% block title_name %}
+    代码编辑
+{% endblock %}
+{% block stylesheet %}
+        <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/codemirror.css" %}">
+        <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/foldgutter.css" %}">
+        <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/show-hint.css" %}">
+        <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/lint.css" %}">
+        <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/darcula.css" %}">
+{% endblock %}
+{% block css %}
+    <style>
+        .contain_size{
+            height: 100%;
+            padding: 30px;
+        }
+        .console{
+            padding-top: 5px;
+            margin-bottom:5px;
+            font-size: 16px;
+            color:whitesmoke;
+        }
+        .result{
+            color: darkorange;
+        }
+    </style>
+{% endblock %}
+{% block self_content %}
+    <div class="ui container contain_size">
+        <div class="ui clearing segment" style="margin-bottom: 0px;background-color: #3B3E3F;border-radius: 4px 4px 0px 0px;padding: 0px;">
+            <button class="ui left floated button" style="background-color:#3B3E3F;color: orange" data-tooltip="编写python代码可选择在本地或者小车上运行" data-position="right center">编辑代码：</button>
+            <div class="ui right floated icon basic button" data-tooltip="清空" id="btn_clear" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px" >
+                <i class="icon red trash alternate"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="终止" id="btn_stop" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon grey stop"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="小车上运行" id="btn_run_in_car" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon green forward"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="运行" id="btn_run" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon green play" id="i_run"></i></div>
+        </div>
+        <textarea id="editor"></textarea>
+        <div class="ui clearing segment" style="margin-top: 0px;background-color: #3B3E3F;border-radius: 0px 0px 4px 4px;height: 130px;padding-top: 0px;overflow: auto">
+            <p class="console">Console:</p>
+            <div class="ui divider" style="margin-top: 0px"></div>
+            <p class="result" id ='console'></p>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let CodeURL = {
+            'dataCodeRun': '{% url 'car:code_run' %}',
+        }
+    </script>
+    <script src="{% static 'plugin/js/codemirror.js' %}"></script>
+    <script src="{% static 'plugin/js/active-line.js' %}"></script>
+    <script src="{% static 'plugin/js/closebrackets.js' %}"></script>
+    <script src="{% static 'plugin/js/foldcode.js' %}"></script>
+    <script src="{% static 'plugin/js/foldgutter.js' %}"></script>
+    <script src="{% static 'plugin/js/indent-fold.js' %}"></script>
+    <script src="{% static 'plugin/js/matchbrackets.js' %}"></script>
+    <script src="{% static 'plugin/js/show-hint.js' %}"></script>
+    <script src="{% static 'plugin/js/sublime.js' %}"></script>
+    <script src="{% static 'plugin/js/python.js' %}"></script>
+    <script src="{% static 'js/code/code.js' %}"></script>
+{% endblock %}

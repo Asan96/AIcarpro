@@ -1,5 +1,6 @@
 let last_socket;
 function connect(command){
+    console.log(last_socket);
     if (last_socket){
         last_socket.close()
     }
@@ -7,7 +8,8 @@ function connect(command){
     last_socket = socket;
     socket.onopen = function (evt) {
         socket.send(command);
-        console.log('客户端成功建立连接。。')
+        console.log('客户端成功建立连接。。');
+        $('#target').attr('src', '/static/plugin/img/loading.gif')
     };
 
     socket.onmessage = function (evt) {
@@ -22,7 +24,6 @@ function connect(command){
         }
     };
     socket.onclose = function() {
-        console.log("Closed");
         socket.close()
     };
 

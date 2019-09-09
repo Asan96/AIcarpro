@@ -1,31 +1,26 @@
-$('#open_camera').click(
-    function () {
-        $('#open_camera').hide()
-        $('#close_camera').show()
+$('#camera_switch').change(function () {
+    let cam_switch = $('#camera_switch').prop("checked");
+    if (cam_switch){
+        connect('origin_cam')
+    }
+    else{
+        if (last_socket){
+            last_socket.close()
+        }
+        $('#target').attr('src', '/static/plugin/img/cam.jpg')
+    }
+});
+$('#face_switch').change(function () {
+    let cam_switch = $('#face_switch').prop("checked");
+    if (cam_switch){
         connect('face_cam')
     }
-);
-$("#close_camera").click(function () {
-    $('#open_camera').show();
-    $('#close_camera').hide();
-    $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : PUB_URL.dataCloseServer,
-        data : {},
-        success : function(data) {
-            if (data.ret){
-                console.log(data.msg)
-            }
-            else{
-                console.log(data.msg)
-            }
-        },
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
+    else{
+        if (last_socket){
+            last_socket.close()
         }
-    });
+        $('#target').attr('src', '/static/plugin/img/cam.jpg')
+    }
 });
 
 // function connect(){

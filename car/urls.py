@@ -48,6 +48,7 @@ urlpatterns = [
 
     # 代码编辑
     path(r'code/', code.code_page, name='code'),
+    path(r'code_run/', code.code_run, name='code_run'),
 
     # mqtt
     path(r'get_command', mqtt.get_command, name='get_command'),
