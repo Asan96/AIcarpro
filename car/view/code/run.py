@@ -2,4 +2,5 @@
 # coding=utf-8
 # version: Python3
 # please edit your code here:
-print 11111111111111111
+while 1:
+	print(1111111111111111111111111)

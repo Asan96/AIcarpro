@@ -4,10 +4,20 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from tkinter import filedialog
+from car.view.mqtt import mqtt_send
 
+
+import tkinter as tk
+import time
 import json
 import os
 import subprocess
+import win32ui
+import queue
+
+q = queue.Queue()
+
 
 def code_page(request):
     return render(request, 'code/code.html')
@@ -15,29 +25,80 @@ def code_page(request):
 
 @csrf_exempt
 def code_run(request):
-    code_path = 'car/view/code/test.py'
+    global q
+    code_path = 'car/view/code/run.py'
     params = request.POST.dict()
     type = params['type']
-    isCar = int(params['isCar'])
-    code = params.get('code', '')
     if type == 'run':
+        isCar = int(params['isCar'])
+        code = params.get('code', '')
         if isCar:
-            result = {'ret': True, }
+            code = 'code'+code
+            result = mqtt_send(code)
+            result['type'] = 'car'
         else:
             with open(code_path, 'w+', encoding='utf-8') as f:
                 f.write(code)
                 f.close()
             try:
-                sub = subprocess.Popen("python "+code_path, shell=True, stdout=subprocess.PIPE)
+                sub = subprocess.Popen("python "+code_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                q.put(sub)
                 sub.wait()
-                output = str(sub.stdout.read(), 'utf-8')
-                error = str(sub.stderr.read(), 'utf-8')
-                console = output+'\n'+error
-                print(console)
+                output = sub.stdout.read().decode(encoding='utf-8') if sub.stdout else ''
+                error = sub.stderr.read().decode(encoding='utf-8') if sub.stderr else ''
+                console = output+error
                 result = {'ret': True, 'type': 'local', 'msg': console}
             except Exception as e:
                 result = {"ret": False, 'msg': e}
-
     else:
-        result = {'ret': True, 'msg': 'stop ok !'}
+        while not q.empty():
+            sub = q.get()
+            sub.kill()
+        result = {'ret': True, 'type': 'stop', 'msg': 'local stop ok !'}
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+save_flag = 0
+
+
+@csrf_exempt
+def code_operate(request):
+    global save_flag
+    operate = request.POST.get('operate', '')
+    if operate == 'import':
+        dialog = win32ui.CreateFileDialog(1)  # 1表示打开文件对话框
+        dialog.SetOFNInitialDir('')  # 设置打开文件对话框中的初始显示目录
+        dialog.DoModal()
+        filepath = dialog.GetPathName()  # 获取选择的文件名称
+        if filepath.endswith('.py'):
+            filepath = filepath.replace('\\', '/')
+            with open(filepath, 'r', encoding='utf-8') as f:
+                code_import = f.read()
+                f.close()
+            result = {'ret': True, 'type': 'import', 'msg': code_import}
+        elif not filepath:
+            result = {'ret': True, 'type': 'other', 'msg': ''}
+        else:
+            result = {'ret': False, 'msg': '请选择python文件！'}
+    elif operate == 'save':
+        code_save = request.POST.get('code', '')
+        if save_flag:
+            result = {'ret': False, 'msg': '已打开保存窗口，请勿重复操作'}
+        else:
+            save_flag = 1
+            root = tk.Tk()
+            root.withdraw()
+            filename = tk.filedialog.asksaveasfilename(title=u'保存文件', filetypes=[('python文件', '.py')])
+            root.destroy()
+            if filename:
+                save_flag = 0
+                with open(filename+'.py', 'w', encoding='utf-8') as f:
+                    f.write(code_save)
+                    f.close()
+                result = {'ret': True, 'type': 'save', 'msg': '保存成功！'}
+            else:
+                save_flag = 0
+                result = {'ret': True, 'type': 'save', 'msg': '取消保存'}
+    else:
+        result = {'ret': False, 'msg': 'operate error!'}
     return HttpResponse(json.dumps(result), content_type='application/json')

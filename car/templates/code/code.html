@@ -17,13 +17,14 @@
             padding: 30px;
         }
         .console{
-            padding-top: 5px;
-            margin-bottom:5px;
             font-size: 16px;
             color:whitesmoke;
         }
         .result{
             color: darkorange;
+            padding-left: 65px;
+            font-size: 14px;
+            font-family: "微软雅黑";
         }
     </style>
 {% endblock %}
@@ -31,20 +32,25 @@
     <div class="ui container contain_size">
         <div class="ui clearing segment" style="margin-bottom: 0px;background-color: #3B3E3F;border-radius: 4px 4px 0px 0px;padding: 0px;">
             <button class="ui left floated button" style="background-color:#3B3E3F;color: orange" data-tooltip="编写python代码可选择在本地或者小车上运行" data-position="right center">编辑代码：</button>
-            <div class="ui right floated icon basic button" data-tooltip="清空" id="btn_clear" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px" >
-                <i class="icon red trash alternate"></i></div>
-            <div class="ui right floated icon basic button" data-tooltip="终止" id="btn_stop" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
-                <i class="icon grey stop"></i></div>
-            <div class="ui right floated icon basic button" data-tooltip="小车上运行" id="btn_run_in_car" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
-                <i class="icon green forward"></i></div>
-            <div class="ui right floated icon basic button" data-tooltip="运行" id="btn_run" data-position="bottom left" style="background-color:#3B3E3F;margin-right: 30px">
+            <div class="ui right floated icon basic button" data-tooltip="清空" id="btn_clear" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px" >
+                <i class="icon teal trash alternate"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="若本地代码死循环，请点此处终止。慎用！" id="btn_stop" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon red stop"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="小车上运行" id="btn_run_in_car" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon olive forward"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="运行" id="btn_run" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px">
                 <i class="icon green play" id="i_run"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="保存代码" id="btn_save" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon orange save" id="i_run"></i></div>
+            <div class="ui right floated icon basic button" data-tooltip="导入代码" id="btn_import" data-position="bottom right" style="background-color:#3B3E3F;margin-right: 30px">
+                <i class="icon yellow folder open" id="i_run"></i></div>
         </div>
         <textarea id="editor"></textarea>
+    <div class="ui clearing segment" style="margin-top: 0px;background-color: #3B3E3F;border-radius: 0px 0px 0px 0px;height: 22px;padding-top: 0px;margin-bottom: 0px;border-bottom: grey 1px solid">
+        <p class="console">Console:</p>
+    </div>
         <div class="ui clearing segment" style="margin-top: 0px;background-color: #3B3E3F;border-radius: 0px 0px 4px 4px;height: 130px;padding-top: 0px;overflow: auto">
-            <p class="console">Console:</p>
-            <div class="ui divider" style="margin-top: 0px"></div>
-            <p class="result" id ='console'></p>
+            <pre class="result" id ='console'></pre>
         </div>
     </div>
 {% endblock %}
@@ -52,6 +58,7 @@
     <script>
         let CodeURL = {
             'dataCodeRun': '{% url 'car:code_run' %}',
+            'dataCodeOperate': '{% url 'car:code_operate' %}',
         }
     </script>
     <script src="{% static 'plugin/js/codemirror.js' %}"></script>

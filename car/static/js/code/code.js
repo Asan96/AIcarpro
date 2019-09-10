@@ -28,12 +28,12 @@ window.onload = function () {
     })
 };
 $('#btn_clear').click(function () {
-   editor.setValue(initValue)
+    editor.setValue(initValue);
+    $('#console').text('')
 });
 $('#btn_run').click(function () {
+    $('#console').text('正在执行中。。。。。。')
     let code = editor.getValue();//获取经过转义的编辑器文本内容
-    $('#btn_run i').attr('class','icon green redo');
-    $('#btn_stop i').attr('class','icon red stop');
     let params = {
         'code':code,
         'isCar': 0,
@@ -42,9 +42,11 @@ $('#btn_run').click(function () {
     post_code(params)
 
 });
+$('#btn_stop').click(function () {
+    post_code({'type':'stop'})
+});
 $('#btn_run_in_car').click(function () {
     let code = editor.getValue();
-    $('#btn_run_in_car i').attr('class','icon green redo');
     $('#btn_stop i').attr('class','icon red stop');
     let params = {
         'code':code,
@@ -53,7 +55,13 @@ $('#btn_run_in_car').click(function () {
     };
     post_code(params)
 });
-
+$('#btn_import').click(function () {
+    post_operate({'operate':'import'})
+});
+$('#btn_save').click(function () {
+    let code = editor.getValue();
+    post_operate({'operate':'save', 'code':code})
+});
 function post_code(params) {
     $.ajax({
         type : "POST",
@@ -76,6 +84,29 @@ function post_code(params) {
         }
     });
 }
+function post_operate(params) {
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : CodeURL.dataCodeOperate,
+        data : params,
+        success : function(data) {
+            if (data.ret){
+                if(data.type ==='import'){
+                    editor.setValue(data.msg)
+                }
+            }
+            else{
+                alert(data.msg)
+            }
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+}
+
 function print(msg) {
     $('#console').text(msg)
 }
