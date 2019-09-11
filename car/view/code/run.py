@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# coding=utf-8
-# version: Python3
-# please edit your code here:
-while 1:
-	print(1111111111111111111111111)
+import Car
+Car.go_Back(80,3)
+Car.Stop()

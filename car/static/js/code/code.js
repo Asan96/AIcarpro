@@ -46,6 +46,7 @@ $('#btn_stop').click(function () {
     post_code({'type':'stop'})
 });
 $('#btn_run_in_car').click(function () {
+    $('#console').text('正在小车上执行。。。。。。');
     let code = editor.getValue();
     $('#btn_stop i').attr('class','icon red stop');
     let params = {
