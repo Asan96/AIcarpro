@@ -119,7 +119,7 @@ class Video(object):
                 yield bytes_image
 
 
-class MyConsumer(WebsocketConsumer):
+class StreamConsumer(WebsocketConsumer):
 
     def super(self):
         self.scope = 'me'
