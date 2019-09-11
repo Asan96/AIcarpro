@@ -10,8 +10,21 @@ import numpy as np
 import queue
 from car.view.camera.camera import Video
 import os
-import subprocess
+import asyncio
 
-s = subprocess.Popen('python car/view/code/run.py', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-print(11111111111)
-print(11111111111)
+
+async def execute(x):
+    print('Number:', x)
+    return x
+
+
+coroutine = execute(1)
+print('Coroutine:', coroutine)
+print('After calling execute')
+
+loop = asyncio.get_event_loop()
+task = loop.create_task(coroutine)
+print('Task:', task)
+loop.run_until_complete(task)
+print('Task:', task)
+print('After calling loop')
