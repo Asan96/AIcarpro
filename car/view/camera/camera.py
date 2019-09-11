@@ -69,29 +69,16 @@ cam_flag = 0
 
 
 class Video(object):
-    def __init__(self):
+    def __init__(self, type):
         global cam_flag
         self.video_stream = VideoStreaming()
+        self.type = type
 
-    def origin_cam(self):
-        Stream = self.video_stream.streaming()
-        data = Stream.__next__()
-        while data:
-            first = data.find(b'\xff\xd8')
-            last = data.find(b'\xff\xd9')
-            if first != -1 and last != -1:
-                jpg = data[first:last + 2]
-                data = Stream.send(data)
-                if cam_flag:
-                    Stream.send('')
-                    # self.video_stream.close()
-                    break
-                yield jpg
-
-
-    def face_cam(self):
+    def recognize_cam(self):
         Stream = self.video_stream.streaming()
         faceCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_frontalface_alt.xml')
+        eyesCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_eye.xml')
+        type_dic = {'eyes': faceCascade, 'face': faceCascade}
         data = Stream.__next__()
         while data:
             first = data.find(b'\xff\xd8')
@@ -100,22 +87,27 @@ class Video(object):
                 jpg = data[first:last + 2]
                 data = Stream.send(data)
                 image = cv2.imdecode(np.frombuffer(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                faces = faceCascade.detectMultiScale(
-                    gray,
-                    scaleFactor=1.2,
-                    minNeighbors=1,
-                    minSize=(20, 20)
-                )
-                for (x, y, w, h) in faces:
-                    cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                if self.type != 'origin':
+                    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                    squares = type_dic[self.type].detectMultiScale(
+                        gray,
+                        scaleFactor=1.2,
+                        minNeighbors=5,
+                        minSize=(20, 20)
+                    )
+                    for (x, y, w, h) in squares:
+                        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                        if self.type == 'eyes':
+                            face_gray = gray[y:y + h, x:x + w]
+                            face_color = image[y:y + h, x:x + w]
+                            eyes = eyesCascade.detectMultiScale(face_gray, scaleFactor=1.2, minNeighbors=10,)
+                            for (e_x, e_y, e_w, e_h) in eyes:
+                                cv2.rectangle(face_color, (e_x, e_y), (e_x + e_w, e_y + e_h), (0, 255, 0), 2)
                 r, buf = cv2.imencode(".jpg", image)
                 bytes_image = Image.fromarray(np.uint8(buf)).tobytes()
                 if cam_flag:
                     Stream.send('')
-                    # self.video_stream.close()
                     break
-                print(bytes_image)
                 yield bytes_image
 
 
@@ -132,18 +124,15 @@ class StreamConsumer(WebsocketConsumer):
 
     def websocket_receive(self, message):
         global cam_flag
+        text_data = message["text"]
         cam_flag = 1
         time.sleep(2)
         mqtt_send('open_cam')
         time.sleep(3)
-        video = Video()
-        text_data = message["text"]
+        video = Video(text_data)
         print(text_data)
         cam_flag = 0
-        if text_data == 'face_cam':
-            cam = video.face_cam()
-        else:
-            cam = video.origin_cam()
+        cam = video.recognize_cam()
         data = cam.__next__()
         while data:
             self.send_str(data)

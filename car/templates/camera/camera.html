@@ -13,8 +13,8 @@
         #div_camera{
             text-align: center;
             height: 600px;
-            margin-left: 20px;
             width: 75%;
+            padding-top: 60px;
             float:left;
         }
         #target{
@@ -27,14 +27,14 @@
 {% endblock %}
 {% block self_content %}
     <div id ="div_opera" class="ui  vertical menu">
-    <div class="ui divider"></div>
+        <div class="ui divider"></div>
         <h4 class="ui horizontal divider header">
             <i class="camera icon"></i>
             原始画面
         </h4>
         <div class="column" style="text-align: center">
             <div class="ui ignored toggle animation checkbox">
-                <input type="checkbox" name="checkbox" id="camera_switch" />
+                <input type="checkbox" name="checkbox" class="cam_switch" id="origin" value="origin" />
                 <label>开关</label>
             </div>
         </div>
@@ -44,14 +44,24 @@
         </h4>
         <div class="column" style="text-align: center">
             <div class="ui ignored toggle animation checkbox">
-                <input type="checkbox" name="checkbox" id="face_switch" />
+                <input type="checkbox" name="checkbox" class="cam_switch" id="face" value="face" />
+                <label>开关</label>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header">
+            <i class="eye icon"></i>
+            眼睛识别
+        </h4>
+        <div class="column" style="text-align: center">
+            <div class="ui ignored toggle animation checkbox">
+                <input type="checkbox" name="checkbox" class="cam_switch" id="eyes" value="eyes"/>
                 <label>开关</label>
             </div>
         </div>
     </div>
     <div id="div_camera">
         <div class="ui raised padded  container segment" style="width: 700px;height: 550px">
-            <div class="ui top attached label">小车摄像头原画面</div>
+            <div class="ui top attached label">视频画面</div>
             <img id="target" src="/static/plugin/img/cam.jpg" />
         </div>
     </div>

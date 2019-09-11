@@ -36,7 +36,7 @@ $('.btn').click(function () {
 $('#camera_switch').change(function () {
     let cam_switch = $('#camera_switch').prop("checked");
     if (cam_switch){
-        connect('origin_cam')
+        connect('origin')
     }
     else{
         if (last_socket){
