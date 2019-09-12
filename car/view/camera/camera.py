@@ -137,8 +137,8 @@ class StreamConsumer(WebsocketConsumer):
         while data:
             self.send_str(data)
             data = cam.send(data)
-            if not data:
-                self.disconnect()
+            # if not data:
+            #     self.disconnect()
 
     def send_str(self, message):
         self.send(bytes_data=message)
