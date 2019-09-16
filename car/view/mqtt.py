@@ -29,11 +29,11 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    # print("主题:"+msg.topic+" 消息:"+str(msg.payload.decode('utf-8')))
+    print("主题:"+msg.topic+" 消息:"+str(msg.payload.decode('utf-8')))
     msg = msg.payload.decode('utf-8')
     if msg.startswith('voice_recognize'):
         text = msg.split(":")[1]
-        voice_recognize_page(params=json.dumps(text))
+        print(text)
 
 
 client = mqtt.Client('ai_car0001_pc')

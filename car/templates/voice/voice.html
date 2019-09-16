@@ -9,43 +9,59 @@
             height: 300px;
             overflow-y:scroll;
         }
-        input::-ms-input-placeholder {
-            text-align: center;
-        }
-        input::-webkit-input-placeholder {
-            text-align: center;
+        .white_{
+            color: white;
         }
     </style>
     {% block son_css %}
     {% endblock %}
 {% endblock %}
 {% block self_content %}
-{#    <div class="ui container segment contain_size" style="width: 1000px;text-align: center;">#}
-{#        <div class="ui segment segment_width">#}
-{#            <div class="ui  secondary menu">#}
-{#                <a class="item" href="{% url 'car:voice_chat_control_page' %}">#}
-{#                    控制对话#}
-{#                </a>#}
-{#                <a class="item" href="{% url 'car:voice_recognize_page' %}">#}
-{#                    语音识别#}
-{#                </a>#}
-{#                <a class="item" href="{% url 'car:voice_composite_page' %}">#}
-{#                    语音合成#}
-{#                </a>#}
-{#                <a class="item"  href="{% url 'car:voice_text_chat_page' %}">#}
-{#                    文字对话#}
-{#                </a>#}
-{#                <a class="item" href="{% url 'car:voice_audio_play_page' %}">#}
-{#                    录音播放#}
-{#                </a>#}
-{#            </div>#}
-{#        </div>#}
-{#        {% block pannel %}#}
-{#        {% endblock %}#}
-{#    </div>#}
-    <div class="ui container segment" style="width: 600px;text-align: center;background-color: #3B3E3F">
-        <h4 class="ui horizontal divider header">
-            <i class="camera icon"></i>
+    <div class="ui container segment" style="width: 600px;text-align: center;background-color: #3B3E3F;margin-bottom: 0;margin-top: 60px">
+        <div class="ui equal width grid">
+            <div class="column"><h4 class="white_">控制对话</h4></div>
+            <div class="column"><h4 class="white_">语音识别</h4></div>
+            <div class="column"><h4 class="white_">录音播放</h4></div>
+            <div class="equal width row" style="padding-top: 0">
+                <div class="column">
+                    <button class="ui circular orange icon button btn_voice" data-tooltip="语音控制" data-position="bottom center" value="voice_control">
+                        <i class="icon car"></i>
+                    </button>
+                    <button class="ui circular yellow icon button btn_voice" data-tooltip="语音对话" data-position="bottom center" value="voice_chat">
+                        <i class="microphone icon"></i>
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui circular green icon button btnn" id="btn_start_recognize" data-tooltip="开始说话" data-position="bottom center" value="voice_recognize_start">
+                        <i class="play icon"></i>
+                    </button>
+                    <button class="ui circular red icon button btnn" id="btn_stop_recognize" data-tooltip="停止说话" data-position="bottom center" value="voice_recognize_stop">
+                        <i class="stop icon"></i>
+                    </button>
+                </div>
+                <div class="column">
+                    <button class="ui circular green icon button btn_audio" id="btn_start_audio" data-tooltip="开始录音" data-position="bottom center" value="voice_audio_start">
+                        <i class="icon microphone"></i>
+                    </button>
+                    <button class="ui circular red icon button btn_audio" id="btn_stop_audio" data-tooltip="停止录音" data-position="bottom center" value="voice_audio_stop">
+                        <i class="icon microphone slash"></i>
+                    </button>
+                    <button class="ui circular blue icon button btn_audio" id="btn_play_audio" data-tooltip="播放录音" data-position="bottom center" value="voice_audio_play">
+                        <i class="icon music"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header" style="color: white">
+            <i class="audio description icon"></i>
+            语音合成
+        </h4>
+        <div class="ui fluid action input">
+            <input type="text" placeholder="输 入 文 字  小 车 进 行 语 音 合 成 。。。" id="composite_text">
+            <div class="ui green button" id="composite">合成</div>
+        </div>
+        <h4 class="ui horizontal divider header" style="color: white">
+            <i class="language icon"></i>
             文字对话
         </h4>
         <div class="ui attached container segment text_size" id="chat_panel" style="border-bottom: none;border-radius: 5px 5px 0px 0px;">
@@ -55,30 +71,6 @@
             <button class="ui green button" id="send" style="border-radius: 0px 0px 5px 0px;border-top: 1px green solid">发送</button>
         </div>
     </div>
-    <div class="ui container segment" style="width: 600px;text-align: center;background-color: #3B3E3F">
-        <h4 class="ui horizontal divider header">
-            <i class="camera icon"></i>
-            语音合成
-        </h4>
-        <div class="ui fluid action input">
-            <input type="text" placeholder="输 入 文 字  小 车 进 行 语 音 合 成 。。。" id="composite_text">
-            <div class="ui green button" id="composite">合成</div>
-        </div>
-    </div>
-    <div class="ui container segment" style="width: 120px;text-align: center;background-color: #3B3E3F;padding-top: 0">
-        <button class="ui icon button" disabled="disabled" style="background-color: #3B3E3F">
-            <p style="color: white;">语音识别</p>
-        </button>
-        <button class="ui circular green icon button btnn" id="btn_start_recognize" data-tooltip="开始说话" data-position="bottom center" value="voice_recognize_start">
-            <i class="play icon"></i>
-        </button>
-        <button class="ui circular red icon button btnn" id="btn_stop_recognize" data-tooltip="停止说话" data-position="bottom center" value="voice_recognize_stop">
-            <i class="stop icon"></i>
-        </button>
-        <div id="countdown" style="display: none"></div>
-{#        <input type="hidden" value="{{params}}" id="recognize_params">#}
-    </div>
-
 {% endblock %}
 {% block script %}
     <script>
@@ -86,6 +78,8 @@
             'dataTextChat':'{% url 'car:voice_text_chat'%}',
             'dataTextComposite':'{% url 'car:voice_text_composite' %}',
             'dataRecognize':'{% url 'car:voice_recognize'%}',
+            'dataCommand': '{% url 'car:get_command' %}',
+            'dataVoiceAudioPlay':'{% url 'car:voice_audio_play'%}'
         }
     </script>
     <script src="{% static 'js/voice/voice.js' %}"></script>
