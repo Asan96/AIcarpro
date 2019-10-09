@@ -42,7 +42,7 @@ $('#camera_switch').change(function () {
         if (last_socket){
             last_socket.close()
         }
-        $('#target').attr('src', '/static/plugin/img/cam.jpg')
+        $('#target').attr('src', '../static/plugin/img/cam.jpg')
     }
 });
 
