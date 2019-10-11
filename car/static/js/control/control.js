@@ -1,17 +1,35 @@
 $(function () {
-    $('.btn').attr('disabled',true);
     $('#target').attr('src', '/static/plugin/img/cam.jpg')
 });
-$('#car_switch').change(function () {
-    let swit = $('#car_switch').prop("checked")
-    if (swit){
-        $('.btn').attr('disabled',false)
-    }
-    else {
-        $('.btn').attr('disabled',true);
-    }
+$('#btn_connect').click(function () {
+    $('#btn_connect').addClass('loading');
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : PUB_URL.connectDevice,
+        data : {'command':this.value},
+        success : function(data) {
+            if (data.ret){
+                let device = $('#device_state');
+                device.removeClass('red');
+                device.removeClass('green');
+                device.empty();
+                device.append('<i class="rss green icon"></i>\n' +
+                    '                    当前设备在线');
+                alert('连接成功');
+            }
+            else{
+                alert('连接失败');
+                console.log(data.msg)
+            }
+            $('#btn_connect').removeClass('loading');
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
 });
-
 $('.btn').click(function () {
     $.ajax({
         type : "POST",
@@ -30,7 +48,6 @@ $('.btn').click(function () {
             console.log(e.responseText);
         }
     });
-    console.log(this.value)
 });
 
 $('#camera_switch').change(function () {

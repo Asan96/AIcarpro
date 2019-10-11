@@ -10,192 +10,122 @@
             height: 100%;
             border-bottom: 0px;
         }
-
-        .left_div{
-            width: 400px;
-            height: 100%;
-            float: left;
-            overflow: auto;
-        }
-        .right_div{
-            width: 70%;
-            height: 100%;
-            padding-top: 2%;
-            float: left;
-        }
         .text_center{
             text-align: center;
         }
         #target{
             width: 640px;
             height: 480px;
-            border: 2px solid grey;
+            border: none;
         }
     </style>
 {% endblock %}
 {% block self_content %}
-    <div class="left_div">
-        <div class="ui container very padded segment contain_size" style="border-bottom: none">
-            <h4 class="ui horizontal divider header">
-                <i class="wrench icon"></i>
-                操作
-            </h4>
-            <div class="column" style="text-align: center">
-                <div class="ui ignored toggle animation checkbox">
-                    <input type="checkbox" id="car_switch" />
-                    <label>开关</label>
+        <div class="ui container" style="width: 1000px;height: 700px;padding-top: 50px">
+            <div class="ui segment" style="width: 643px;height: 525px;float: left;padding:0;margin-top: 0;border-radius: 5px 0px 0px 5px;border:3px solid teal;border-right:none;">
+                <div class="ui bottom attached label text_center" style="border-radius: 0;margin-top: 0">
+                    <div class="ui ignored toggle animation checkbox">
+                        <label>摄像头开关</label>
+                        <input type="checkbox" id="camera_switch" />
+                    </div>
                 </div>
+                <img id="target" class="ui centered image" />
             </div>
-            <h4 class="ui horizontal divider header">
-                <i class="car icon"></i>
-                行动控制
-            </h4>
-            <div class="ui relaxed grid text_center">
-                <div class="equal width row">
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_stop">
-                            <i class="stop icon"></i>停止
-                        </button>
-                    </div>
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_rotate">
-                            <i class="undo icon"></i>旋转
-                        </button>
+            <div class="ui segment" style="width: 205px;height: 525px;float: left;margin-top: 0;border-radius: 0px 5px 5px 0px;border: 3px solid teal;border-left: none;background-color: #E8E8E8">
+                <h4 class="ui horizontal divider header red" id="device_state">
+                    <i class="rss red icon"></i>
+                    当前设备离线
+                </h4>
+                <h4 class="ui horizontal divider header">
+                    <i class="sign-in green icon"></i>
+                    连接设备
+                </h4>
+                <div class="column" style="text-align: center">
+                    <div class="ui action input">
+                        <input type="text" placeholder="请输入设备号" style="width: 120px;">
+                        <button class="ui compact green button" id="btn_connect">连接</button>
                     </div>
                 </div>
-                <div class="equal width row">
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_forward">
-                            <i class="arrow up icon"></i>前进
-                        </button>
+                <h4 class="ui horizontal divider header">
+                    <i class="car blue icon"></i>
+                    行动控制
+                </h4>
+                <div class="ui relaxed grid text_center" style="padding-left: 30px;padding-right: 30px">
+                    <div class="equal width row">
+                        <div class="column">
+                            <button class="ui circular blue icon button btn" data-tooltip="前进" data-position="bottom center" value="car_forward">
+                                <i class="arrow up icon"></i>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button class="ui circular blue icon button btn" data-tooltip="后退" data-position="bottom center" value="car_backward">
+                                <i class="arrow down icon"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_backward">
-                            <i class="arrow down icon"></i>后退
-                        </button>
+                    <div class="equal width row" style="padding-top: 0;">
+                        <div class="column">
+                            <button class="ui circular blue icon button btn" data-tooltip="左转" data-position="bottom center" value="car_left">
+                                <i class="arrow left icon"></i>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button class="ui circular blue icon button btn" data-tooltip="右转" data-position="bottom center" value="car_right">
+                                <i class="arrow right icon"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="equal width row">
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_left">
-                            <i class="arrow left icon"></i>左转
-                        </button>
-                    </div>
-                    <div class="column">
-                        <button class="ui circular inverted orange button btn" value="car_right">
-                            右转
-                            <i class="arrow right icon"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <h4 class="ui horizontal divider header">
-                <i class="video icon"></i>
-                摄像头控制
-            </h4>
-            <div class="ui relaxed grid text_center">
-                <div class="equal width row">
-                    <div class="column">
-                        <button class="ui  circular inverted green button btn" value="car_cam_right">向左
-                            <i class="arrow right icon"></i>
-                        </button>
-                    </div>
-                    <div class="column">
-                        <button class="ui circular inverted green button btn" value="car_cam_left">
-                            <i class="arrow left icon"></i>向右
-                        </button>
-                    </div>
-                </div>
-                <div class="equal width row">
-                    <div class="column">
-                        <button class="ui circular inverted green button btn" value="car_cam_down">
-                            <i class="arrow down icon"></i>向上
-                        </button>
-                    </div>
-                    <div class="column">
-                        <button class="ui circular inverted green button btn" value="car_cam_up">
-                            <i class="arrow up icon"></i>向下
-                        </button>
+                    <div class="equal width row" style="padding-top: 0;">
+                        <div class="column">
+                            <button class="ui circular green icon button btn" data-tooltip="旋转" data-position="bottom center" value="car_rotate">
+                                <i class="undo icon"></i>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button class="ui circular red icon button btn" data-tooltip="停止" data-position="bottom center" value="car_stop">
+                                <i class="stop icon"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-{#        <h4 class="ui horizontal divider header">#}
-{#            <i class="cog icon"></i>#}
-{#            机械臂控制#}
-{#        </h4>#}
-{#        <div class="ui relaxed grid text_center">#}
-{#            <div class="equal width row">#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_open">#}
-{#                        <i class="arrow left icon"></i>张开#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_close">闭合#}
-{#                        <i class="arrow right icon"></i>#}
-{#                    </button>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="equal width row">#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_forward">#}
-{#                        <i class="arrow up icon"></i>向前#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_backward">#}
-{#                        <i class="arrow down icon"></i>向后#}
-{#                    </button>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="equal width row">#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_up">#}
-{#                        <i class="arrow up icon"></i>向上#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_down">#}
-{#                        <i class="arrow down icon"></i>向下#}
-{#                    </button>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="equal width row">#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_left">#}
-{#                        <i class="arrow left icon"></i>向左#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="column">#}
-{#                    <button class="ui inverted violet button btn" value="car_arm_right">向右#}
-{#                        <i class="arrow right icon"></i>#}
-{#                    </button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-            <h4 class="ui horizontal divider header">
-                <i class="camera icon"></i>
-                摄像头
-            </h4>
-            <div class="column" style="text-align: center">
-                <div class="ui ignored toggle animation checkbox">
-                    <input type="checkbox" id="camera_switch" />
-                    <label>开关</label>
+                <h4 class="ui horizontal divider header">
+                    <i class="video orange icon"></i>
+                    摄像头控制
+                </h4>
+                <div class="ui relaxed grid text_center" style="padding-left: 30px;padding-right: 30px">
+                    <div class="equal width row">
+                        <div class="column">
+                            <button class="ui icon circular orange button btn" value="car_cam_down" data-tooltip="向上" data-position="bottom center" style="border: gainsboro 1px solid">
+                                <i class="arrow up icon"></i>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button class="ui icon circular orange button btn" value="car_cam_up" data-tooltip="向下" data-position="bottom center">
+                                <i class="arrow down icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="equal width row" style="padding-top: 5px">
+                        <div class="column">
+                            <button class="ui icon circular orange button btn" value="car_cam_right" data-tooltip="向左" data-position="bottom center">
+                                <i class="arrow left icon"></i>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <button class="ui icon circular orange button btn" value="car_cam_left" data-tooltip="向右" data-position="bottom center">
+                                <i class="arrow right icon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="right_div">
-        <div class="ui container raised padded segment" style="width: 700px;height: 550px">
-            <div class="ui top attached label text_center "><h4>摄像头画面</h4></div>
-            <img id="target" class="ui centered image"/>
-        </div>
-    </div>
 {% endblock %}
 {% block script %}
     <script>
         let PUB_URL = {
             "dataCommand":"{% url 'car:get_command' %}",
+            "connectDevice":"{% url 'car:connect_device' %}",
         }
     </script>
     <script src="{% static 'js/control/control.js' %}"></script>

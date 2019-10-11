@@ -18,3 +18,10 @@ def control_page(request):
 @csrf_exempt
 def camera_open(request):
     VideoStreaming()
+
+
+@csrf_exempt
+def connect_device(request):
+    result = {'ret': True, 'msg': ''}
+    # result = {'ret': False, 'msg': '连接失败'}
+    return HttpResponse(json.dumps(result), content_type='application/json')
