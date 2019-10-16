@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="{% static 'plugin/img/zksp.ico' %}" type="image/x-icon" />
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/timeTo.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/bootstrap-table.min.css" %}">
     {% block stylesheet %}
     {% endblock %}
     <title>{% block title_name %}主页{% endblock %}</title>
@@ -15,6 +16,10 @@
     #main_menu{
         text-align: center;
         margin-bottom: 0px;
+    }
+    body{
+        min-width:1200px;
+        overflow:auto;//当页面的可视区域的宽度小于页面设置的最小宽度的时候，出现滚动条
     }
 </style>
 {% block css %}
@@ -49,6 +54,7 @@
     <script src="{% static 'js/home.js' %}"></script>
     <script src="{% static 'plugin/js/jquery.time-to.js' %}"></script>
     <script src="{% static 'plugin/js/paigusu.min.js' %}"></script>
+    <script src="{% static 'plugin/js/bootstrap-table.min.js' %}"></script>
 {% endblock %}
 {% block script %}
 {% endblock %}

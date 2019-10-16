@@ -5,11 +5,6 @@
 {% endblock %}
 {% block css %}
     <style>
-        .contain_size{
-            width: 25%;
-            height: 100%;
-            border-bottom: 0px;
-        }
         .text_center{
             text-align: center;
         }
@@ -21,17 +16,23 @@
     </style>
 {% endblock %}
 {% block self_content %}
-        <div class="ui container" style="width: 1000px;height: 700px;padding-top: 50px">
-            <div class="ui segment" style="width: 643px;height: 525px;float: left;padding:0;margin-top: 0;border-radius: 5px 0px 0px 5px;border:3px solid teal;border-right:none;">
+        <div class="ui container" style="width: 1000px;height: 600px;padding-top: 50px;">
+            <div class="ui segment" style="width: 643px;height: 600px;float: left;padding:0;margin-top: 0;margin-bottom:0;border-radius: 5px 0px 0px 5px;border:3px solid teal;border-right:none;">
                 <div class="ui bottom attached label text_center" style="border-radius: 0;margin-top: 0">
                     <div class="ui ignored toggle animation checkbox">
                         <label>摄像头开关</label>
                         <input type="checkbox" id="camera_switch" />
                     </div>
                 </div>
-                <img id="target" class="ui centered image" />
+                <div class="ui attached label text_center" style="border-radius: 0;margin-top: 0">
+                    <div class="ui ignored toggle animation checkbox">
+                        <label>摄像头开关</label>
+                        <input type="checkbox" id="camera_switch" />
+                    </div>
+                </div>
+                <img id="target" class="ui centered image" style="float: bottom" />
             </div>
-            <div class="ui segment" style="width: 205px;height: 525px;float: left;margin-top: 0;border-radius: 0px 5px 5px 0px;border: 3px solid teal;border-left: none;background-color: #E8E8E8">
+            <div class="ui segment" style="width: 205px;height: 600px;float: left;margin-top: 0;margin-bottom:0;border-radius: 0px 5px 5px 0px;border: 3px solid teal;border-left: none;background-color: #E8E8E8;">
                 <h4 class="ui horizontal divider header red" id="device_state">
                     <i class="rss red icon"></i>
                     当前设备离线
@@ -40,11 +41,18 @@
                     <i class="sign-in green icon"></i>
                     连接设备
                 </h4>
-                <div class="column" style="text-align: center">
+                <div class="column" style="text-align: center;margin-bottom: 0;padding-bottom: 0">
                     <div class="ui action input">
                         <input type="text" placeholder="请输入设备号" style="width: 120px;">
                         <button class="ui compact green button" id="btn_connect">连接</button>
                     </div>
+                </div>
+                <h4 class="ui horizontal divider header">
+                    <i class="cog green icon"></i>
+                    wifi配置信息
+                </h4>
+                <div class="column" style="text-align: center">
+                    <button class="ui compact green button" id="btn_connect">查看当前wifi配置</button>
                 </div>
                 <h4 class="ui horizontal divider header">
                     <i class="car blue icon"></i>
@@ -105,7 +113,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="equal width row" style="padding-top: 5px">
+                    <div class="equal width row" style="padding-top: 0px">
                         <div class="column">
                             <button class="ui icon circular orange button btn" value="car_cam_right" data-tooltip="向左" data-position="bottom center">
                                 <i class="arrow left icon"></i>
