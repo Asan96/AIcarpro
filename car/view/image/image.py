@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from tkinter import filedialog
 from PIL import Image, ImageDraw, ImageFont
 from matplotlib import pyplot as plt
+from car.views import get_online_status
 
 import numpy as np
 import cv2
@@ -27,19 +28,23 @@ img_dic = {
 
 
 def image_page(request):
-    return render(request, 'image/image.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'image/image.html', locals())
 
 
 def image_show_page(request):
-    return render(request, 'image/image_show.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'image/image_show.html', locals())
 
 
 def image_draw_page(request):
-    return render(request, 'image/image_draw.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'image/image_draw.html', locals())
 
 
 def image_base_page(request):
-    return render(request, 'image/image_base.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'image/image_base.html', locals())
 
 
 def path_norm(path):

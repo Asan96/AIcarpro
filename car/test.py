@@ -78,7 +78,7 @@ class VideoStreaming(object):
             stream_bytes = b' '
             while True:
                 stream_bytes += self.connection.read(1024)
-                # print(stream_bytes)
+                print(stream_bytes)
                 first = stream_bytes.find(b'\xff\xd8')
                 last = stream_bytes.find(b'\xff\xd9')
                 if first != -1 and last != -1:
@@ -100,4 +100,34 @@ class VideoStreaming(object):
 if __name__ == '__main__':
     # start_stream()
     # start_cam()
-    VideoStreaming().streaming()
+    # VideoStreaming().streaming()
+
+    'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev'+'\n'+'update_config=1'+'\n'+'country=GB'+'\n'+'network={'+'\n'+'ssid=%s'+'\n'+"psk=%s"+'\n'+'key_mgmt=WPA-PSK'+'\n'+'priority=1}' % ('ss', 'ssss')
+    print(str1)
+    """
+    ctrl_interface = DIR = / var / run / wpa_supplicant
+    GROUP = netdev
+    update_config = 1
+    country = GB
+
+    network = {
+        ssid = "%s"
+    psk = "%s"
+    key_mgmt = WPA - PSK
+    priority = 1
+    }
+    """  % ('111', '111111')
+
+    config_str = """
+    ctrl_interface = DIR = / var / run / wpa_supplicant
+    GROUP = netdev
+    update_config = 1
+    country = GB
+
+    network = {
+    ssid = %s
+    psk = %s
+    key_mgmt = WPA - PSK
+    priority = 1
+    }
+    """ % (wifi_name, wifi_pwd)

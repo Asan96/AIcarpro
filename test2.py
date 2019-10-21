@@ -22,6 +22,7 @@ def start_stream():
     cam = cv2.VideoCapture(0)
     cam.set(3, 640)  # set Width
     cam.set(4, 480)  # set Height
+    buffer = b''
     while True:
         ret, img = cam.read()
         if ret:
@@ -29,7 +30,12 @@ def start_stream():
             if re:
                 bytes_image = Image.fromarray(np.uint8(buf)).tobytes()
                 # array转换成二进制
-                # print(bytes_image)
+                # buffer += bytes_image
+                print(buffer[:1024])
+                # connection.write(buffer[:1024])
+                # connection.flush()
+                # buffer = buffer[1024:]
+                print(buffer)
                 image = cv2.imdecode(np.frombuffer(bytes_image, dtype=np.uint8), cv2.IMREAD_COLOR)
                 cv2.imshow('img', image)
                 # detect_face_image = io.BytesIO(bytes_image)

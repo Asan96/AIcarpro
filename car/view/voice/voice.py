@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from car.view.mqtt import mqtt_send
-
+from car.views import get_online_status
 import numpy as np
 import cv2
 import socket
@@ -13,7 +13,8 @@ import json
 
 
 def voice_page(request):
-    return render(request, 'voice/voice.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'voice/voice.html', locals())
 
 
 def voice_text_chat_page(request):

@@ -18,6 +18,7 @@ urlpatterns = [
     # 小车控制
     path(r'control/', control.control_page, name='control'),
     path(r'connect_device/', control.connect_device, name='connect_device'),
+    path(r'set_wifi/', control.set_wifi, name='set_wifi'),
 
     # 语音技术
     path(r'voice/', voice.voice_page, name='voice'),

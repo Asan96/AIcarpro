@@ -5,6 +5,8 @@ from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from channels.generic.websocket import WebsocketConsumer,AsyncWebsocketConsumer
 from car.view.mqtt import mqtt_send
+from car.views import get_online_status
+
 
 import numpy as np
 import cv2
@@ -26,7 +28,8 @@ port = 36660
 
 
 def camera_page(request):
-    return render(request, 'camera/camera.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'camera/camera.html', locals())
 
 
 class VideoStreaming(object):

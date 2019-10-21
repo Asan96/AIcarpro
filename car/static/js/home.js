@@ -1,4 +1,12 @@
 let last_socket;
+let device_state = $('#device_state').val();
+if (device_state ==='online'){
+    $('#device_state_online').show();
+    $('#device_state_outline').hide();
+}else{
+    $('#device_state_online').hide();
+    $('#device_state_outline').show();
+}
 function connect(command){
     console.log(last_socket);
     if (last_socket){

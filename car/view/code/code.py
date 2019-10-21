@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tkinter import filedialog
 from car.view.mqtt import mqtt_send
-
+from car.views import get_online_status
 
 import tkinter as tk
 import time
@@ -20,7 +20,8 @@ q = queue.Queue()
 
 
 def code_page(request):
-    return render(request, 'code/code.html')
+    device_state, device_id = get_online_status()
+    return render(request, 'code/code.html', locals())
 
 
 @csrf_exempt
