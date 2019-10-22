@@ -5,6 +5,7 @@ $('.cam').click(function () {
     }
     if (type=== 'close'){
         $('#target').attr('src', '../static/plugin/img/cam1.jpg')
+        close_client()
     }else{
         connect(type)
     }

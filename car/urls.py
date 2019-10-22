@@ -35,7 +35,7 @@ urlpatterns = [
 
     # 视频处理
     path(r'camera/', camera.camera_page, name='camera'),
-    path(r'camera/close_server/', camera.close_server),
+    path(r'close_camera_client/', camera.close_camera_client, name='close_camera_client'),
 
     # 图像识别
     path(r'image/', image.image_page, name='image'),

@@ -11,6 +11,7 @@ HOST = 'www.3000iot.com'
 PORT = 1883
 USER = 'NBguest'
 PASSWORD = 'NBguest12'
+config_path = os.path.abspath('.')+'\\car\\view\\control\\mqtt_config.txt'
 
 
 def voice_recognize_page(request, params=None):
@@ -35,9 +36,19 @@ def on_message(client, userdata, msg):
     if msg.startswith('voice_recognize'):
         text = msg.split(":")[1]
         print(text)
+    elif msg.startswith('device_ip'):
+        device_ip = msg.split(':')[-1]
+        with open(config_path, 'r+') as f:
+            configStr = f.read()
+            try:
+                configDic = eval(configStr)
+            except Exception as e:
+                print('save device ip error '+str(e))
+            configDic['device_ip'] = device_ip
+            f.seek(0)
+            f.write(str(configDic))
+            f.close()
 
-
-config_path = os.path.abspath('.')+'\\car\\view\\control\\mqtt_config.txt'
 
 connect_flag = 1
 with open(config_path, 'r') as f:
@@ -64,8 +75,11 @@ if device_id and connect_flag:
 
 def mqtt_send(command=None):
     if command and connect_flag:
-        client.publish(server_topic, command, 1)
-        return {'ret': True, 'msg': ''}
+        try:
+            client.publish(server_topic, command, 1)
+            return {'ret': True, 'msg': ''}
+        except Exception as e:
+            return {'ret': False, 'msg': 'error : '+str(e)}
     elif not command:
         return {'ret': True, 'msg': '指令不得为空！'}
     else:

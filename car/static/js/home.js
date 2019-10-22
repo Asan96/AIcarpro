@@ -1,3 +1,10 @@
+// $(function () {
+//     let local_url = window.location.pathname;
+//     console.log(local_url);
+//     if (local_url !== '/contorl/' || local_url !== '/camera/'){
+//         close_client()
+//     }
+// });
 let last_socket;
 let device_state = $('#device_state').val();
 if (device_state ==='online'){
@@ -8,8 +15,8 @@ if (device_state ==='online'){
     $('#device_state_outline').show();
 }
 function connect(command){
-    console.log(last_socket);
     if (last_socket){
+        console.log(last_socket);
         last_socket.close()
     }
     let socket = new WebSocket("ws://"+window.location.host+"/ws/queue/");
@@ -36,6 +43,25 @@ function connect(command){
     };
 
     socket.onerror = function(err) {
-        console.log("Error: " + err);
+        alert("Error: " + err);
     };
+}
+function close_client() {
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : CLOSE_URL.closeCameraClient,
+        data : {},
+        success : function(data) {
+            if (data.ret){
+            }
+            else{
+                console.log(data.msg)
+            }
+        },
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
 }

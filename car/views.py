@@ -11,7 +11,9 @@ config_path = os.path.abspath('.') + '\\car\\view\\control\\mqtt_config.txt'
 def home_page_load(request):
     with open(config_path, 'w+') as f:
         f.truncate()
-        config = {'mqtt_device_id': '', 'device_state': 'outline'}
+        config = {'mqtt_device_id': '',
+                  'device_state': 'outline',
+                  'device_ip': ''}
         f.write(str(config))
         f.close()
     device_flag = 'outline'

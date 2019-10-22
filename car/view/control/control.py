@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from car.view.camera.camera import VideoStreaming
 from car.view.mqtt import mqtt_send
 from car.views import get_online_status
 import numpy as np
@@ -14,14 +13,12 @@ import os
 import json
 
 
+@csrf_exempt
 def control_page(request):
     device_state, device_id = get_online_status()
     return render(request, 'control/control.html', locals())
 
 
-@csrf_exempt
-def camera_open(request):
-    VideoStreaming()
 
 
 mqtt_device_id = ''
@@ -34,7 +31,9 @@ def connect_device(request):
     if device_id:
         with open(config_path, 'w+') as f:
             f.truncate()
-            config = {'mqtt_device_id': device_id, 'device_state': 'online'}
+            config = {'mqtt_device_id': device_id,
+                      'device_state': 'online',
+                      'device_ip': ''}
             f.write(str(config))
             f.close()
         local_ip = socket.gethostbyname(socket.gethostname())

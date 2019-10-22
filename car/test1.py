@@ -12,7 +12,7 @@ class Camera_Connect_Object:
     def __init__(self, D_addr_port=["", 8880]):
         self.resolution = [640, 480]
         self.addr_port = D_addr_port
-        self.src = 888 + 30  # 双方确定传输帧数，（888）为校验值
+        self.src = 888 + 60  # 双方确定传输帧数，（888）为校验值
         self.interval = 0  # 图片播放时间间隔
         self.img_fps = 100  # 每秒传输多少帧数
 
@@ -40,6 +40,7 @@ class Camera_Connect_Object:
                         temp_buf = self.client.recv(buf_size)
                         buf_size -= len(temp_buf)
                         self.buf += temp_buf  # 获取图片
+                        print(self.buf)
                         data = numpy.fromstring(self.buf, dtype='uint8')  # 按uint8转换为图像矩阵
                         self.image = cv2.imdecode(data, 1)  # 图像解码
                         gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
@@ -52,7 +53,7 @@ class Camera_Connect_Object:
                         cv2.destroyAllWindows()
                         break
 
-    def Get_Data(self, interval):
+    def Get_Data(self):
         showThread = threading.Thread(target=self.RT_Image)
         showThread.start()
 
@@ -62,4 +63,4 @@ if __name__ == '__main__':
     camera.addr_port[0] = input("Please input IP:")
     camera.addr_port = tuple(camera.addr_port)
     camera.Socket_Connect()
-    camera.Get_Data(camera.interval)
+    camera.Get_Data()

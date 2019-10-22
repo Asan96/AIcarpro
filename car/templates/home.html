@@ -64,6 +64,11 @@
     <script src="{% static 'plugin/js/jquery.time-to.js' %}"></script>
     <script src="{% static 'plugin/js/paigusu.min.js' %}"></script>
     <script src="{% static 'plugin/js/bootstrap-table.min.js' %}"></script>
+    <script>
+        let CLOSE_URL= {
+            'closeCameraClient':'{% url 'car:close_camera_client' %}'
+        }
+    </script>
 {% endblock %}
 {% block script %}
 {% endblock %}
