@@ -14,7 +14,10 @@ $('#btn_connect').click(function () {
             if (data.ret){
                 $('#device_state_online').show();
                 $('#device_state_outline').hide();
-                alert('连接成功');
+                $('#device_state_online').empty();
+                $('#device_state_online').empty();
+                $('#device_state_online').append('<h4 style="color: green"><i class="rss green icon"></i>设备建立连接 设备号： '+device_id+ '</h4>');
+                alert('建立连接成功');
             }
             else{
                 alert('连接失败');
