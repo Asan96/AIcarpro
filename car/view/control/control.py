@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from car.view.mqtt import mqtt_send
 from car.views import get_online_status
+from car.view import config_path
 import numpy as np
 import cv2
 import socket
@@ -26,7 +27,6 @@ mqtt_device_id = ''
 
 @csrf_exempt
 def connect_device(request):
-    config_path = os.path.abspath('.')+'\\car\\view\\control\\mqtt_config.txt'
     device_id = request.POST.get('device_id', '')
     if device_id:
         with open(config_path, 'w+') as f:

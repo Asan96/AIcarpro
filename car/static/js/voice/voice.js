@@ -90,7 +90,7 @@ $('#btn_start_audio').click(function () {
         captionSize: 14,
         theme:'red'
     });
-    clearTimeout(time_func);
+    // clearTimeout(time_func);
     time_func = setTimeout(btn_show, 30000);
 });
 $('#btn_stop_audio').click(function () {

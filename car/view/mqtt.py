@@ -6,12 +6,12 @@ import os
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from car.view import config_path
 
 HOST = 'www.3000iot.com'
 PORT = 1883
 USER = 'NBguest'
 PASSWORD = 'NBguest12'
-config_path = os.path.abspath('.')+'\\car\\view\\control\\mqtt_config.txt'
 
 
 def voice_recognize_page(request, params=None):
