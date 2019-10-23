@@ -20,28 +20,7 @@ def control_page(request):
     return render(request, 'control/control.html', locals())
 
 
-
-
 mqtt_device_id = ''
-
-
-@csrf_exempt
-def connect_device(request):
-    device_id = request.POST.get('device_id', '')
-    if device_id:
-        with open(config_path, 'w+') as f:
-            f.truncate()
-            config = {'mqtt_device_id': device_id,
-                      'device_state': 'online',
-                      'device_ip': ''}
-            f.write(str(config))
-            f.close()
-        local_ip = socket.gethostbyname(socket.gethostname())
-        mqtt_send('connect:'+local_ip)
-        result = {'ret': True, 'msg': ''}
-    else:
-        result = {'ret': False, 'msg': '请输入设备编号'}
-    return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 @csrf_exempt

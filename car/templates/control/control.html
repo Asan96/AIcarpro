@@ -149,8 +149,8 @@
     <script>
         let PUB_URL = {
             "dataCommand":"{% url 'car:get_command' %}",
-            "connectDevice":"{% url 'car:connect_device' %}",
-            "setWifi":"{% url 'car:set_wifi' %}"
+            "setWifi":"{% url 'car:set_wifi' %}",
+            "connectMqtt":"{% url 'car:connect_mqtt' %}",
         }
     </script>
     <script src="{% static 'js/control/control.js' %}"></script>

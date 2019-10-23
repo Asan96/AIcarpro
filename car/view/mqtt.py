@@ -2,6 +2,7 @@
 # coding=utf-8
 import paho.mqtt.client as mqtt
 import json
+import socket
 import os
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
@@ -50,33 +51,47 @@ def on_message(client, userdata, msg):
             f.close()
 
 
-connect_flag = 1
-with open(config_path, 'r') as f:
-    config_str = f.read()
-    f.close()
-    try:
-        config_dic = eval(config_str)
-        device_id = config_dic['mqtt_device_id']
-    except Exception as e:
-        print('mqtt connect error '+str(e))
-        connect_flag = 0
-if device_id and connect_flag:
-    client_topic = 'aicar_pi' + device_id
-    server_id = 'aicar_pc_pub&sub' + device_id
-    server_topic = 'aicar_pc' + device_id
-    client = mqtt.Client(server_id)
-    client.username_pw_set(USER, PASSWORD)
-    client.on_connect = on_connect
-    client.connect(HOST, PORT, 60)
-    client.on_message = on_message
-    client.subscribe(client_topic)
-    client.loop_start()
+# with open(config_path, 'r') as f:
+#     config_str = f.read()
+#     f.close()
+#     try:
+#         config_dic = eval(config_str)
+#         device_id = config_dic['mqtt_device_id']
+#     except Exception as e:
+#         print('mqtt connect error '+str(e))
+#         connect_flag = 0
+# if device_id and connect_flag:
+#     client_topic = 'aicar_pi' + device_id
+#     server_topic = 'aicar_pc' + device_id
+#     client = mqtt.Client()
+#     client.username_pw_set(USER, PASSWORD)
+#     client.on_connect = on_connect
+#     client.connect(HOST, PORT, 60)
+#     client.on_message = on_message
+#     client.subscribe(client_topic)
+#     client.loop_start()
+client = mqtt.Client()
+client.username_pw_set(USER, PASSWORD)
+client.on_connect = on_connect
+client.connect(HOST, PORT, 60)
+client.on_message = on_message
+client.loop_start()
+server_topic = None
+client_topic = None
 
 
 def mqtt_send(command=None):
-    if command and connect_flag:
+    global server_topic
+    device_id = None
+    with open(config_path, 'r+') as f:
+        config_str = f.read()
+        config_dic = eval(config_str)
+        device_id = config_dic['mqtt_device_id']
+    if command and device_id:
         try:
+            server_topic = 'aicar_pc' + device_id
             client.publish(server_topic, command, 1)
+            print('server_topic: '+str(server_topic))
             return {'ret': True, 'msg': ''}
         except Exception as e:
             return {'ret': False, 'msg': 'error : '+str(e)}
@@ -84,6 +99,26 @@ def mqtt_send(command=None):
         return {'ret': True, 'msg': '指令不得为空！'}
     else:
         return {'ret': False, 'msg': '请先连接设备！！！'}
+
+
+@csrf_exempt
+def connect_mqtt(request):
+    device_id = request.POST.get('device_id', '')
+    if device_id:
+        client_topic = 'aicar_pi' + device_id
+        with open(config_path, 'w+') as f:
+            f.truncate()
+            config = {'mqtt_device_id': device_id,
+                      'device_state': 'online',
+                      'device_ip': ''}
+            f.write(str(config))
+            f.close()
+        client.subscribe(client_topic)
+        local_ip = socket.gethostbyname(socket.gethostname())
+        mqtt_send('connect:' + local_ip)
+        return HttpResponse(json.dumps({'ret': True, 'msg': '连接成功！设备号： '+device_id}), content_type='application/json')
+    return HttpResponse(json.dumps({'ret': False, 'msg': '连接失败！'}), content_type='application/json')
+
 
 
 

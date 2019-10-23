@@ -8,7 +8,7 @@ $('#btn_connect').click(function () {
         $.ajax({
         type : "POST",
         dataType: "json",
-        url : PUB_URL.connectDevice,
+        url : PUB_URL.connectMqtt,
         data : {'device_id':device_id},
         success : function(data) {
             if (data.ret){

@@ -17,7 +17,6 @@ urlpatterns = [
 
     # 小车控制
     path(r'control/', control.control_page, name='control'),
-    path(r'connect_device/', control.connect_device, name='connect_device'),
     path(r'set_wifi/', control.set_wifi, name='set_wifi'),
 
     # 语音技术
@@ -55,5 +54,6 @@ urlpatterns = [
 
     # mqtt
     path(r'get_command', mqtt.get_command, name='get_command'),
+    path(r'connect_mqtt', mqtt.connect_mqtt, name='connect_mqtt'),
 
 ]
