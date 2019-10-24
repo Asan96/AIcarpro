@@ -17,24 +17,8 @@ $('#send').click(function () {
             '<p style="float: right">'+year+'-'+mon+'-'+date+' '+h+':'+m+'</p>' +
             '<pre style="font-size: 14px;font-family: 微软雅黑">'+word+'</pre>' +
             '</div>');
-        $.ajax({
-            type : "POST",
-            dataType: "json",
-            url : Voice_URL.dataTextChat,
-            data : {'word':word},
-            success : function(data) {
-                if (data.ret){
-                    console.log(data.msg)
-                }
-                else{
-                    console.log(data.msg)
-                }
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        });
+        let textChatCommand = 'voice_text_chat:'+word;
+        mqtt_send(textChatCommand);
     }
     else{
         alert('输入字数限二十字以内！')
@@ -46,24 +30,11 @@ $('#send').click(function () {
 $('#composite').click(function () {
     let text = $('#composite_text').val();
     if (text.length<=200 && text.length >0){
-        $.ajax({
-            type : "POST",
-            dataType: "json",
-            url : Voice_URL.dataTextComposite,
-            data : {'text':text},
-            success : function(data) {
-                if (data.ret){
-                    $('#composite_text').val('');
-                }
-                else{
-                    console.log(data.msg)
-                }
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        });
+        let textCompositeCommand = 'voice_text_composite:'+text;
+        let result = mqtt_send(textCompositeCommand);
+        if (result){
+            $('#composite_text').val('');
+        }
     }else {
         alert('字数限制在二百字以内！')
     }
@@ -113,49 +84,15 @@ $('#btn_stop_audio').click(function () {
 //     $('#countdown').hide()
 // });
 $('.btn_audio').click(function () {
-    $.ajax(
-        {
-            type : "POST",
-            dataType: "json",
-            url : Voice_URL.dataVoiceAudioPlay,
-            data : {'operate':this.value},
-            success : function(data) {
-                if (data.ret){
-                }
-                else{
-                    console.log(data.msg)
-                }
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        }
-    )
+    let voiceAudioPlayCommand = this.value;
+    mqtt_send(voiceAudioPlayCommand)
+
 });
 /**
  * 控制对话
  **/
 $('.btn_voice').click(function () {
-    $.ajax(
-        {
-            type : "POST",
-            dataType: "json",
-            url : Voice_URL.dataCommand,
-            data : {'command':this.value},
-            success : function(data) {
-                if (data.ret){
-                }
-                else{
-                    console.log(data.msg)
-                }
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        }
-    )
+    mqtt_send(this.value);
 });
 
 /**
@@ -186,25 +123,6 @@ $('#btn_start_recognize').click(function () {
 $('#btn_stop_recognize').click(function () {
     btn_recognize_show()
 });
-
 $('.btnn').click(function () {
-    let param = this.value;
-    $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : Voice_URL.dataRecognize,
-        data : {'operate':param},
-        success : function(data) {
-            if (data.ret){
-            }
-            else{
-                console.log(data.msg)
-            }
-        },
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
-        }
-    });
-    }
-);
+    mqtt_send(this.value);
+});

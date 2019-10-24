@@ -15,11 +15,6 @@ USER = 'NBguest'
 PASSWORD = 'NBguest12'
 
 
-def voice_recognize_page(request, params=None):
-    if params:
-        return render(request, 'voice/voice_recognize.html', json.dumps(params))
-
-
 @csrf_exempt
 def get_command(request):
     command = request.POST.get('command')
@@ -90,8 +85,8 @@ def mqtt_send(command=None):
     if command and device_id:
         try:
             server_topic = 'aicar_pc' + device_id
+            print('topic: ' +server_topic+' command: '+command)
             client.publish(server_topic, command, 1)
-            print('server_topic: '+str(server_topic))
             return {'ret': True, 'msg': ''}
         except Exception as e:
             return {'ret': False, 'msg': 'error : '+str(e)}

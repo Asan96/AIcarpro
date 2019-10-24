@@ -65,8 +65,9 @@
     <script src="{% static 'plugin/js/paigusu.min.js' %}"></script>
     <script src="{% static 'plugin/js/bootstrap-table.min.js' %}"></script>
     <script>
-        let CLOSE_URL= {
-            'closeCameraClient':'{% url 'car:close_camera_client' %}'
+        let SHARE_URL= {
+            'closeCameraClient':'{% url 'car:close_camera_client' %}',
+            "dataCommand":"{% url 'car:get_command' %}",
         }
     </script>
 {% endblock %}

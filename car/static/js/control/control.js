@@ -1,5 +1,16 @@
 $(function () {
     $('#target').attr('src', '/static/plugin/img/cam.jpg')
+    //页面键盘点击时触发
+    $(window).keydown(function(e){
+        let curKey = e.which;
+        let keyDic = { 65: 'car_left', 87 :'car_forward', 68:'car_right',83:'car_backward', 81:'car_stop',69:'car_rotate'};
+        if(keyDic.hasOwnProperty(curKey)){
+            console.log(keyDic[curKey]);
+            mqtt_send(keyDic[curKey]);
+        }
+    })
+
+
 });
 $('#btn_connect').click(function () {
     $('#btn_connect').addClass('loading');
@@ -12,11 +23,11 @@ $('#btn_connect').click(function () {
         data : {'device_id':device_id},
         success : function(data) {
             if (data.ret){
-                $('#device_state_online').show();
+                let online = $('#device_state_online');
+                online.show();
                 $('#device_state_outline').hide();
-                $('#device_state_online').empty();
-                $('#device_state_online').empty();
-                $('#device_state_online').append('<h4 style="color: green"><i class="rss green icon"></i>设备建立连接 设备号： '+device_id+ '</h4>');
+                online.empty();
+                online.append('<h4 style="color: green"><i class="rss green icon"></i>设备建立连接 设备号： '+device_id+ '</h4>');
                 alert('建立连接成功!设备号'+device_id);
             }
             else{
@@ -37,23 +48,8 @@ $('#btn_connect').click(function () {
 
 });
 $('.btn').click(function () {
-    $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : PUB_URL.dataCommand,
-        data : {'command':this.value},
-        success : function(data) {
-            if (data.ret){
-            }
-            else{
-                console.log(data.msg)
-            }
-        },
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
-        }
-    });
+    console.log(this.value);
+    mqtt_send(this.value);
 });
 
 $('#camera_switch').change(function () {
@@ -65,9 +61,19 @@ $('#camera_switch').change(function () {
         if (last_socket){
             last_socket.close()
         }
-        close_client()
+        close_client();
         $('#target').attr('src', '../static/plugin/img/cam.jpg')
     }
+});
+$('#travel_switch').change(function () {
+    let travel_switch = $('#travel_switch').prop("checked");
+    let travel_cmd;
+    if (travel_switch){
+        travel_cmd = 'travel_on'
+    }else{
+        travel_cmd = 'travel_off'
+    }
+    mqtt_send(travel_cmd)
 });
 $('#wifi_settings').click(function () {
     $('.ui.modal').modal('show');
@@ -92,6 +98,6 @@ $('#wifi_settings').click(function () {
                 console.log(e.responseText);
             }
         });
-    })
+    });
     $('.wifi').val('');
 });

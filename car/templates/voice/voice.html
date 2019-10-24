@@ -73,14 +73,5 @@
     </div>
 {% endblock %}
 {% block script %}
-    <script>
-        let Voice_URL = {
-            'dataTextChat':'{% url 'car:voice_text_chat'%}',
-            'dataTextComposite':'{% url 'car:voice_text_composite' %}',
-            'dataRecognize':'{% url 'car:voice_recognize'%}',
-            'dataCommand': '{% url 'car:get_command' %}',
-            'dataVoiceAudioPlay':'{% url 'car:voice_audio_play'%}'
-        }
-    </script>
     <script src="{% static 'js/voice/voice.js' %}"></script>
 {% endblock %}

@@ -50,7 +50,7 @@ function close_client() {
     $.ajax({
         type : "POST",
         dataType: "json",
-        url : CLOSE_URL.closeCameraClient,
+        url : SHARE_URL.closeCameraClient,
         data : {},
         success : function(data) {
             if (data.ret){
@@ -64,4 +64,28 @@ function close_client() {
                 console.log(e.responseText);
             }
         });
+}
+function mqtt_send(command){
+    let result = false;
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : SHARE_URL.dataCommand,
+        data : {'command': command},
+        success : function(data) {
+            if (data.ret){
+                result = true
+            }
+            else{
+                alert(data.msg);
+                result = false
+            }
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+            result = false
+        }
+    });
+    return result
 }
