@@ -32,6 +32,11 @@ def image_page(request):
     return render(request, 'image/image.html', locals())
 
 
+def img_home_page(request):
+    device_state, device_id = get_online_status()
+    return render(request, 'image/image_home.html', locals())
+
+
 def image_show_page(request):
     device_state, device_id = get_online_status()
     return render(request, 'image/image_show.html', locals())
