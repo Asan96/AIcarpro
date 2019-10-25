@@ -14,16 +14,14 @@
             border: none;
         }
         .explain{
-            padding-top: 10px;
-            margin:0;color:darkred;
             font-size: 15px;
-            font-family: "微软雅黑";
+            font-family: 微软雅黑;
         }
     </style>
 {% endblock %}
 {% block self_content %}
     <div class="ui container" style="width: 1000px;height: 600px;padding-top: 50px;">
-        <div class="ui segment" style="width: 643px;height: 670px;float: left;padding:0;margin-top: 0;margin-bottom:0;border-radius: 5px 0px 0px 5px;border:3px solid teal;border-right:none;">
+        <div class="ui segment" style="width: 643px;height: 675px;float: left;padding:0;margin-top: 0;margin-bottom:0;border-radius: 5px 0px 0px 5px;border:3px solid teal;border-right:none;">
             <div class="column" style="text-align: center;height: 38px;background-color: #E8E8E8">
                 <h3 style="padding-top: 6px;color:teal">小 车 摄 像 头 原 始 画 面</h3>
             </div>
@@ -40,13 +38,24 @@
                     <label> 开 关 </label>
                 </div>
             </div>
-            <div class="column" style="text-align:center;height: 106px;background-color: #E8E8E8;padding-top:0px;padding-right: 10px">
-                <p class="explain">注意：小车需先连接设备，设备号见车身标签，连接设备后才可对小车进行操作。</p>
-                <p class="explain">指向按钮，出现操作提示。打开键盘控制，可使用键盘控制小车行动、调整摄像头云台角度。</p>
-                <p class="explain">打开循迹，小车将按照指定轨迹行进。打开摄像头，显示小车捕捉到的实时画面。</p>
+            <div class="column" style="height: 111px;background-color: #E8E8E8;padding-top:0;">
+                <div class="ui divided selection list">
+                    <a class="item explain">
+                        <div class="ui red horizontal label">注 意</div>
+                        小车需先连接设备，设备号见车身标签，连接设备后才可对小车进行操作。
+                    </a>
+                    <a class="item explain">
+                        <div class="ui orange horizontal label">注 意</div>
+                        鼠标指向按钮，会出现操作提示。打开键盘控制，控制小车行动。
+                    </a>
+                    <a class="item explain">
+                        <div class="ui yellow horizontal label">注 意</div>
+                        打开摄像头，显示小车捕捉到的实时画面。
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="ui segment" style="width: 240px;height: 670px;float: left;margin-top: 0;margin-bottom:0;border-radius: 0px 5px 5px 0px;border: 3px solid teal;border-left: none;background-color: #E8E8E8;">
+        <div class="ui segment" style="width: 240px;height: 675px;float: left;margin-top: 0;margin-bottom:0;border-radius: 0px 5px 5px 0px;border: 3px solid teal;border-left: none;background-color: #E8E8E8;">
             <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="sign-in green icon"></i>
                 连接设备
@@ -66,16 +75,6 @@
                 </button>
             </div>
             <h4 class="ui horizontal divider header" style="margin: 13px">
-                <i class="keyboard outline icon"></i>
-                键盘控制
-            </h4>
-            <div class="column" style="text-align: center">
-                <div class="ui toggle checkbox">
-                    <input type="checkbox" id="keyboard_switch" />
-                    <label>O F F / O N</label>
-                </div>
-            </div>
-            <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="retweet orange icon"></i>
                 循迹
             </h4>
@@ -86,42 +85,52 @@
                 </div>
             </div>
             <h4 class="ui horizontal divider header" style="margin: 13px">
+                <i class="keyboard outline icon"></i>
+                键盘控制
+            </h4>
+            <div class="column" style="text-align: center">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" id="keyboard_switch" />
+                    <label>O F F / O N</label>
+                </div>
+            </div>
+            <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="car blue icon"></i>
                 行动控制
             </h4>
             <div class="ui relaxed grid text_center" style="padding-left: 30px;padding-right: 30px">
                 <div class="equal width row">
                     <div class="column">
-                        <button class="ui circular blue icon button btn" data-tooltip="前进" data-position="bottom center" value="car_forward">
+                        <button class="ui circular blue icon button btn" data-tooltip="前进 （W）" data-position="bottom center" value="car_forward">
                             <i class="arrow up icon"></i>
                         </button>
                     </div>
                     <div class="column">
-                        <button class="ui circular blue icon button btn" data-tooltip="后退" data-position="bottom center" value="car_backward">
+                        <button class="ui circular blue icon button btn" data-tooltip="后退 （S）" data-position="bottom center" value="car_backward">
                             <i class="arrow down icon"></i>
                         </button>
                     </div>
                 </div>
                 <div class="equal width row" style="padding-top: 0;">
                     <div class="column">
-                        <button class="ui circular blue icon button btn" data-tooltip="左转" data-position="bottom center" value="car_left">
+                        <button class="ui circular blue icon button btn" data-tooltip="左转 （A）" data-position="bottom center" value="car_right">
                             <i class="arrow left icon"></i>
                         </button>
                     </div>
                     <div class="column">
-                        <button class="ui circular blue icon button btn" data-tooltip="右转" data-position="bottom center" value="car_right">
+                        <button class="ui circular blue icon button btn" data-tooltip="右转 （D）" data-position="bottom center" value="car_left">
                             <i class="arrow right icon"></i>
                         </button>
                     </div>
                 </div>
                 <div class="equal width row" style="padding-top: 0;">
                     <div class="column">
-                        <button class="ui circular green icon button btn" data-tooltip="旋转" data-position="bottom center" value="car_rotate">
+                        <button class="ui circular green icon button btn" data-tooltip="旋转 （Q）" data-position="bottom center" value="car_rotate">
                             <i class="undo icon"></i>
                         </button>
                     </div>
                     <div class="column">
-                        <button class="ui circular red icon button btn" data-tooltip="停止" data-position="bottom center" value="car_stop">
+                        <button class="ui circular red icon button btn" data-tooltip="停止 （E）" data-position="bottom center" value="car_stop">
                             <i class="stop icon"></i>
                         </button>
                     </div>

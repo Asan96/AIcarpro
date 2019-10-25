@@ -1,16 +1,25 @@
+let key = 0;
 $(function () {
-    $('#target').attr('src', '/static/plugin/img/cam.jpg')
+    $('#target').attr('src', '/static/plugin/img/cam.jpg');
     //页面键盘点击时触发
     $(window).keydown(function(e){
         let curKey = e.which;
-        let keyDic = { 65: 'car_left', 87 :'car_forward', 68:'car_right',83:'car_backward', 81:'car_stop',69:'car_rotate'};
-        if(keyDic.hasOwnProperty(curKey)){
+        let keyDic = { 65: 'car_right', 87 :'car_forward', 68:'car_left',83:'car_backward', 69:'car_stop',81:'car_rotate'};
+        if(keyDic.hasOwnProperty(curKey) && key){
             console.log(keyDic[curKey]);
             mqtt_send(keyDic[curKey]);
         }
     })
-
-
+});
+$('#keyboard_switch').change(function () {
+    let keyboard_switch = $('#keyboard_switch').prop("checked");
+    console.log(keyboard_switch);
+    if(keyboard_switch){
+        key = 1;
+    }else{
+        key = 0;
+        mqtt_send('car_stop');
+    }
 });
 $('#btn_connect').click(function () {
     $('#btn_connect').addClass('loading');
