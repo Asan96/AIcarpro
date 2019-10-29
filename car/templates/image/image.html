@@ -23,8 +23,6 @@
             height: 100%;
             float: right;
             background-color: whitesmoke;
-            padding-top: 50px;
-            text-align: center;
             overflow:auto;
         }
     </style>
@@ -48,16 +46,18 @@
         </div>
         <div class="right_div">
             {% block image_panel %}
-                <h2 class="header">
-                    请选择一张图片或者使用示例图片
-                </h2>
-                <div class="ui circular green button"  data-tooltip="请选择jpg、jpeg或png格式图片" data-position="bottom center" id="btn_open_file">
-                    <i class="folder open icon"></i>打开图片
+                <div style="width: 100%;height: 100%;text-align: center;">
+                    <h2 class="header" style="padding-top: 50px">
+                        请选择一张图片或者使用示例图片
+                    </h2>
+                    <div class="ui circular green button"  data-tooltip="请选择jpg、jpeg或png格式图片" data-position="bottom center" id="btn_open_file">
+                        <i class="folder open icon"></i>打开图片
+                    </div>
+                    <div class="ui divider"></div>
+                    <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
+                    {% block image_content %}
+                    {% endblock %}
                 </div>
-                <div class="ui divider"></div>
-                <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
-                {% block image_content %}
-                {% endblock %}
             {% endblock %}
         </div>
     </div>

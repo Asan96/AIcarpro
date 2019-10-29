@@ -3,13 +3,101 @@
 {% block title_name %}
     图像处理首页
 {% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .pnorm{
+            font-size: 16px;
+            line-height: 30px;
+            text-indent:2em;
+        }
+        .text_center{
+            text-align: center;
+        }
+        .lab{
+            padding-left: 10px;
+            font-size: medium;
+            font-family: 微软雅黑;
+        }
+        .lab_title{
+            padding-left: 100px;
+            font-size: medium;
+            font-family: 微软雅黑;
+        }
+    </style>
+{% endblock %}
 {% block image_panel %}
-    <pre style="font-size: 16px;font-family: 微软雅黑;">OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，
-        可以运行在Linux、Windows、Android和Mac OS操作系统上。
-        它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，
-        实现了图像处理和计算机视觉方面的很多通用算法。
-OpenCV用C++语言编写，它的主要接口也是C++语言，但是依然保留了大量的C语言接口。
-        该库也有大量的Python、Java and MATLAB/OCTAVE（版本2.5）的接口。
-        这些语言的API接口函数可以通过在线文档获得。如今也提供对于C#、Ch、Ruby,GO的支持。
-所有新的开发和算法都是用C++接口。一个使用CUDA的GPU接口也于2010年9月开始实现。</pre>
+    <div style="width: 100%;height: 100%;padding-top: 30px">
+        <div class="ui items" style="padding-left: 30px;padding-right: 30px">
+            <div class="ui item">
+                <div class="middle aligned content">
+                    <div class="header text_center"><a class="ui red large tag label">什么是计算机视觉？</a></div>
+                    <div class="description">
+                        <p class="pnorm">计算机视觉是使用计算机及相关 设备对生物视觉的一种模拟。它的主要任务就是通过对采集的图片或视频进行处
+                            理以获得相应场景的三维信息， 就像人类和许多其他类生物每天所做的那样。</p>
+                        <p class="pnorm">计算机视觉是一门关于如何运用照相机和计算机来获取我们所需的，被拍摄对象的数据与信息的学问。形象地说，
+                            就是给计算机安装上眼睛（照相机）和大脑（算法），让计算机能够感知环境。我们中国人的成语"眼见为实"和西方人常说的"One
+                            picture is worth ten thousand words"表达了视觉对人类的重要性。不难想象，具有视觉的机器的应用前景能有多么地宽广。</p>
+                        <p class="pnorm">计算机视觉既是工程领域，也是科学领域中的一个富有挑战性重要研究领域。计算机视觉是一门综合性的学科，
+                            它已经吸引了来自各个学科的研究者参加到对它的研究之中。其中包括计算机科学和工程、信号处理、物理学、应用数学和统计学，
+                            神经生理学和认知科学等。</p>
+                    </div>
+                </div>
+{#                <div class="ui medium image" style="float: right">#}
+{#                    <img src="{% static '' %}">#}
+{#                </div>#}
+            </div>
+            <div class="ui item">
+                <div class="middle aligned content">
+                    <div class="header text_center"><a class="ui red large tag label">OpenCV简 介</a></div>
+                    <div class="description">
+                        <p class="pnorm"><a href="https://opencv.org" target="_blank">OpenCV</a>是一个基于<a href="https://baike.baidu.com/item/BSD" target="_blank">BSD</a>
+                            许可（开源）发行的跨平台计算机视觉库，用C++语言编写，它的主要接口也是C++语言
+                            ，但是依然保留了大量的C语言接口。该库也有大量的Python、Java 的接口，轻量高效地实现了图像处理和计算机视觉方面的很多通用算法，
+                            如今也提供对于C#、Ruby、GO等支持。</p>
+                        <p class="pnorm">OpenCV提供的视觉处理算法非常丰富，并且它部分以C语言编写，加上其开源的特性，处理得当，
+                            不需要添加新的外部支持也可以完整的编译链接生成执行程序，
+                            所以很多人用它来做算法的移植，OpenCV的代码经过适当改写可以正常的运行在DSP系统和ARM嵌入式系统中。</p>
+                    </div>
+                </div>
+                <div class="ui small image" style="float: right;padding-top: 30px">
+                    <img src="{% static 'plugin/img/opencv-logo.jpg' %}">
+                </div>
+            </div>
+            <div class="ui divider"></div>
+            <div class="item">
+                <div class="content">
+                    <div class="header"><a class="ui red large tag label">优 势</a></div>
+                    <div class="description">
+                        <p class="pnorm">计算机视觉市场巨大而且持续增长，且这方面没有标准API，如今的计算机视觉软件大概有以下三种：</p>
+                        <p class="pnorm">1、研究代码（慢，不稳定，独立并与其他库不兼容）</p>
+                        <p class="pnorm">2、耗费很高的商业化工具（比如Halcon, MATLAB+Simulink）</p>
+                        <p class="pnorm">3、依赖硬件的一些特别的解决方案（比如视频监控，制造控制系统，医疗设备）这是如今的现状，
+                            而标准的API将简化计算机视觉程序和解决方案的开发，OpenCV致力于成为这样的标准API。</p>
+                        <p class="pnorm">OpenCV致力于真实世界的实时应用，通过优化的C代码的编写对其执行速度带来了可观的提升，
+                            并且可以通过购买Intel的IPP高性能多媒体函数库（Integrated Performance Primitives）得到更快的处理速度。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ui divider"></div>
+            <div class="item">
+                <div class="content">
+                    <div class="header"><a class="ui red large tag label">应用领域</a></div>
+                    <div class="description">
+                        <label class="lab"><a href="https://baike.baidu.com/item/人机互动" target="_blank">人机互动</a></label>
+                        <label class="lab"><a href="https://baike.baidu.com/item/物体检测" target="_blank">物体检测</a></label>
+                        <label class="lab"><a href="https://baike.baidu.com/item/图像分割" target="_blank">图像分割</a></label>
+                        <label class="lab"><a href="https://baike.baidu.com/item/人脸识别" target="_blank">人脸识别</a></label>
+                        <label class="lab">动作识别</label>
+                        <label class="lab"><a href="https://baike.baidu.com/item/运动捕捉" target="_blank">运动捕捉</a></label>
+                        <label class="lab">机器人</label>
+                        <label class="lab">运动分析</label>
+                        <label class="lab">机器视觉</label>
+                        <label class="lab">结构分析</label>
+                        <label class="lab">汽车安全驾驶</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
