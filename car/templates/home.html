@@ -39,18 +39,27 @@
             <i class="large image icon"></i>图像处理
         </a>
         <a href="{% url 'car:camera' %}" class="item">
-            <i class="large video icon"></i>视频识别
+            <i class="large camera retro icon"></i>视频识别
         </a>
         <a href="{% url 'car:code' %}" class="item">
             <i class="large keyboard icon"></i>代码编辑
         </a>
-        <div class="ui item" id="device_state_outline">
-            <h4 style="color: red">
-            <i class="rss red icon"></i>设备未建立连接</h4>
+        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item">Python基础</a>
+                <a class="item">OpenCV</a>
+                <a class="item">机器学习</a>
+            </div>
         </div>
-        <div class="ui item" id="device_state_online" style="display: none">
-            <h4 style="color: green">
-                <i class="rss green icon"></i>设备建立连接 设备号： {{ device_id }}</h4>
+        <div class="right menu">
+            <div class="ui item" id="device_state_outline">
+                <h4 style="color: red">
+                    <i class="rss red icon"></i>设备未建立连接</h4>
+            </div>
+            <div class="ui item" id="device_state_online" style="display: none">
+                <h4 style="color: green">
+                    <i class="rss green icon"></i>设备建立连接 设备号： {{ device_id }}</h4>
+            </div>
         </div>
     </div>
 </div>
