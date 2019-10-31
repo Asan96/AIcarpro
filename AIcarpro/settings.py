@@ -79,6 +79,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
+    #     'NAME': 'aicar',         # 库名
+    #     'USER': 'root',         # 数据库用户名
+    #     'PASSWORD': '1234',     # 密码
+    #     'HOST': 'localhost',    # 主机
+    #     'PORT': '3306',         # 端口
+    # }
 }
 
 

@@ -8,6 +8,7 @@ from car.view.camera import camera
 from car.view.image import image
 from car.view.code import code
 from car.view import mqtt
+from car.view.api import ML, opencv, py3
 
 app_name = 'car'
 
@@ -29,11 +30,11 @@ urlpatterns = [
 
     # 图像识别
     path(r'image/', image.image_page, name='image'),
-    path(r'image_home/', image.img_home_page, name='img_home'),
+    path(r'image/home/', image.img_home_page, name='img_home'),
     path(r'open_image_file/', image.open_image_file, name='open_image_file'),
-    path(r'show_image/', image.image_show_page, name='image_show_page'),
-    path(r'draw_image/', image.image_draw_page, name='image_draw_page'),
-    path(r'base_image/', image.image_base_page, name='image_base_page'),
+    path(r'image/show/', image.image_show_page, name='image_show_page'),
+    path(r'image/draw/', image.image_draw_page, name='image_draw_page'),
+    path(r'image/base/', image.image_base_page, name='image_base_page'),
     path(r'image_show/', image.image_show, name='image_show'),
     path(r'image_draw/', image.image_draw, name='image_draw'),
     path(r'image_base/', image.image_base, name='image_base'),
@@ -48,4 +49,8 @@ urlpatterns = [
     path(r'get_command', mqtt.get_command, name='get_command'),
     path(r'connect_mqtt', mqtt.connect_mqtt, name='connect_mqtt'),
 
+    # api
+    path(r'api/ML/home', ML.ML_home, name='ML_home'),
+    path(r'api/py3/home', py3.py3_home, name='py3_home'),
+    path(r'api/opencv/home', opencv.opencv_home, name='opencv_home'),
 ]
