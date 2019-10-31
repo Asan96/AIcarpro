@@ -13,4 +13,4 @@ import json
 
 
 def py3_home(request):
-    return render(request, 'api/py3/py3_home.html')
+    return render(request, 'api/py3/py3.html')

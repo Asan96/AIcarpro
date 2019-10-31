@@ -13,4 +13,4 @@ import json
 
 
 def ML_home(request):
-    return render(request, 'api/ML/ML_home.html')
+    return render(request, 'api/ML/ML.html')

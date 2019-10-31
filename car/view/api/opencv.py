@@ -13,4 +13,4 @@ import json
 
 
 def opencv_home(request):
-    return render(request, 'api/opencv/opencv_home.html')
+    return render(request, 'api/opencv/opencv.html')

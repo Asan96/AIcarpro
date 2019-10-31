@@ -15,7 +15,6 @@
             height: 100%;
             float: left;
             border-right: 1px solid grey;
-            overflow:auto;
             background-color: skyblue;
         }
         .right_div{
@@ -28,9 +27,9 @@
     </style>
 {% endblock %}
 {% block self_content %}
-    <div class="ui segment container" style="width: 1200px;height: 100%;padding:0;margin-top: 50px;border: 2px solid teal">
+    <div class="ui segment container" style="width: 1200px;height: 970px;padding:0;margin-top: 50px;border: 2px solid teal">
         <div class="ui left_div">
-            <div class="ui fluid vertical menu left_div" style="height: 100%;background-color: lightskyblue">
+            <div class="ui fluid vertical menu left_div" style="height: 100%;background-color: lightblue">
                 <a class="item" href="{% url 'car:img_home' %}"><h3 class="ui blue header" style="padding-top: 20px;">基于OpenCV的图像处理</h3></a>
                 <a class="item" href="{% url 'car:image_show_page' %}"><h4 class="ui blue header">图像读取</h4><p>读入、显示、保存、翻转灰度或彩色图像</p></a>
                 <a class="item" href="{% url 'car:image_draw_page' %}"><h4 class="ui blue header">图像的基础操作</h4><p>获取图像信息，修改像素值、图像ROI、扩充填边</p></a>

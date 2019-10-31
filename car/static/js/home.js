@@ -1,10 +1,3 @@
-// $(function () {
-//     let local_url = window.location.pathname;
-//     console.log(local_url);
-//     if (local_url !== '/contorl/' || local_url !== '/camera/'){
-//         close_client()
-//     }
-// });
 let last_socket;
 let device_state = $('#device_state').val();
 if (device_state ==='online'){

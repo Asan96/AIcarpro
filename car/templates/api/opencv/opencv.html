@@ -1,0 +1,209 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block title_name %}
+    OpenCV
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+    </style>
+{% endblock %}
+{% block self_content %}
+    <div class="ui container" style="width: 1200px;height: 1000px;padding:0;margin-bottom:50px;margin-top: 50px;">
+        <div class="ui segment" style="width: 21%;height: 100%;margin:0;padding:0;float: left;border: none">
+            <div class="ui vertical fluid menu" style="height: 100%;background-color: lightblue;
+                        font-size: 18px;overflow: hidden;overflow-y: auto">
+                <div class="item text_center" style="color: darkred">
+                    <h3>OpenCV-Python教程</h3>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅰ 关于OpenCV
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            1.1 简介
+                        </a>
+                        <a class="item">
+                            1.2 OpenCV的安装使用
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅱ GUI特性
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            2.1 图片
+                        </a>
+                        <a class="item">
+                            2.2 视频
+                        </a>
+                        <a class="item">
+                            2.3 绘图函数
+                        </a>
+                        <a class="item">
+                            2.4 画笔
+                        </a>
+                        <a class="item">
+                            2.5 调色板
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅲ 核心操作
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            3.1 图像的基础操作
+                        </a>
+                        <a class="item">
+                            3.2 图像的算术运算
+                        </a>
+                        <a class="item">
+                            3.3 数学工具
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅳ 图像处理
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            4.1 颜色空间转换
+                        </a>
+                        <a class="item">
+                            4.2 几何变换
+                        </a>
+                        <a class="item">
+                            4.3 图像阈值
+                        </a>
+                        <a class="item">
+                            4.4 图像平滑
+                        </a>
+                        <a class="item">
+                            4.5 形态学转换
+                        </a>
+                        <a class="item">
+                            4.6 图像梯度
+                        </a>
+                        <a class="item">
+                            4.7 Canny 边缘检测
+                        </a>
+                        <a class="item">
+                            4.8 图像金字塔
+                        </a>
+                        <a class="item">
+                            4.9 轮廓
+                        </a>
+                        <a class="item">
+                            4.10 直方图
+                        </a>
+                        <a class="item">
+                            4.11 图像变换
+                        </a>
+                        <a class="item">
+                            4.12 模板匹配
+                        </a>
+                        <a class="item">
+                            4.13 Hough 直线变换
+                        </a>
+                        <a class="item">
+                            4.14 Hough 圆线变换
+                        </a>
+                        <a class="item">
+                            4.15 分水岭算法图像分割
+                        </a>
+                        <a class="item">
+                            4.16 GrabCut 算法
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅴ 图像特征提取与描述
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            5.1 理解图像特征
+                        </a>
+                        <a class="item">
+                            5.2 Harris 角点检测
+                        </a>
+                        <a class="item">
+                            5.3 Shi-Tomasi 角点检测
+                        </a>
+                        <a class="item">
+                            5.4 SIFT
+                        </a>
+                        <a class="item">
+                            5.5 SURF
+                        </a>
+                        <a class="item">
+                            5.6 角点检测的 FAST算法
+                        </a>
+                        <a class="item">
+                            5.7 BRIEF
+                        </a>
+                        <a class="item">
+                            5.8 ORB
+                        </a>
+                        <a class="item">
+                            5.9 特征匹配
+                        </a>
+                        <a class="item">
+                            5.10 使用特征匹配和单应性查找对象
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅵ 视频分析
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            6.1 Meanshift 和 Camshift
+                        </a>
+                        <a class="item">
+                            6.2 光流
+                        </a>
+                        <a class="item">
+                            6.3 背景减除
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅶ 摄像机标定和3D重构
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            7.1 摄像机标定
+                        </a>
+                        <a class="item">
+                            7.2 姿势估计
+                        </a>
+                        <a class="item">
+                            7.3 对极几何
+                        </a>
+                        <a class="item">
+                            7.4 立体图像中的深度地图
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅷ 计算摄影学
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            8.1 图像去噪
+                        </a>
+                        <a class="item">
+                            8.2 图像修补
+                        </a>
+                    </div>
+                </div>
+                <div class="item" style="color: teal">
+                    Ⅸ 对象检测
+                    <div class="huge menu" style="font-size: 20px">
+                        <a class="item">
+                            9.1 Haar分类器
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui segment" style="width: 77%;height: 100%;float: left;margin-left: 2%;margin-top: 0;padding:0;background-color: whitesmoke">
+            {% block base_panel %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
