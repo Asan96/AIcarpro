@@ -14,68 +14,78 @@
         .subtitle{
             margin-left: 5px;
         }
+        .title{
+            color: teal;
+        }
+        .lab_right{
+            float: right;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+        .lab_left{
+            float: left;
+            font-size: 16px;
+            padding-top: 10px;
+        }
     </style>
 {% endblock %}
 {% block self_content %}
-    <div class="ui container" style="width: 1200px;height: 1000px;padding:0;margin-bottom:50px;margin-top: 80px;">
-        <div class="ui segment" style="width: 18%;height: 100%;margin:0;padding:0;float: left;border: none;">
+    <div class="ui container" style="width: 1200px;padding:0;margin-bottom:50px;margin-top: 80px;">
+        <div class="ui segment" style="width: 18%;margin:0;padding:0;float: left;border: none;">
             <div class="ui vertical fluid menu" style="height: 100%;text-align: center;background-color: lightblue;
-                        font-size: 18px;">
+                        font-size: 16px;">
                 <div class="item text_center" style="color: darkred">
-                    <h3>Python3教程</h3>
+                    <h3>Python3 教程</h3>
                 </div>
                 <div class="item" style="color: teal">
-                    <strong>基础教程</strong>
+                    <strong>Python3 基础教程</strong>
                     <div class="huge menu" style="font-size: 20px">
                         <a class="item" href="{% url 'car:py3_home' %}">
                             简介
                         </a>
-                        <a class="item">
-                            环境搭建
+                        <a class="item" href="{% url 'car:py3_setting' %}">
+                            环境安装
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_cncode' %}">
                             中文编码
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_grammer' %}">
                             基础语法
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_variable' %}">
                             变量类型
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_data' %}">
                             数据类型
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_operator' %}">
                             运算符
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_condition' %}">
                             条件语句
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_loop' %}">
                             循环语句
                         </a>
-                        <a class="item">
-                            嵌套循环
-                        </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_function' %}">
                             函数
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_module' %}">
                             模块
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_advanced' %}">
                             高级特性
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_internal_function' %}">
                             内置函数
                         </a>
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_error' %}">
                             异常处理
                         </a>
                     </div>
                 </div>
                 <div class="item" style="color: teal">
-                    <strong>高级教程</strong>
+                    <strong>Python3 高级教程</strong>
                     <div class="huge red menu" style="font-size: 20px;">
                         <a class="item">
                             2.x与3.x版本区别
@@ -106,9 +116,16 @@
             </div>
         </div>
         <div class="ui segment" style="width: 80%;float: left;margin-left: 2%;margin-top: 0;overflow: hidden;overflow-y: auto;padding: 0">
-            {% block base_panel %}
-                <div style="width: 100%;height: 100%;padding-top: 30px">
-                    <div class="ui items" style="padding-left: 30px;padding-right: 30px">
+            <div class="ui top attached label" style="padding: 0;background-color:white;font-family: 微软雅黑">
+                {% block navigation %}
+                    <a class="lab_right" href="{% url 'car:py3_setting' %}">Python3 环境安装
+                        <i class="chevron right icon"></i></a>
+                {% endblock %}
+            </div>
+                <div style="width: 100%;padding-top:10px ">
+                    <div class="ui items" style="padding-left: 30px;padding-bottom: 20px;padding-right: 30px">
+                        {% block base_panel %}
+                        <h2 class="title">Python 简介</h2>
                         <div class="ui item">
                             <div class="middle aligned content">
                                 <div class="description">
@@ -127,8 +144,8 @@
                         <div class="ui divider"></div>
                         <div class="ui item">
                             <div class="middle aligned content">
-                                <h4 class="ui horizontal divider header">
-                                    <i class="tag blue icon"><strong class="subtitle">简介</strong></i></h4>
+                                <h5 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">介绍</strong></i></h5>
                                 <div class="description ">
                                     <P class="pnorm">
                                         <strong>Python是一种跨平台的计算机程序设计语言，是一种解释型、面向对象、动态数据类型的脚本语言。</strong>
@@ -159,9 +176,9 @@
                         <div class="ui divider"></div>
                         <div class="ui item">
                             <div class="middle aligned content">
-                                <h4 class="ui horizontal divider header">
+                                <h5 class="ui horizontal divider header">
                                     <i class="tag blue icon"><strong class="subtitle">发展历史</strong></i>
-                                </h4>
+                                </h5>
                                 <div class="description">
                                     <p class="pnorm">自从20世纪90年代初Python语言诞生至今，Python 已被逐渐广泛应用于系统管理任务的处理和Web编程。</p>
                                     <p class="pnorm">Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。</p>
@@ -174,8 +191,8 @@
                         <div class="ui divider"></div>
                         <div class="ui item">
                             <div class="middle aligned content">
-                                <h4 class="ui horizontal divider header">
-                                    <i class="tag blue icon"><strong class="subtitle">特点</strong></i></h4>
+                                <h5 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">特点</strong></i></h5>
                                 <div class="description">
                                     <p class="pnorm">
                                         <a class="ui yellow empty circular label"></a><strong class="subtitle">简单:</strong>
@@ -221,15 +238,14 @@
                                         <a class="ui yellow empty circular label"></a><strong class="subtitle">运行速度慢:</strong>
                                         Python 的底层是用 C 语言写的，这里是指与C和C++相比。
                                     </p>
-                                    <br>
                                 </div>
                             </div>
                         </div>
                         <div class="ui divider"></div>
                         <div class="ui item">
                             <div class="middle aligned content">
-                                <h4 class="ui horizontal divider header">
-                                    <i class="tag blue icon"><strong class="subtitle">应用领域</strong></i></h4>
+                                <h5 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">应用领域</strong></i></h5>
                                 <div class="description">
                                     <p class="pnorm">
                                         <a class="ui green empty circular label"></a><strong class="subtitle">Web 开发:</strong>
@@ -245,7 +261,7 @@
                                     </p>
                                     <p class="pnorm">
                                         <a class="ui green empty circular label"></a><strong class="subtitle"> 云计算开发:</strong>
-                                        目前最知名的云计算框架是OpenStack，Python现在的火，很大一部分就是因为云计算市场近几年的爆发。
+                                        目前最知名的云计算框架OpenStack。
                                     </p>
                                     <p class="pnorm">
                                         <a class="ui green empty circular label"></a><strong class="subtitle"> 人工智能:</strong>
@@ -272,9 +288,9 @@
                                 </div>
                             </div>
                         </div>
+                        {% endblock %}
                     </div>
                 </div>
-            {% endblock %}
         </div>
     </div>
 {% endblock %}

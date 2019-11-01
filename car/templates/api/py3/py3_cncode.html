@@ -1,0 +1,23 @@
+{% extends 'api/py3/py3.html'%}
+{% load static %}
+{% block title_name %}
+    Python3 中文编码
+{% endblock %}
+{% block navigation %}
+    <a class="lab_left" href="{% url 'car:py3_setting' %}">
+        <i class="chevron left icon"></i>Python3 环境安装</a>
+    <a class="lab_right" href="{% url 'car:py3_grammer' %}">
+        Python3 基础语法<i class="chevron right icon"></i></a>
+{% endblock %}
+{% block base_panel %}
+    <div style="width: 100%;padding-top: 30px">
+        <div class="ui items" style="padding-left: 30px;padding-right: 30px">
+            <div class="ui item">
+                <div class="middle aligned content">
+                    <p class = 'pnorm'>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,17 +1,169 @@
 {% extends 'api/py3/py3.html'%}
 {% load static %}
 {% block title_name %}
-    Python简介
+    Python 环境搭建
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .ppnorm{
+            font-size: 15px;
+            line-height: 24px;
+            text-indent:4em;
+        }
+    </style>
+{% endblock %}
+{% block navigation %}
+    <a class="lab_left" href="{% url 'car:py3_home' %}">
+        <i class="chevron left icon"></i>Python3 简介</a>
+    <a class="lab_right" href="{% url 'car:py3_cncode' %}">
+        Python3 中文编码<i class="chevron right icon"></i></a>
 {% endblock %}
 {% block base_panel %}
-    <div style="width: 100%;height: 100%;padding-top: 30px">
-        <div class="ui items" style="padding-left: 30px;padding-right: 30px">
-            <div class="ui item">
-                <div class="middle aligned content">
-                    <p class = 'pnorm'>
-                    </p>
+    <h2 class="title">Python 环境安装</h2>
+    <div class="ui item">
+        <div class="middle aligned content">
+            <p class = 'pnorm'>
+                Python 是跨平台的，它可以运行在 Windows、Mac 和 Linux/Unix 系统上。在 Windows 上写 Python 程序，放到 Linux 上也是能够运行的。
+                现在 Python 有两个版本，一个是2.x版，一个是3.x版，这两个版本是不兼容的，教程主要讲述 Python3 版本。
+            </p>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui item">
+        <div class="middle aligned content">
+            <h5 class="ui horizontal divider header">
+                <i class="tag blue icon"><strong class="subtitle">安装 Python3</strong></i></h5>
+            <div class="description">
+                <p class = 'pnorm'>
+                    <a class="ui yellow empty circular label"></a><strong class="subtitle">Mac 安装:</strong>
+                    如果你正在使用Mac，系统是OS X>=10.9，那么系统自带的Python版本是2.7。要安装最新的Python 3.8，有两个方法：
+                </p>
+                <p class="ppnorm"><strong>方法一：</strong>从Python官网下载Python 3.8的安装程序，下载后双击运行并安装.</p>
+                <p class="ppnorm"><strong>方法二：</strong>如果安装了Homebrew，直接通过命令brew install python3安装即可。</p>
+                <p class='pnorm'>
+                    <a class="ui yellow empty circular label"></a><strong class="subtitle">Windows 安装:</strong>
+                    <a href="https://www.python.org/downloads/" target="_blank">Python 官网下载地址</a>
+                </p>
+                <p class="ppnorm">
+                    1、选择Python版本，点 download 进入下载页，这里我们以 Python 3.7.4 为例。
+                </p>
+                <center><img class="ui huge image" src="{% static 'plugin/img/py3_install1.png' %}"></center>
+                <p class="ppnorm">
+                    2、根据电脑系统选择64位或32位。这里我们选择64位安装版本，开始下载。下载完成后，执行安装包。
+                </p>
+                <center><img class="ui huge image" src="{% static 'plugin/img/py3_install2.png' %}"></center>
+                <p class="ppnorm">
+                    3、勾选Add Python 3.7 to PATH，然后点击Customize installation(自定义安装)。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install3.png' %}"></center>
+                <p class="ppnorm">
+                    4、点击Next。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install4.png' %}"></center>
+                <p class="ppnorm">
+                    5、点击红框旁边的Browse(浏览)按钮选择你想要的安装的位置，然后点击Install。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install5.png' %}"></center>
+                <p class="ppnorm">
+                    6、正在安装。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install6.png' %}"></center>
+                <p class="ppnorm">
+                    7、点击Close。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install7.png' %}"></center>
+                <p class="ppnorm">
+                    8、验证是否安装成功，Win+R键打开cmd窗口。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install8.png' %}"></center>
+                <p class="ppnorm">
+                    9、输入python，如下图所示即进入 Python 解释器，Python 安装成功；若未进入Python解释器，请检查每一步是否操作正确。
+                </p>
+                <center><img class="ui large image" src="{% static 'plugin/img/py3_install9.png' %}"></center>
+                <br>
+                <p class = 'pnorm'>
+                    <a class="ui yellow empty circular label"></a><strong class="subtitle">Linux 安装:</strong>
+                    Linux大部分系统自带 Python2.x 的版本，最常见的是 Python2.7 版本,自带的 Python 被很多系统程序依赖， 不要轻易删除，
+                    否则会出问题。如需使用最新的Python3，可以编译安装源码包到独立目录， 不会影响到系统默认环境，python3和python2两个环境可以并存。
+                    安装步骤如下：
+                </p>
+                <p class = 'ppnorm'>
+                    1、安装依赖包
+                </p>
+                <p class = 'ppnorm'>
+                    1）首先安装gcc编译器，gcc有些系统版本已经默认安装，通过 <strong>gcc --version</strong> 查看，没安装的先安装gcc。
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>yum -y install gcc</strong>
                 </div>
+                <p class = 'pppnorm'>
+                    2）安装其它依赖包，（注：不要缺少，否则有可能安装python出错，python3.7.0以下的版本可不装 libffi-devel ）
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    2、源码下载地址: <a href="https://www.python.org/ftp/python/" target="_blank">https://www.python.org/ftp/python/</a>
+                </p>
+                <p class="pppnorm">
+                    根据自己需求选择对应的源码包，我下载的是 Python3.7.4 。
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    3、解压Python-3.7.4.tgz
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>tar -zxvf Python-3.7.4.tgz</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    4、进入目录：
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>cd Python-3.7.4/</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    5、添加配置，用于保存 Python3 程序：
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>./configure --prefix=/usr/python3</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    5、添加配置，用于保存 Python3 程序：
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>./configure --prefix=/usr/python3</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    6、编译，编译安装
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>make && make install</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    安装完成没有提示错误便安装成功了
+                </p>
+                <p class = 'ppnorm'>
+                    7、建立软连接
+                </p>
+                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
+                    <strong>ln -s /usr/python3/bin/python3.7 /usr/bin/python3<br>
+                        ln -s /usr/python3/bin/pip3.7 /usr/bin/pip3</strong>
+                </div>
+                <p class = 'ppnorm'>
+                    8、测试一下python3是否可以用 直接执行<strong>python3</strong> 命令，进入Python解释器则证明安装成功。
+                </p>
             </div>
         </div>
     </div>
+
+{#    <div class="ui item">#}
+{#        <div class="middle aligned content">#}
+{#            <p class = 'pnorm'>#}
+{#            <div class="ui red circular label">1</div>#}
+{#            </p>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
