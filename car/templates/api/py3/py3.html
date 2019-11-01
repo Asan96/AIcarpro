@@ -3,18 +3,31 @@
 {% block title_name %}
     Python教程
 {% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .pnorm{
+            font-size: 15px;
+            line-height: 24px;
+            text-indent:2em;
+        }
+        .subtitle{
+            margin-left: 5px;
+        }
+    </style>
+{% endblock %}
 {% block self_content %}
-    <div class="ui container" style="width: 1200px;height: 1000px;padding:0;margin-bottom:50px;margin-top: 50px;">
-        <div class="ui segment" style="width: 18%;height: 100%;margin:0;padding:0;float: left;border: none">
+    <div class="ui container" style="width: 1200px;height: 1000px;padding:0;margin-bottom:50px;margin-top: 80px;">
+        <div class="ui segment" style="width: 18%;height: 100%;margin:0;padding:0;float: left;border: none;">
             <div class="ui vertical fluid menu" style="height: 100%;text-align: center;background-color: lightblue;
                         font-size: 18px;">
                 <div class="item text_center" style="color: darkred">
-                    <h3>Python教程</h3>
+                    <h3>Python3教程</h3>
                 </div>
                 <div class="item" style="color: teal">
-                    基础教程
+                    <strong>基础教程</strong>
                     <div class="huge menu" style="font-size: 20px">
-                        <a class="item">
+                        <a class="item" href="{% url 'car:py3_home' %}">
                             简介
                         </a>
                         <a class="item">
@@ -62,7 +75,7 @@
                     </div>
                 </div>
                 <div class="item" style="color: teal">
-                    高级教程
+                    <strong>高级教程</strong>
                     <div class="huge red menu" style="font-size: 20px;">
                         <a class="item">
                             2.x与3.x版本区别
@@ -92,8 +105,175 @@
                 </div>
             </div>
         </div>
-        <div class="ui segment" style="width: 80%;height: 100%;float: left;margin-left: 2%;margin-top: 0;padding:0;background-color: whitesmoke">
+        <div class="ui segment" style="width: 80%;float: left;margin-left: 2%;margin-top: 0;overflow: hidden;overflow-y: auto;padding: 0">
             {% block base_panel %}
+                <div style="width: 100%;height: 100%;padding-top: 30px">
+                    <div class="ui items" style="padding-left: 30px;padding-right: 30px">
+                        <div class="ui item">
+                            <div class="middle aligned content">
+                                <div class="description">
+                                    <p class="pnorm">Python（英式发音:/ˈpaɪθən/ 美式发音:/ˈpaɪθɑːn/） 由 <a href="https://baike.baidu.com/item/%E5%90%89%E5%A4%9A%C2%B7%E8%8C%83%E7%BD%97%E8%8B%8F%E5%A7%86" target="_blank">Guido van Rossum</a>
+                                        于 1989 年底发明，第一个公开发行版发行于 1991 年。
+                                        像 <a href="https://baike.baidu.com/item/perl" target="_blank">Perl</a> 语言一样, Python源代码和解释器 CPython 遵循 <a href="https://baike.baidu.com/item/GPL/2357903" target="_blank">GPL (GNU General Public License)</a>
+                                        协议。<strong>官方宣布，2020 年 1 月 1 日， 停止 Python 2 的更新。</strong>
+                                        Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ui small image" style="float: right;">
+                                    <img src="{% static 'plugin/img/python.png' %}">
+                                </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="ui item">
+                            <div class="middle aligned content">
+                                <h4 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">简介</strong></i></h4>
+                                <div class="description ">
+                                    <P class="pnorm">
+                                        <strong>Python是一种跨平台的计算机程序设计语言，是一种解释型、面向对象、动态数据类型的脚本语言。</strong>
+                                    </P>
+                                    <p class="pnorm">
+                                        <a class="ui orange empty circular label"></a><strong class="subtitle">跨平台:</strong>
+                                        Python是跨平台的，即互通性。由它编写的程序可以运行在Windows、Mac和各种Linux/Unix系统上。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui orange empty circular label"></a><strong class="subtitle">解释型:</strong>
+                                        Python 语言写的程序不需要编译成二进制代码，代码在执行时会一行一行的翻译成CPU能理解的机器码。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui orange empty circular label"></a><strong class="subtitle">面向对象:</strong>
+                                        Python支持面向对象的风格或代码封装在对象的编程技术，在Python里面一切皆对象。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui orange empty circular label"></a><strong class="subtitle">动态数据类型:</strong>
+                                        动态类型语言中，变量没有类型，只有数据有类型，变量可以持有任意类型的数据。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui orange empty circular label"></a><strong class="subtitle">脚本语言:</strong>
+                                        是为了缩短传统的编写-编译-链接-运行过程而创建的计算机编程语言，一个脚本通常是解释运行而非编译。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="ui item">
+                            <div class="middle aligned content">
+                                <h4 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">发展历史</strong></i>
+                                </h4>
+                                <div class="description">
+                                    <p class="pnorm">自从20世纪90年代初Python语言诞生至今，Python 已被逐渐广泛应用于系统管理任务的处理和Web编程。</p>
+                                    <p class="pnorm">Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。</p>
+                                    <p class="pnorm">Python 已经成为最受欢迎的程序设计语言之一。自从2004年以后，python的使用率呈线性增长。
+                                        Python 2于2000年10月16日发布，稳定版本是Python 2.7。Python 3于2008年12月3日发布，不完全兼容Python 2。
+                                        2011年1月，它被TIOBE编程语言排行榜评为2010年度语言。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="ui item">
+                            <div class="middle aligned content">
+                                <h4 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">特点</strong></i></h4>
+                                <div class="description">
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">简单:</strong>
+                                        Python 是一种代表简单主义思想的语言，它使你能够专注于解决问题而不是去搞明白语言本身。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">易于学习:</strong>
+                                        Python 极其容易上手，因为Python有极其简单的说明文档。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">易于维护:</strong>
+                                        Python 的成功在于它的源代码是相当容易维护的。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle"> 免费、开源:</strong>
+                                        Python 是 FLOSS（自由/开放源码软件）之一。简单地说，你可以自由地发布这个软件的拷贝、阅读它的源代码、对它做改动、把它的一部分用于新的自由软件中。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">高层语言:</strong>
+                                        当你用 Python 语言编写程序的时候，你无需考虑诸如如何管理你的程序使用的内存一类的底层细节。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">可移植性:</strong>
+                                        基于其开放源代码的特性，Python已经被移植（也就是使其工作）到许多平台。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">可扩展性:</strong>
+                                        如果你需要一段运行很快的关键代码，或者是想要编写一些不愿开放的算法，你可以使用C或C++完成那部分程序，然后从你的Python程序中调用。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">丰富的库:</strong>
+                                        Python标准库确实很庞大。它可以帮助处理各种工作，包括正则表达式、文档生成、单元测试、线程、数据库、网页浏览器、CGI、FTP、电子邮件、XML、XML-RPC、HTML、WAV文件、密码系统、GUI（图形用户界面）、Tk和其他与系统有关的操作。这被称作Python的“功能齐全”理念。除了标准库以外，还有许多其他高质量的库，如wxPython、Twisted和Python图像库等等。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">规范的代码:</strong>
+                                        Python 采用强制缩进的方式使得代码具有极佳的可读性。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">可嵌入性:</strong>
+                                        你可以将Python嵌入到C/C++程序，让你的程序的用户获得"脚本化"的能力。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui yellow empty circular label"></a><strong class="subtitle">运行速度慢:</strong>
+                                        Python 的底层是用 C 语言写的，这里是指与C和C++相比。
+                                    </p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="ui item">
+                            <div class="middle aligned content">
+                                <h4 class="ui horizontal divider header">
+                                    <i class="tag blue icon"><strong class="subtitle">应用领域</strong></i></h4>
+                                <div class="description">
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle">Web 开发:</strong>
+                                        最火的Python web框架Django，支持异步高并发的Tornado框架，短小精悍的flask、bottle。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle">网络编程:</strong>
+                                        支持高并发的Twisted网络框架，py3引入的asyncio使异步编程变的非常简单
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle">爬虫开发:</strong>
+                                        爬虫领域，Python几乎是霸主地位，使用Scrapy/Request/BeautifuSoap/urllib等。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle"> 云计算开发:</strong>
+                                        目前最知名的云计算框架是OpenStack，Python现在的火，很大一部分就是因为云计算市场近几年的爆发。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle"> 人工智能:</strong>
+                                        MASA和Google早期大量使用Python，Python积累了丰富的科学运算库，当AI时代来临后，
+                                        Python从众多编程语言中脱颖而出，各种人工智能算法都基于Python编写。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle"> 自动化运维:</strong>
+                                        运维人员必须会的语言。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle"> 金融分析:</strong>
+                                        自1997年起，NASA就在大量使用Python在进行各种复杂的科学运算，随着NumPy，SciPy，Matplotlib，Enthought librarys等众多库的开发，使得Python越来越适合做科学计算、绘制高质量的2D和3D图像。和科学计算领域最流行的商业软件Matlab相比，Python是一门通用的程序设计语言，比Matlab所采用的脚本语言的应用范围更广泛。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle"> 游戏开发:</strong>
+                                        在网络游戏开发中Python也有很多应用。相比Lua or C++，Python比Lua有更高阶的抽象能力，可以用更少的代码描述游戏业务逻辑，与Lua相比，Python更适合作为一种Host语言，即程序的入口点是在Python那一端会比较好，然后用C/C++在非常必要的时候写一些扩展。Python非常适合编写1万行以上的项目，而且能够很好的把网游项目的规模控制在10万行代码以内。
+                                    </p>
+                                    <p class="pnorm">
+                                        <a class="ui green empty circular label"></a><strong class="subtitle">  桌面软件:</strong>
+                                        Python在图形界面开发上也很强大，可以用tkinter/PyQT框架开发各种桌面软件。
+                                    </p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
         </div>
     </div>

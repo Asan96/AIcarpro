@@ -50,7 +50,14 @@ urlpatterns = [
     path(r'connect_mqtt', mqtt.connect_mqtt, name='connect_mqtt'),
 
     # api
+
+    # ML
     path(r'api/ML/home', ML.ML_home, name='ML_home'),
+
+    # py3
     path(r'api/py3/home', py3.py3_home, name='py3_home'),
+    path(r'api/py3/setting', py3.py3_setting, name='py3_setting'),
+
+    # opencv
     path(r'api/opencv/home', opencv.opencv_home, name='opencv_home'),
 ]
