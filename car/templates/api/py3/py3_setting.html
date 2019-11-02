@@ -94,13 +94,13 @@
                 <p class = 'pnorm'>
                     1）首先安装gcc编译器，gcc有些系统版本已经默认安装，通过 <strong>gcc --version</strong> 查看，没安装的先安装gcc。
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     yum -y install gcc
                 </div>
                 <p class = 'pnorm'>
                     2）安装其它依赖包，（注：不要缺少，否则有可能安装python出错，python3.7.0以下的版本可不装 libffi-devel ）
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
                 </div>
                 <p class = 'pnorm'>
@@ -109,7 +109,7 @@
                 <p class="pnorm">
                     根据自己需求选择对应的源码包，我下载的是 Python3.7.4 。
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
                 </div>
                 <p class = 'pnorm'>
@@ -121,25 +121,25 @@
                 <p class = 'pnorm'>
                     4、进入目录：
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     cd Python-3.7.4/
                 </div>
                 <p class = 'pnorm'>
                     5、添加配置，用于保存 Python3 程序：
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     ./configure --prefix=/usr/python3
                 </div>
                 <p class = 'pnorm'>
                     5、添加配置，用于保存 Python3 程序：
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     ./configure --prefix=/usr/python3
                 </div>
                 <p class = 'pnorm'>
                     6、编译，编译安装
                 </p>
-                <div class="ui large message">
+                <div class="ui message">
                     make && make install
                 </div>
                 <p class = 'pnorm'>
@@ -148,7 +148,7 @@
                 <p class = 'pnorm'>
                     7、建立软连接
                 </p>
-                <div class="ui large labeled message">
+                <div class="ui labeled message">
                     ln -s /usr/python3/bin/python3.7 /usr/bin/python3<br>
                         ln -s /usr/python3/bin/pip3.7 /usr/bin/pip3
                 </div>
