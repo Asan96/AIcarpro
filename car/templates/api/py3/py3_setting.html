@@ -45,39 +45,39 @@
                     <a class="ui yellow empty circular label"></a><strong class="subtitle">Windows 安装:</strong>
                     <a href="https://www.python.org/downloads/" target="_blank">Python 官网下载地址</a>
                 </p>
-                <p class="ppnorm">
+                <p class="pnorm">
                     1、选择Python版本，点 download 进入下载页，这里我们以 Python 3.7.4 为例。
                 </p>
                 <center><img class="ui huge image" src="{% static 'plugin/img/py3_install1.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     2、根据电脑系统选择64位或32位。这里我们选择64位安装版本，开始下载。下载完成后，执行安装包。
                 </p>
                 <center><img class="ui huge image" src="{% static 'plugin/img/py3_install2.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     3、勾选Add Python 3.7 to PATH，然后点击Customize installation(自定义安装)。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install3.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     4、点击Next。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install4.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     5、点击红框旁边的Browse(浏览)按钮选择你想要的安装的位置，然后点击Install。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install5.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     6、正在安装。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install6.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     7、点击Close。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install7.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     8、验证是否安装成功，Win+R键打开cmd窗口。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install8.png' %}"></center>
-                <p class="ppnorm">
+                <p class="pnorm">
                     9、输入python，如下图所示即进入 Python 解释器，Python 安装成功；若未进入Python解释器，请检查每一步是否操作正确。
                 </p>
                 <center><img class="ui large image" src="{% static 'plugin/img/py3_install9.png' %}"></center>
@@ -88,71 +88,71 @@
                     否则会出问题。如需使用最新的Python3，可以编译安装源码包到独立目录， 不会影响到系统默认环境，python3和python2两个环境可以并存。
                     安装步骤如下：
                 </p>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     1、安装依赖包
                 </p>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     1）首先安装gcc编译器，gcc有些系统版本已经默认安装，通过 <strong>gcc --version</strong> 查看，没安装的先安装gcc。
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>yum -y install gcc</strong>
+                <div class="ui large message">
+                    yum -y install gcc
                 </div>
-                <p class = 'pppnorm'>
+                <p class = 'pnorm'>
                     2）安装其它依赖包，（注：不要缺少，否则有可能安装python出错，python3.7.0以下的版本可不装 libffi-devel ）
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel</strong>
+                <div class="ui large message">
+                    yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     2、源码下载地址: <a href="https://www.python.org/ftp/python/" target="_blank">https://www.python.org/ftp/python/</a>
                 </p>
-                <p class="pppnorm">
+                <p class="pnorm">
                     根据自己需求选择对应的源码包，我下载的是 Python3.7.4 。
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz</strong>
+                <div class="ui large message">
+                    wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     3、解压Python-3.7.4.tgz
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>tar -zxvf Python-3.7.4.tgz</strong>
+                <div class="ui large message">
+                    tar -zxvf Python-3.7.4.tgz
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     4、进入目录：
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>cd Python-3.7.4/</strong>
+                <div class="ui large message">
+                    cd Python-3.7.4/
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     5、添加配置，用于保存 Python3 程序：
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>./configure --prefix=/usr/python3</strong>
+                <div class="ui large message">
+                    ./configure --prefix=/usr/python3
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     5、添加配置，用于保存 Python3 程序：
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>./configure --prefix=/usr/python3</strong>
+                <div class="ui large message">
+                    ./configure --prefix=/usr/python3
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     6、编译，编译安装
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>make && make install</strong>
+                <div class="ui large message">
+                    make && make install
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     安装完成没有提示错误便安装成功了
                 </p>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     7、建立软连接
                 </p>
-                <div class="ui segment" style="padding: 5px;margin-left: 50px;margin-right: 50px;background-color: whitesmoke">
-                    <strong>ln -s /usr/python3/bin/python3.7 /usr/bin/python3<br>
-                        ln -s /usr/python3/bin/pip3.7 /usr/bin/pip3</strong>
+                <div class="ui large labeled message">
+                    ln -s /usr/python3/bin/python3.7 /usr/bin/python3<br>
+                        ln -s /usr/python3/bin/pip3.7 /usr/bin/pip3
                 </div>
-                <p class = 'ppnorm'>
+                <p class = 'pnorm'>
                     8、测试一下python3是否可以用。直接执行<strong>python3</strong> 命令，进入Python解释器则证明安装成功。
                 </p>
             </div>

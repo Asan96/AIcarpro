@@ -1,7 +1,17 @@
 {% extends 'api/py3/py3.html'%}
 {% load static %}
 {% block title_name %}
-    Python3 中文编码
+    Python 中文编码
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .ppnorm{
+            font-size: 15px;
+            line-height: 24px;
+            text-indent:4em;
+        }
+    </style>
 {% endblock %}
 {% block navigation %}
     <a class="lab_left" href="{% url 'car:py3_setting' %}">
@@ -10,14 +20,23 @@
         Python3 基础语法<i class="chevron right icon"></i></a>
 {% endblock %}
 {% block base_panel %}
-    <div style="width: 100%;padding-top: 30px">
-        <div class="ui items" style="padding-left: 30px;padding-right: 30px">
-            <div class="ui item">
-                <div class="middle aligned content">
-                    <p class = 'pnorm'>
-                    </p>
+    <h2 class="title">Python 中文编码</h2>
+    <div class="ui item">
+        <div class="middle aligned content">
+            <h5 class="ui horizontal divider header">
+                <i class="tag blue icon"><strong class="subtitle">第一个Python程序：</strong></i></h5>
+            <div class="description">
+                <p class = 'pnorm'>
+                    大多数编程语言的第一个入门程序都是打印“Hello World！”，下面我们也使用 Python3 来输出 “Hello World！”：
+                </p>
+                <div class="ui segment" style="padding: 10px;background-color: whitesmoke">
+                    <strong>#!/usr/bin/python
+                        <br>
+                        print("Hello World!")</strong>
                 </div>
             </div>
         </div>
     </div>
+    <div class="ui divider"></div>
+
 {% endblock %}
