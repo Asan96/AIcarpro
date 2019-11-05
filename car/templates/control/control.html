@@ -40,12 +40,16 @@
                     </a>
                     <a class="item explain">
                         <div class="ui orange horizontal label">注 意</div>
-                        鼠标指向按钮，会出现操作提示。打开键盘控制，控制小车行动。
+                        鼠标指向按钮，会出现操作提示。打开键盘控制，可按键控制小车行动。
                     </a>
                     <a class="item explain">
                         <div class="ui yellow horizontal label">注 意</div>
-                        打开摄像头，显示小车捕捉到的实时画面。
+                        键位：前进（W）、后退（S）、左转（A）、右转（D）、旋转（Q）、停止（E）
                     </a>
+{#                    <a class="item explain">#}
+{#                        <div class="ui green horizontal label">注 意</div>#}
+{#                        打开摄像头，显示小车捕捉到的实时画面。#}
+{#                    </a>#}
                 </div>
             </div>
         </div>
@@ -60,17 +64,27 @@
                     <button class="ui compact green button" id="btn_connect">连 接</button>
                 </div>
             </div>
+{#            <h4 class="ui horizontal divider header" style="margin: 13px">#}
+{#                <i class="wifi orange icon"></i>连接 wifi#}
+{#            </h4>#}
+{#            <div class="column" style="text-align: center">#}
+{#                <button class="ui circular orange button" id="wifi_settings" disabled="disabled">#}
+{#                    配 置#}
+{#                </button>#}
+{#            </div>#}
             <h4 class="ui horizontal divider header" style="margin: 13px">
-                <i class="wifi orange icon"></i>连接 wifi
+                <i class="map signs yellow icon"></i>
+                避障模式
             </h4>
-            <div class="column" style="text-align: center">
-                <button class="ui circular orange button" id="wifi_settings" disabled="disabled">
-                    配 置
-                </button>
+            <div class="column" style="text-align: center;" >
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" id="avoid_switch" />
+                    <label>O F F / O N</label>
+                </div>
             </div>
             <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="retweet orange icon"></i>
-                循迹
+                循迹模式
             </h4>
             <div class="column" style="text-align: center;" >
                 <div class="ui toggle checkbox">
