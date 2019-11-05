@@ -33,7 +33,7 @@
 <div class="ui inverted pointing menu" id="main_menu">
     <input type="hidden" id="device_state" value="{{ device_state }}">
     <div class="ui container">
-        <div class="header item"><h4>中 科 四 平</h4></div>
+        <div class="header item"><h4>AI 实验平台</h4></div>
         <a href="{% url 'car:control' %}" class="item">
             <i class="large gamepad icon"></i>运动控制
         </a>
@@ -49,13 +49,13 @@
         <a href="{% url 'car:code' %}" class="item">
             <i class="large keyboard icon"></i>代码编辑
         </a>
-        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>
-            <div class="ui menu">
-                <a class="item" href="{% url 'car:py3_home' %}">Python</a>
-                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>
-                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>
-            </div>
-        </div>
+{#        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>#}
+{#            <div class="ui menu">#}
+{#                <a class="item" href="{% url 'car:py3_home' %}">Python</a>#}
+{#                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>#}
+{#                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>#}
+{#            </div>#}
+{#        </div>#}
         <div class="right menu">
             <div class="ui item" id="device_state_outline">
                 <h4 style="color: red">
