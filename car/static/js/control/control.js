@@ -61,6 +61,17 @@ $('.btn').click(function () {
     mqtt_send(this.value);
 });
 
+$('#avoid_switch').change(function () {
+    let avoid_switch = $('#avoid_switch').prop("checked");
+    let avoid_cmd;
+    if (avoid_switch){
+        avoid_cmd = 'avoid_on'
+    }else{
+        avoid_cmd = 'avoid_off'
+    }
+    mqtt_send(avoid_cmd);
+
+});
 $('#camera_switch').change(function () {
     let cam_switch = $('#camera_switch').prop("checked");
     if (cam_switch){
@@ -82,7 +93,7 @@ $('#travel_switch').change(function () {
     }else{
         travel_cmd = 'travel_off'
     }
-    mqtt_send(travel_cmd)
+    mqtt_send(travel_cmd);
 });
 $('#wifi_settings').click(function () {
     $('.ui.modal').modal('show');

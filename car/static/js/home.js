@@ -59,7 +59,6 @@ function close_client() {
         });
 }
 function mqtt_send(command){
-    let result = false;
     $.ajax({
         type : "POST",
         dataType: "json",
@@ -67,18 +66,14 @@ function mqtt_send(command){
         data : {'command': command},
         success : function(data) {
             if (data.ret){
-                result = true
             }
             else{
-                alert(data.msg);
-                result = false
+                console.log(data.msg);
             }
         },
         error : function(e){
             console.log(e.status);
             console.log(e.responseText);
-            result = false
         }
     });
-    return result
 }
