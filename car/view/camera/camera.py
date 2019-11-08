@@ -39,9 +39,9 @@ class CameraConnect(object):
     def __init__(self, device_ip='', choice=None):
         self.resolution = [640, 480]
         self.addr_port = (device_ip, 8880)
-        self.src = 888 + 75  # 双方确定传输帧数，（888）为校验值
+        self.src = 60  # 双方确定传输帧数
         self.interval = 0  # 图片播放时间间隔
-        self.img_fps = 75  # 每秒传输多少帧数
+        self.img_fps = 60  # 每秒传输多少帧数
         self.title = self.addr_port[0] + " Camera"
         self.buf = b""  # 代表bytes类型
         self.type = choice
