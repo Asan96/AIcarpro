@@ -62,15 +62,7 @@ $('.btn').click(function () {
 });
 
 $('#avoid_switch').change(function () {
-    let avoid_switch = $('#avoid_switch').prop("checked");
-    let avoid_cmd;
-    if (avoid_switch){
-        avoid_cmd = 'avoid_on'
-    }else{
-        avoid_cmd = 'avoid_off'
-    }
-    mqtt_send(avoid_cmd);
-
+     switch_operate('avoid_switch')
 });
 $('#camera_switch').change(function () {
     let cam_switch = $('#camera_switch').prop("checked");
@@ -86,15 +78,39 @@ $('#camera_switch').change(function () {
     }
 });
 $('#travel_switch').change(function () {
-    let travel_switch = $('#travel_switch').prop("checked");
-    let travel_cmd;
-    if (travel_switch){
-        travel_cmd = 'travel_on'
-    }else{
-        travel_cmd = 'travel_off'
-    }
-    mqtt_send(travel_cmd);
+    switch_operate('travel_switch')
 });
+
+let closeCmdDic = {
+    'avoid_switch' : 'avoid_off',
+    'travel_switch': 'travel_off',
+};
+let openCmdDic = {
+    'avoid_switch' : 'avoid_on',
+    'travel_switch': 'travel_on',
+};
+let op_lst = ['avoid_switch','travel_switch'];
+function switch_operate(action){
+    for (let i = 0;i < op_lst.length;i++){
+        let switchObj = $('#'+op_lst[i]);
+        if ( op_lst[i]!== action){
+            let to_close_switch = switchObj.prop("checked");
+            if (to_close_switch){
+                switchObj.prop("checked",false);
+                mqtt_send(closeCmdDic[op_lst[i]]);
+            }
+        }
+        else{
+            let to_open_switch = switchObj.prop("checked");
+            if (to_open_switch){
+                mqtt_send(openCmdDic[op_lst[i]]);
+            }
+            else{
+                mqtt_send(closeCmdDic[op_lst[i]]);
+            }
+        }
+    }
+}
 $('#wifi_settings').click(function () {
     $('.ui.modal').modal('show');
     $('#set_wifi').unbind().click(function () {
