@@ -1,0 +1,133 @@
+{% extends 'home.html' %}
+{% load  static %}
+{% block title_name %}
+    图像处理
+{% endblock %}
+{% block css %}
+    <style>
+        body{
+            min-width:1500px;
+            min-height: 800px;
+            overflow:auto;//当页面的可视区域的宽度小于页面设置的最小宽度的时候，出现滚动条
+        }
+        .img_size{
+            width: 640px;
+            height: 480px;
+            border: 2px solid skyblue;
+        }
+        .left_div{
+            width: 15%;
+            float: left;
+            {#border: 1px black solid;#}
+            padding-top: 50px;
+            text-align: center;
+            height: 100%;
+            background-color: white;
+        }
+        .right_div{
+            width: 85%;
+            float: left;
+            {#border: 1px black solid;#}
+            padding-top: 50px;
+            text-align: center;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+{% block self_content %}
+    {% block line%}
+    {% endblock %}
+    <div class="container" style="height: 100%;padding-top: 15px">
+        <div class="left_div">
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                <i class="file icon"></i>
+                文件操作
+            </h4>
+            <div class="ui buttons">
+                <button class="ui basic icon button"  data-tooltip="打开图片" data-position="bottom center" id="btn_open_file">
+                    <i class="large folder open green icon"></i>
+                </button>
+                <button class="ui basic icon button"  data-tooltip="保存图片" data-position="bottom center" id="btn_open_file">
+                    <i class="large save orange icon"></i>
+                </button>
+            </div>
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                <i class="image icon"></i>
+                基础操作
+            </h4>
+            <div class="ui container">
+                <div class="ui buttons">
+                    <button class="ui basic button btn_base" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">属性</button>
+                    <button class="ui basic button btn_base" data-tooltip="修改像素值看不到明显效果" data-position="bottom center" value="change_pixel">像素值</button>
+                    <button class="ui basic button btn_base" data-tooltip="图像感兴趣区域的显示或移动" data-position="bottom center" value="img_roi">ROI</button>
+                    <button class="ui basic button btn_base" data-tooltip="多种边界类型对比" data-position="bottom center" value="extended_fillet">扩边</button>
+                </div>
+            </div>
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                <i class="image icon"></i>
+                绘图操作
+            </h4>
+            <div class="ui buttons">
+                <button class="ui basic icon button" data-tooltip="画线" data-position="bottom center" value="extended_fillet">
+                    <i class="large minus green icon"></i></button>
+                <button class="ui basic icon button" data-tooltip="画矩形" data-position="bottom center" value="extended_fillet">
+                    <i class="large square outline green icon"></i></button>
+                <button class="ui basic icon button" data-tooltip="画圆形" data-position="bottom center" value="extended_fillet">
+                    <i class="large circle outline green icon"></i></button>
+                <button class="ui basic icon button" data-tooltip="画椭圆形" data-position="bottom center" value="extended_fillet">
+                    <i class="large toggle off green icon"></i></button>
+                <button class="ui basic icon button" data-tooltip="画多边形" data-position="bottom center" value="extended_fillet">
+                    <i class="large certificate green icon"></i></button>
+                <button class="ui basic icon button" data-tooltip="添加文字" data-position="bottom center" value="extended_fillet">
+                    <i class="large font green icon"></i></button>
+            </div>
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                <i class="image icon"></i>
+                图像读取
+            </h4>
+            <div class="equal width row">
+                <div class="column">
+                    <div class="ui list">
+                        <div class="item">
+                            <div class="ui buttons">
+                                <button class="ui basic icon button show_btn" value="gray_img" data-tooltip="灰度读入图片" data-position="bottom center">灰度</button>
+                                <button class="ui basic icon button show_btn" value="color_img" data-tooltip="彩色读入图片" data-position="bottom center"><label style="color: red">彩色</label></button>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="ui icon buttons">
+                                <button class="ui icon basic button show_btn before_btn" value="flip_level" data-tooltip="水平翻转" data-position="bottom center">
+                                    <i class="large blue exchange icon"></i>
+                                </button>
+                                <button class="ui icon basic button show_btn before_btn" value="flip_vertical" data-tooltip="垂直翻转" data-position="bottom center">
+                                    <i class="large blue retweet icon"></i>
+                                </button>
+                                <button class="ui icon basic button show_btn before_btn" value="flip_level_vertical" data-tooltip="水平垂直翻转" data-position="bottom center">
+                                    <i class="large blue redo alternate icon"></i>
+                                </button>
+                                <button class="ui icon basic button show_btn before_btn" data-tooltip="显示读入的图片" data-position="bottom center" value="show_img">
+                                    <i class="large green eye icon"></i></button>
+                                <button class="ui icon basic button show_btn before_btn" data-tooltip="保存读入的图片" data-position="bottom center" value="save_img">
+                                    <i class="large orange save icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right_div">
+            <div style="text-align: center;">
+                <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
+            </div>
+            <div class="ui divider"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let Image_URL={
+            'dataOpenImageFile':'{% url 'car:open_image_file' %}',
+        }
+    </script>
+    <script src="{% static 'js/image/image.js' %}"></script>
+{% endblock %}

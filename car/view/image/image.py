@@ -27,6 +27,10 @@ img_dic = {
 }
 
 
+def img_page(request):
+    return render(request, 'image/img.html', locals())
+
+
 def image_page(request):
     device_state, device_id = get_online_status()
     return render(request, 'image/image.html', locals())

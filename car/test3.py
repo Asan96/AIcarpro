@@ -54,8 +54,11 @@ def server():
     connection = client_socket.makefile('wb')
     get_img(connection)
 
-
+def write_py():
+    file = open('tests.py', 'w')
+    file.write('12346546565400')
+    file.close()
 
 
 if __name__ == '__main__':
-    server()
+    write_py()

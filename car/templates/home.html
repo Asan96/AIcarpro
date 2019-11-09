@@ -40,22 +40,22 @@
         <a href="{% url 'car:voice' %}" class="item">
             <i class="large microphone icon"></i>语音技术
         </a>
-        <a href="{% url 'car:img_home' %}" class="item">
-            <i class="large image icon"></i>图像处理
-        </a>
         <a href="{% url 'car:camera' %}" class="item">
             <i class="large camera retro icon"></i>视频识别
         </a>
         <a href="{% url 'car:code' %}" class="item">
             <i class="large keyboard icon"></i>代码编辑
         </a>
-{#        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>#}
-{#            <div class="ui menu">#}
-{#                <a class="item" href="{% url 'car:py3_home' %}">Python</a>#}
-{#                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>#}
-{#                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>#}
-{#            </div>#}
-{#        </div>#}
+        <a href="{% url 'car:img_home' %}" class="item">
+            <i class="large image icon"></i>图像处理
+        </a>
+        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>
+            <div class="ui menu">
+                <a class="item" href="{% url 'car:py3_home' %}">Python</a>
+                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>
+                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>
+            </div>
+        </div>
         <div class="right menu">
             <div class="ui item" id="device_state_outline">
                 <h4 style="color: red">
@@ -68,7 +68,9 @@
         </div>
     </div>
 </div>
-<script src="{% static 'plugin/js/canvas-nest.js' %}"></script>
+{% block line%}
+    <script src="{% static 'plugin/js/canvas-nest.js' %}"></script>
+{% endblock %}
 {% block self_content %}
 {% endblock %}
 </body>
