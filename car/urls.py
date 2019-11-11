@@ -38,6 +38,7 @@ urlpatterns = [
     path(r'image_show/', image.image_show, name='image_show'),
     path(r'image_draw/', image.image_draw, name='image_draw'),
     path(r'image_base/', image.image_base, name='image_base'),
+    path(r'image/code/', image.load_code, name='load_img_code'),
 
     path(r'img/', image.img_page, name='img_page'),
 

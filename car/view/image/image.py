@@ -402,3 +402,18 @@ def image_base(request):
         result = {'ret': False, 'msg': '操作指令异常!'}
     return HttpResponse(json.dumps(result), content_type='application/json')
 
+
+# 对应代码读取
+@csrf_exempt
+def load_code(request):
+    key = request.POST.get('key', '')
+    code_path = 'car/static/plugin/code/img/'+key+'.py'
+    try:
+        with open(code_path, 'r', encoding='utf-8') as f:
+            code = f.read()
+            f.close()
+        result = {'ret': True, 'msg': code}
+    except Exception as e:
+        result = {'ret': False, 'msg': str(e)}
+    return HttpResponse(json.dumps(result), content_type='application/json')
+

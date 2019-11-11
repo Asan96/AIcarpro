@@ -56,9 +56,7 @@ def server():
 
 def write_py():
     file = open('tests.py', 'w')
-    file.write('12346546565400')
     file.close()
-
 
 if __name__ == '__main__':
     write_py()

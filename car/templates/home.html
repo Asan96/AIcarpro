@@ -7,6 +7,13 @@
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/semantic.css" %}">
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/timeTo.css" %}">
     <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/bootstrap-table.min.css" %}">
+
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/codemirror.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/foldgutter.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/show-hint.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/lint.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/darcula.css" %}">
+    <link rel="stylesheet"  type="text/css" href="{% static "plugin/css/eclipse.css" %}">
     {% block stylesheet %}
     {% endblock %}
     <title>{% block title_name %}主页{% endblock %}</title>
@@ -46,7 +53,7 @@
         <a href="{% url 'car:code' %}" class="item">
             <i class="large keyboard icon"></i>代码编辑
         </a>
-        <a href="{% url 'car:img_home' %}" class="item">
+        <a href="{% url 'car:img_page' %}" class="item">
             <i class="large image icon"></i>图像处理
         </a>
         <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>
@@ -87,6 +94,16 @@
             "dataCommand":"{% url 'car:get_command' %}",
         }
     </script>
+    <script src="{% static 'plugin/js/codemirror.js' %}"></script>
+    <script src="{% static 'plugin/js/active-line.js' %}"></script>
+    <script src="{% static 'plugin/js/closebrackets.js' %}"></script>
+    <script src="{% static 'plugin/js/foldcode.js' %}"></script>
+    <script src="{% static 'plugin/js/foldgutter.js' %}"></script>
+    <script src="{% static 'plugin/js/indent-fold.js' %}"></script>
+    <script src="{% static 'plugin/js/matchbrackets.js' %}"></script>
+    <script src="{% static 'plugin/js/show-hint.js' %}"></script>
+    <script src="{% static 'plugin/js/sublime.js' %}"></script>
+    <script src="{% static 'plugin/js/python.js' %}"></script>
 {% endblock %}
 {% block script %}
 {% endblock %}

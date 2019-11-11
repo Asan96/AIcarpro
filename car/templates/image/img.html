@@ -13,76 +13,59 @@
         .img_size{
             width: 640px;
             height: 480px;
-            border: 2px solid skyblue;
+            margin-top: 50px;
+            {#border: px solid white;#}
+            margin-bottom: 50px;
         }
         .left_div{
-            width: 15%;
+            width: 20%;
             float: left;
             {#border: 1px black solid;#}
             padding-top: 50px;
             text-align: center;
             height: 100%;
-            background-color: white;
+            background-color: whitesmoke
+        }
+        .center_div{
+            width: 50%;
+            float: left;
+            {#border: 1px black solid;#}
+            padding-top: 50px;
+            text-align: center;
+            height: 100%;
         }
         .right_div{
-            width: 85%;
+            width: 30%;
             float: left;
             {#border: 1px black solid;#}
+            background-color: whitesmoke;
             padding-top: 50px;
-            text-align: center;
             height: 100%;
+            min-width: 400px;
+            overflow:auto;
+        }
+        .div_base{
+            display: none;
+        }
+        .small_input{
+            width: 60px;
+        }
+        .gap{
+            margin-top: 10px;
+        }
+        pre{
+            font-size: 16px;
+            line-height:24px;
+            font-family: 微软雅黑;
         }
     </style>
 {% endblock %}
 {% block self_content %}
     {% block line%}
     {% endblock %}
-    <div class="container" style="height: 100%;padding-top: 15px">
+    <div class="container" style="height: 100%;padding-top: 15px;">
         <div class="left_div">
             <h4 class="ui horizontal divider header" style="margin: 10px">
-                <i class="file icon"></i>
-                文件操作
-            </h4>
-            <div class="ui buttons">
-                <button class="ui basic icon button"  data-tooltip="打开图片" data-position="bottom center" id="btn_open_file">
-                    <i class="large folder open green icon"></i>
-                </button>
-                <button class="ui basic icon button"  data-tooltip="保存图片" data-position="bottom center" id="btn_open_file">
-                    <i class="large save orange icon"></i>
-                </button>
-            </div>
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                <i class="image icon"></i>
-                基础操作
-            </h4>
-            <div class="ui container">
-                <div class="ui buttons">
-                    <button class="ui basic button btn_base" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">属性</button>
-                    <button class="ui basic button btn_base" data-tooltip="修改像素值看不到明显效果" data-position="bottom center" value="change_pixel">像素值</button>
-                    <button class="ui basic button btn_base" data-tooltip="图像感兴趣区域的显示或移动" data-position="bottom center" value="img_roi">ROI</button>
-                    <button class="ui basic button btn_base" data-tooltip="多种边界类型对比" data-position="bottom center" value="extended_fillet">扩边</button>
-                </div>
-            </div>
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                <i class="image icon"></i>
-                绘图操作
-            </h4>
-            <div class="ui buttons">
-                <button class="ui basic icon button" data-tooltip="画线" data-position="bottom center" value="extended_fillet">
-                    <i class="large minus green icon"></i></button>
-                <button class="ui basic icon button" data-tooltip="画矩形" data-position="bottom center" value="extended_fillet">
-                    <i class="large square outline green icon"></i></button>
-                <button class="ui basic icon button" data-tooltip="画圆形" data-position="bottom center" value="extended_fillet">
-                    <i class="large circle outline green icon"></i></button>
-                <button class="ui basic icon button" data-tooltip="画椭圆形" data-position="bottom center" value="extended_fillet">
-                    <i class="large toggle off green icon"></i></button>
-                <button class="ui basic icon button" data-tooltip="画多边形" data-position="bottom center" value="extended_fillet">
-                    <i class="large certificate green icon"></i></button>
-                <button class="ui basic icon button" data-tooltip="添加文字" data-position="bottom center" value="extended_fillet">
-                    <i class="large font green icon"></i></button>
-            </div>
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                <i class="image icon"></i>
                 图像读取
             </h4>
             <div class="equal width row">
@@ -90,36 +73,388 @@
                     <div class="ui list">
                         <div class="item">
                             <div class="ui buttons">
-                                <button class="ui basic icon button show_btn" value="gray_img" data-tooltip="灰度读入图片" data-position="bottom center">灰度</button>
-                                <button class="ui basic icon button show_btn" value="color_img" data-tooltip="彩色读入图片" data-position="bottom center"><label style="color: red">彩色</label></button>
+                                <button class="ui basic icon button"  data-tooltip="打开图片" data-position="bottom center" id="btn_open_file">
+                                    <i class="big folder open orange icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="ui buttons">
+{#                                <button class="ui basic icon button"  data-tooltip="代码" data-position="bottom center" id="btn_load_code">#}
+{#                                    <i class="large folder open green icon"></i>#}
+{#                                </button>#}
+                                <button class="ui basic icon button show_btn codeCls" value="gray_img" data-tooltip="灰度读入图片"
+                                        data-position="bottom center">灰度</button>
+                                <button class="ui basic icon button show_btn codeCls" value="color_img" data-tooltip="彩色读入图片" data-position="bottom center"><label style="color: red">彩色</label></button>
                             </div>
                         </div>
                         <div class="item">
                             <div class="ui icon buttons">
-                                <button class="ui icon basic button show_btn before_btn" value="flip_level" data-tooltip="水平翻转" data-position="bottom center">
+                                <button class="ui icon basic button show_btn before_btn codeCls" value="flip_level" data-tooltip="水平翻转" data-position="bottom center">
                                     <i class="large blue exchange icon"></i>
                                 </button>
-                                <button class="ui icon basic button show_btn before_btn" value="flip_vertical" data-tooltip="垂直翻转" data-position="bottom center">
+                                <button class="ui icon basic button show_btn before_btn codeCls" value="flip_vertical" data-tooltip="垂直翻转" data-position="bottom center">
                                     <i class="large blue retweet icon"></i>
                                 </button>
-                                <button class="ui icon basic button show_btn before_btn" value="flip_level_vertical" data-tooltip="水平垂直翻转" data-position="bottom center">
+                                <button class="ui icon basic button show_btn before_btn codeCls" value="flip_level_vertical" data-tooltip="水平垂直翻转" data-position="bottom center">
                                     <i class="large blue redo alternate icon"></i>
                                 </button>
-                                <button class="ui icon basic button show_btn before_btn" data-tooltip="显示读入的图片" data-position="bottom center" value="show_img">
+                                <button class="ui icon basic button show_btn before_btn codeCls" data-tooltip="显示读入的图片" data-position="bottom center" value="show_img">
                                     <i class="large green eye icon"></i></button>
-                                <button class="ui icon basic button show_btn before_btn" data-tooltip="保存读入的图片" data-position="bottom center" value="save_img">
+                                <button class="ui icon basic button show_btn before_btn codeCls" data-tooltip="保存读入的图片" data-position="bottom center" value="save_img">
                                     <i class="large orange save icon"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                基础操作
+            </h4>
+            <div class="ui container">
+                <div class="ui buttons">
+                    <button class="ui basic button btn_base codeCls" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">属性</button>
+                    <button class="ui basic button btn_base codeCls" data-tooltip="修改像素值看不到明显效果" data-position="bottom center" value="change_pixel">像素值</button>
+                    <button class="ui basic button btn_base codeCls" data-tooltip="图像感兴趣区域的显示或移动" data-position="bottom center" value="img_roi">ROI</button>
+                    <button class="ui basic button btn_base codeCls" data-tooltip="多种边界类型对比" data-position="bottom center" value="extended_fillet">扩边</button>
+                </div>
+            </div>
+            <h4 class="ui horizontal divider header" style="margin: 10px">
+                绘图操作
+            </h4>
+            <div class="ui buttons">
+                <button class="ui basic icon button paint_btn" data-tooltip="画线" data-position="bottom center" value="draw_line">
+                    <i class="large minus green icon"></i></button>
+                <button class="ui basic icon button paint_btn" data-tooltip="画矩形" data-position="bottom center" value="draw_rectangle">
+                    <i class="large square outline green icon"></i></button>
+                <button class="ui basic icon button paint_btn" data-tooltip="画圆形" data-position="bottom center" value="draw_circle">
+                    <i class="large circle outline green icon"></i></button>
+                <button class="ui basic icon button paint_btn" data-tooltip="画椭圆形" data-position="bottom center" value="draw_oval">
+                    <i class="large toggle off green icon"></i></button>
+                <button class="ui basic icon button paint_btn" data-tooltip="画多边形" data-position="bottom center" value="draw_ploygon">
+                    <i class="large certificate green icon"></i></button>
+                <button class="ui basic icon button paint_btn" data-tooltip="添加文字" data-position="bottom center" value="add_text">
+                    <i class="large font green icon"></i></button>
+            </div>
+        </div>
+        <div class="center_div">
+            <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
+            <div class="ui divider"></div>
+            {% block img_operate %}
+                <div class="inline field div_base" id="attribute">
+                    <table class="ui fluid very basic table" style="text-align: center">
+                        <thead>
+                        <tr>
+                            <th>格式</th>
+                            <th>行数</th>
+                            <th>列数</th>
+                            <th>尺寸</th>
+                            <th>通道数</th>
+                            <th>数据类型</th>
+                            <th>像素数目</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="suffix"></td>
+                            <td id="row"></td>
+                            <td id="col"></td>
+                            <td id="size"></td>
+                            <td id="aisle"></td>
+                            <td id="dtype"></td>
+                            <td id="pixel"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="inline field div_base" id="change_pixel">
+                    <div class="ui right pointing large orange basic label">
+                        修改位置
+                    </div>
+                    <div class="ui input small_input">
+                        <input type="text" placeholder="x" class="coordinate" id="pixel_x">
+                    </div>
+                    <div class="ui input small_input">
+                        <input type="text" placeholder="y" class="coordinate" id="pixel_y">
+                    </div>
+                    <button class="ui circular icon paigusu button" data-tooltip="选择修改后的像素值" data-position="bottom center">
+                        <i class="icon paint brush"></i>
+                    </button>
+                    <button class="circular ui icon green button" data-tooltip="确认修改" data-position="bottom center" id="btn_change_pixel">
+                        <i class="icon check"></i>
+                    </button>
+                    <button class="circular ui icon red button" data-tooltip="清除数据" data-position="bottom center" id="btn_clear_pixel">
+                        <i class="icon close"></i>
+                    </button>
+                    <div class="inline field" style="margin-top: 10px" id="div_pixel">
+                        <div class="ui labels">
+                            <a class="ui large basic label">
+                                修改前的像素值
+                                <div class="detail" id="old_pixel"></div>
+                            </a>
+                            <a class="ui large basic label">
+                                修改后的像素值
+                                <div class="detail" id="new_pixel"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="inline field div_base" id="img_roi">
+                    <div class="inline field">
+                        <div class="ui right pointing large orange basic label">
+                            x轴范围
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="start" class="coordinate_show" id="pixel_x1">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="end" class="coordinate_show" id="pixel_x2">
+                        </div>
+                        <div class="ui right pointing large orange basic label">
+                            y轴范围
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="start" class="coordinate_show" id="pixel_y1">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="end" class="coordinate_show" id="pixel_y2">
+                        </div>
+                        <button class="ui orange button" data-tooltip="显示矩形ROI位置"
+                                data-position="bottom center" id="btn_show_roi">显示</button>
+                    </div>
+                    <div class="inline field" style="padding-top: 10px">
+                        <div class="ui right pointing large green basic label">
+                            x轴范围
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="start" class="coordinate_move" id="pixel_x3">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="end" class="coordinate_move" id="pixel_x4">
+                        </div>
+                        <div class="ui right pointing large green basic label">
+                            y轴范围
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="start" class="coordinate_move" id="pixel_y3">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="end" class="coordinate_move" id="pixel_y4">
+                        </div>
+                        <button class="ui green button" data-tooltip="移动ROI至目标位置"
+                                data-position="bottom center" id="btn_move_roi">移动</button>
+                    </div>
+                </div>
+                <div class="inline field div_base" id="extended_fillet">
+                    <div class="ui action input">
+                        <input type="text" placeholder="边界值大小" class="side" id="side" style="width: 100px">
+                        <button class="ui icon green button" data-tooltip="生成主要的五种类型边界"
+                                data-position="bottom center" id="btn_boundary">
+                            <i class="icon check"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+                <div id="draw_line" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            线的起点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="line_start_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="line_start_y">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            线的终点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="line_end_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="line_end_y">
+                        </div>
+                    </div>
+                </div>
+                <div id="draw_rectangle" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            矩形左上角顶点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="left_up_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="left_up_y">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            矩形右下角顶点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="right_down_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="right_down_y">
+                        </div>
+                    </div>
+                </div>
+                <div id="draw_circle" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            圆形中心点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="circle_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="circle_y">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            圆形半径长度
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="r" class="coordinate" id="circle_r">
+                        </div>
+                    </div>
+                </div>
+                <div id="draw_oval" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            椭圆中心点坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="oval_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="oval_y">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            椭圆长轴和短轴的长度
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="a" class="coordinate" id="oval_a">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="b" class="coordinate" id="oval_b">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            椭圆旋转角度（顺时针）
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="" class="coordinate" id="oval_angle">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            椭圆弧起始和终止的角度(0-360)
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="start" class="coordinate" id="oval_start_angle">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="end" class="coordinate" id="oval_end_angle">
+                        </div>
+                    </div>
+                </div>
+                <div id="draw_ploygon" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            多边形顶点1的坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="ploygon_x1">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="ploygon_y1">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            多边形顶点2的坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="ploygon_x2">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="ploygon_y2">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            多边形顶点3的坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="ploygon_x3">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="ploygon_y3">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            多边形顶点4的坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="ploygon_x4">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="ploygon_y4">
+                        </div>
+                    </div>
+                </div>
+                <div id="add_text" class="draw" hidden="hidden">
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            添加的文字
+                        </div>
+                        <div class="ui input">
+                            <input type="text" placeholder="输入字数限二十字以内" class="coordinate" id="words">
+                        </div>
+                    </div>
+                    <div class="inline field gap">
+                        <div class="ui right pointing red basic large label">
+                            添加的位置坐标
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="x" class="coordinate" id="add_text_x">
+                        </div>
+                        <div class="ui input small_input">
+                            <input type="text" placeholder="y" class="coordinate" id="add_text_y">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline field gap" style="display: none" id="div_draw">
+                    <button class="ui circular icon paigusu button" data-tooltip="选择RGB色彩值" data-position="bottom center">
+                        <i class="icon paint brush"></i>
+                    </button>
+                    <button class="ui circular green icon button gap" id="btn_draw" data-tooltip="生成图形" data-position="bottom center">
+                        <i class="right image icon"></i>
+                    </button>
+                    <div class="ui circular red icon  button gap" id="btn_clear" data-tooltip="清除数据" data-position="bottom center">
+                        <i class="right eraser icon"></i>
+                    </div>
+                </div>
+            {% endblock %}
         </div>
         <div class="right_div">
-            <div style="text-align: center;">
-                <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
-            </div>
-            <div class="ui divider"></div>
+            <div class="ui blue header" style="margin-left: 60px"><i class="ui code icon"></i>相关代码</div>
+            <textarea id="code_text"></textarea>
         </div>
     </div>
 {% endblock %}
@@ -127,7 +462,11 @@
     <script>
         let Image_URL={
             'dataOpenImageFile':'{% url 'car:open_image_file' %}',
+            'dataImgBase': '{% url 'car:image_base'%}',
+            'dataImgShow': '{% url 'car:image_show'%}',
+            'dataImgDraw': '{% url 'car:image_draw'%}',
+            'dataImgCode': '{% url 'car:load_img_code'%}',
         }
     </script>
-    <script src="{% static 'js/image/image.js' %}"></script>
+    <script src="{% static 'js/image/img.js' %}"></script>
 {% endblock %}
