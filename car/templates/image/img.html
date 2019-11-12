@@ -18,31 +18,27 @@
             margin-bottom: 50px;
         }
         .left_div{
-            width: 20%;
+            width: 300px;
             float: left;
-            {#border: 1px black solid;#}
             padding-top: 40px;
             text-align: center;
             height: 100%;
             background-color: whitesmoke
         }
         .center_div{
-            width: 50%;
-            float: left;
-            {#border: 1px black solid;#}
+            width:auto;
+            margin-left: 300px;
+            margin-right: 600px;
             padding-top: 50px;
             text-align: center;
             height: 100%;
         }
         .right_div{
-            width: 30%;
-            float: left;
-            {#border: 1px black solid;#}
+            width: 600px;
             background-color: whitesmoke;
+            float: right;
             padding-top: 50px;
             height: 100%;
-            min-width: 400px;
-            overflow:auto;
         }
         .div_base{
             display: none;
@@ -78,9 +74,6 @@
                         </div>
                         <div class="item">
                             <div class="ui buttons">
-{#                                <button class="ui basic icon button"  data-tooltip="代码" data-position="bottom center" id="btn_load_code">#}
-{#                                    <i class="large folder open green icon"></i>#}
-{#                                </button>#}
                                 <button class="ui basic icon button show_btn codeCls" value="gray_img" data-tooltip="灰度读入图片"
                                         data-position="bottom center">灰度</button>
                                 <button class="ui basic icon button show_btn codeCls" value="color_img" data-tooltip="彩色读入图片" data-position="bottom center"><label style="color: red">彩色</label></button>
@@ -133,6 +126,10 @@
                 <button class="ui basic icon button paint_btn codeCls" data-tooltip="添加文字" data-position="bottom center" value="add_text">
                     <i class="large font green icon"></i></button>
             </div>
+        </div>
+        <div class="right_div">
+            <div class="ui blue header" style="margin-left: 60px"><i class="ui code icon"></i>相关代码</div>
+            <textarea id="code_text"></textarea>
         </div>
         <div class="center_div">
             <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>
@@ -448,10 +445,7 @@
                 </div>
             {% endblock %}
         </div>
-        <div class="right_div">
-            <div class="ui blue header" style="margin-left: 60px"><i class="ui code icon"></i>相关代码</div>
-            <textarea id="code_text"></textarea>
-        </div>
+
     </div>
 {% endblock %}
 {% block script %}
