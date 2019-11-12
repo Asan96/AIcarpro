@@ -56,13 +56,16 @@
         <a href="{% url 'car:img_page' %}" class="item">
             <i class="large image icon"></i>图像处理
         </a>
-        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>
-            <div class="ui menu">
-                <a class="item" href="{% url 'car:py3_home' %}">Python</a>
-                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>
-                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>
-            </div>
-        </div>
+        <a href="{% url 'car:ML_home' %}" class="item">
+            <i class="large python icon"></i>机器学习
+        </a>
+{#        <div class="ui item simple dropdown"><i class="large python icon"></i>API <i class="large dropdown icon"></i>#}
+{#            <div class="ui menu">#}
+{#                <a class="item" href="{% url 'car:py3_home' %}">Python</a>#}
+{#                <a class="item" href="{% url 'car:opencv_home' %}">OpenCV</a>#}
+{#                <a class="item" href="{% url 'car:ML_home' %}">机器学习</a>#}
+{#            </div>#}
+{#        </div>#}
         <div class="right menu">
             <div class="ui item" id="device_state_outline">
                 <h4 style="color: red">

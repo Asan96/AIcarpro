@@ -8,7 +8,8 @@ from car.view.camera import camera
 from car.view.image import image
 from car.view.code import code
 from car.view import mqtt
-from car.view.api import ML, opencv, py3
+from car.view.api import opencv, py3
+from car.view.ML import ML
 
 app_name = 'car'
 
@@ -52,11 +53,11 @@ urlpatterns = [
     path(r'get_command', mqtt.get_command, name='get_command'),
     path(r'connect_mqtt', mqtt.connect_mqtt, name='connect_mqtt'),
 
-    # api
 
     # ML
-    path(r'api/ML/home', ML.ML_home, name='ML_home'),
+    path(r'ML/home', ML.ML_home, name='ML_home'),
 
+    # api
     # py3
     path(r'api/py3/home', py3.py3_home, name='py3_home'),
     path(r'api/py3/setting', py3.py3_setting, name='py3_setting'),

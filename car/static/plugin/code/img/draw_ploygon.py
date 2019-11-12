@@ -2,7 +2,7 @@
 # coding=utf-8
 # version: Python3
 
-# 画线
+# 绘制多边形
 
 import numpy as np
 import cv2

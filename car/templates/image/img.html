@@ -21,7 +21,7 @@
             width: 20%;
             float: left;
             {#border: 1px black solid;#}
-            padding-top: 50px;
+            padding-top: 40px;
             text-align: center;
             height: 100%;
             background-color: whitesmoke
@@ -65,9 +65,7 @@
     {% endblock %}
     <div class="container" style="height: 100%;padding-top: 15px;">
         <div class="left_div">
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                图像读取
-            </h4>
+            <h4 class="ui header" style="margin: 0;">图像读取</h4>
             <div class="equal width row">
                 <div class="column">
                     <div class="ui list">
@@ -109,9 +107,8 @@
                 </div>
             </div>
 
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                基础操作
-            </h4>
+            <div class="ui divider"></div>
+            <h4 class="ui header" style="margin: 0;">基础操作</h4>
             <div class="ui container">
                 <div class="ui buttons">
                     <button class="ui basic button btn_base codeCls" data-tooltip="获取图像的行、列、尺寸、通道、数据类型、像素数目" data-position="bottom center" value="attribute">属性</button>
@@ -120,9 +117,8 @@
                     <button class="ui basic button btn_base codeCls" data-tooltip="多种边界类型对比" data-position="bottom center" value="extended_fillet">扩边</button>
                 </div>
             </div>
-            <h4 class="ui horizontal divider header" style="margin: 10px">
-                绘图操作
-            </h4>
+            <div class="ui divider"></div>
+            <h4 class="ui header" style="margin: 0;">绘图操作</h4>
             <div class="ui buttons">
                 <button class="ui basic icon button paint_btn codeCls" data-tooltip="画线" data-position="bottom center" value="draw_line">
                     <i class="large minus green icon"></i></button>
