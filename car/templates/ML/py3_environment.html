@@ -1,23 +1,13 @@
-{% extends 'api/py3/py3.html'%}
+{% extends 'ML/ML.html' %}
 {% load static %}
 {% block title_name %}
-    Python 环境搭建
-{% endblock %}
-{% block css %}
-    {{ block.super }}
-    <style>
-        .ppnorm{
-            font-size: 15px;
-            line-height: 24px;
-            text-indent:4em;
-        }
-    </style>
+    Python 环境安装
 {% endblock %}
 {% block navigation %}
-    <a class="lab_left" href="{% url 'car:py3_home' %}">
+    <a class="lab_left" href="{% url 'car:py3_introduce' %}">
         <i class="chevron left icon"></i>Python3 简介</a>
-    <a class="lab_right" href="{% url 'car:py3_cncode' %}">
-        Python3 中文编码<i class="chevron right icon"></i></a>
+    <a class="lab_right">
+        Python3 基础学习<i class="chevron right icon"></i></a>
 {% endblock %}
 {% block base_panel %}
     <h2 class="title">Python 环境安装</h2>

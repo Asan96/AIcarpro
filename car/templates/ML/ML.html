@@ -3,119 +3,174 @@
 {% block title_name %}
     机器学习
 {% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .ppnorm{
+            font-size: 15px;
+            line-height: 24px;
+            text-indent:4em;
+        }
+        .pnorm{
+            font-size: 15px;
+            line-height: 24px;
+            text-indent:2em;
+        }
+        .subtitle{
+            margin-left: 5px;
+        }
+        .title{
+            color: teal;
+        }
+        .lab_right{
+            float: right;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+        .lab_left{
+            float: left;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+    </style>
+{% endblock %}
 {% block self_content %}
-    <div class="ui container" style="width: 1200px;height: 1000px;padding:0;margin-bottom:50px;margin-top: 80px;">
-        <div class="ui segment" style="width: 21%;height: 100%;margin:0;padding:0;float: left;border: none">
-            <div class="ui vertical fluid menu" style="height: 100%;background-color: lightblue;
-                        font-size: 18px;overflow: hidden;overflow-y: auto">
-                <div class="item text_center" style="color: darkred">
-                    <h3>机器学习</h3>
+    <div style="height: 100%;width:300px;border:none;padding:0;margin-top:40px;float: left;position:fixed;">
+        <div class="ui vertical fluid menu" style="height: 100%;background-color: lightblue;
+                            font-size: 16px;overflow-y: auto;">
+            <div class="item text_center" style="color: darkred">
+                <h3>机器学习</h3>
+            </div>
+            <div class="item" style="color: teal">
+                Python基础
+                <div class="huge menu" style="font-size: 16px;">
+                    <a class="item" href="{% url 'car:py3_introduce' %}">
+                        Python 简介
+                    </a>
+                    <a class="item" href="{% url 'car:py3_environment' %}">
+                        Python 环境安装
+                    </a>
+                    <a class="item">
+                        Python 基础学习
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    机器学习基础
-                    <div class="huge menu" style="font-size: 20px">
-                        <a class="item">
-                            前提条件和准备工作
-                        </a>
-                        <a class="item">
-                            什么是机器学习？
-                        </a>
-                        <a class="item">
-                            机器学习主要任务
-                        </a>
-                        <a class="item">
-                            理解机器学习流程
-                        </a>
-                        <a class="item">
-                            环境搭建
-                        </a>
-                    </div>
+            </div>
+            <div class="item" style="color: teal">
+                机器学习简介
+                <div class="huge menu" style="font-size: 16px">
+                    <a class="item">
+                        前提条件和准备工作
+                    </a>
+                    <a class="item">
+                        什么是机器学习？
+                    </a>
+                    <a class="item">
+                        机器学习主要任务
+                    </a>
+                    <a class="item">
+                        理解机器学习流程
+                    </a>
+                    <a class="item">
+                        环境搭建
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    线性回归 (Linear Regression)
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                线性回归 (Linear Regression)
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    逻辑回归 (Logistic Regression)
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                逻辑回归 (Logistic Regression)
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    决策树 (Decision Tree)
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                决策树 (Decision Tree)
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    支持向量机（SVM）
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                支持向量机（SVM）
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    朴素贝叶斯 (Naive Bayes)
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                朴素贝叶斯 (Naive Bayes)
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    K邻近算法（KNN）
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                K邻近算法（KNN）
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    K-均值算法（K-means）
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                K-均值算法（K-means）
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    随机森林 (Random Forest)
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                随机森林 (Random Forest)
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    降低维度算法（Dimensionality Reduction Algorithms）
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                降低维度算法（Dimensionality Reduction Algorithms）
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="item" style="color: teal">
-                    Gradient Boost和Adaboost算法
-                    <div class="huge red menu" style="font-size: 20px;">
-                        <a class="item">
+            </div>
+            <div class="item" style="color: teal">
+                Gradient Boost和Adaboost算法
+                <div class="huge red menu" style="font-size: 20px;">
+                    <a class="item">
 
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="ui segment" style="width: 77%;height: 100%;float: left;margin-left: 2%;margin-top: 0;padding:0;background-color: whitesmoke">
-            {% block base_panel %}
-            {% endblock %}
+    </div>
+    <div style="height:100%;margin-left:300px;">
+        <div class="ui container" style="width: 1000px;padding:0;margin-bottom:50px;margin-top: 80px;">
+            <div class="ui segment" style="width: 100%;height: 100%;float: left;margin-top: 0;padding:0;background-color: white">
+                    <div class="ui top attached label" style="padding: 0;background-color:white;font-family: 微软雅黑">
+                        {% block navigation %}
+                        {% endblock %}
+                    </div>
+                    <div style="width: 100%;padding-top:10px ">
+                    <div class="ui items" style="padding-left: 30px;padding-bottom: 20px;padding-right: 30px">
+                        {% block base_panel %}
+                        {% endblock %}
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

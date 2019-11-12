@@ -6,7 +6,7 @@
 {% block css %}
     <style>
         body{
-            min-width:1500px;
+            min-width:1600px;
             min-height: 800px;
             overflow:auto;//当页面的可视区域的宽度小于页面设置的最小宽度的时候，出现滚动条
         }
@@ -20,7 +20,7 @@
         .left_div{
             width: 300px;
             float: left;
-            padding-top: 40px;
+            padding-top: 50px;
             text-align: center;
             height: 100%;
             background-color: whitesmoke
@@ -32,6 +32,7 @@
             padding-top: 50px;
             text-align: center;
             height: 100%;
+            overflow-y: auto;
         }
         .right_div{
             width: 600px;
@@ -61,6 +62,8 @@
     {% endblock %}
     <div class="container" style="height: 100%;padding-top: 15px;">
         <div class="left_div">
+            <div class="ui blue header"><i class="ui cog icon"></i>图像操作</div>
+            <div class="ui divider"></div>
             <h4 class="ui header" style="margin: 0;">图像读取</h4>
             <div class="equal width row">
                 <div class="column">
@@ -129,7 +132,7 @@
         </div>
         <div class="right_div">
             <div class="ui blue header" style="margin-left: 60px"><i class="ui code icon"></i>相关代码</div>
-            <textarea id="code_text"></textarea>
+            <strong><textarea id="code_text"></textarea></strong>
         </div>
         <div class="center_div">
             <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>

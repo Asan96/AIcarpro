@@ -13,4 +13,12 @@ import json
 
 
 def ML_home(request):
-    return render(request, 'api/ML/ML.html')
+    return render(request, 'ML/ML.html')
+
+
+def py3_introduce(request):
+    return render(request, 'ML/py3_introduce.html')
+
+
+def py3_environment(request):
+    return render(request, 'ML/py3_environment.html')

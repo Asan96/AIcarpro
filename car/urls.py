@@ -8,7 +8,6 @@ from car.view.camera import camera
 from car.view.image import image
 from car.view.code import code
 from car.view import mqtt
-from car.view.api import opencv, py3
 from car.view.ML import ML
 
 app_name = 'car'
@@ -56,24 +55,7 @@ urlpatterns = [
 
     # ML
     path(r'ML/home', ML.ML_home, name='ML_home'),
+    path(r'ML/py3/introduce', ML.py3_introduce, name='py3_introduce'),
+    path(r'ML/py3/environment', ML.py3_environment, name='py3_environment'),
 
-    # api
-    # py3
-    path(r'api/py3/home', py3.py3_home, name='py3_home'),
-    path(r'api/py3/setting', py3.py3_setting, name='py3_setting'),
-    path(r'api/py3/cncode', py3.py3_cncode, name='py3_cncode'),
-    path(r'api/py3/grammer', py3.py3_grammer, name='py3_grammer'),
-    path(r'api/py3/variable', py3.py3_variable, name='py3_variable'),
-    path(r'api/py3/data', py3.py3_data, name='py3_data'),
-    path(r'api/py3/operato', py3.py3_operator, name='py3_operator'),
-    path(r'api/py3/condition', py3.py3_condition, name='py3_condition'),
-    path(r'api/py3/loop', py3.py3_loop, name='py3_loop'),
-    path(r'api/py3/function', py3.py3_function, name='py3_function'),
-    path(r'api/py3/module', py3.py3_module, name='py3_module'),
-    path(r'api/py3/advanced', py3.py3_advanced, name='py3_advanced'),
-    path(r'api/py3/internal_function', py3.py3_internal_function, name='py3_internal_function'),
-    path(r'api/py3/error', py3.py3_error, name='py3_error'),
-
-    # opencv
-    path(r'api/opencv/home', opencv.opencv_home, name='opencv_home'),
 ]
