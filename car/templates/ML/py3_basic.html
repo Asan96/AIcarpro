@@ -1,0 +1,41 @@
+{% extends 'ML/ML.html' %}
+{% load static %}
+{% block title_name %}
+    Python 简介
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        .max{
+            width: 100%;
+            height: auto;
+        }
+
+        .min{
+            width: 50%;
+            height: auto;
+        }
+
+    </style>
+{% endblock %}
+{% block navigation %}
+    <a class="lab_left" href="{% url 'car:py3_environment' %}">
+        <i class="chevron left icon"></i>Python3 环境安装</a>
+    <a class="lab_right">
+        Python3 基础学习<i class="chevron right icon"></i></a>
+{% endblock %}
+{% block base_panel %}
+    <center>    <img src="{% static 'plugin/img/python_basic.jpg' %}" class="img min">
+    </center>
+
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $('.img').click(function () {
+                $(this).toggleClass('min');
+                $(this).toggleClass('max');
+            })
+        })
+    </script>
+{% endblock %}

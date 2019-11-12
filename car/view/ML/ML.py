@@ -22,3 +22,7 @@ def py3_introduce(request):
 
 def py3_environment(request):
     return render(request, 'ML/py3_environment.html')
+
+
+def py3_basic(request):
+    return render(request, 'ML/py3_basic.html')

@@ -57,5 +57,6 @@ urlpatterns = [
     path(r'ML/home', ML.ML_home, name='ML_home'),
     path(r'ML/py3/introduce', ML.py3_introduce, name='py3_introduce'),
     path(r'ML/py3/environment', ML.py3_environment, name='py3_environment'),
+    path(r'ML/py3/basic', ML.py3_basic, name='py3_basic'),
 
 ]

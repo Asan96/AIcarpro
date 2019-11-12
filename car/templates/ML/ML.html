@@ -32,46 +32,63 @@
             font-size: 16px;
             padding-top: 10px;
         }
+        .pad{
+            padding-left: 30px;
+        }
     </style>
 {% endblock %}
 {% block self_content %}
     <div style="height: 100%;width:300px;border:none;padding:0;margin-top:40px;float: left;position:fixed;">
-        <div class="ui vertical fluid menu" style="height: 100%;background-color: lightblue;
+        <div class="ui vertical fluid menu" style="height: 100%;background-color: whitesmoke;
                             font-size: 16px;overflow-y: auto;">
             <div class="item text_center" style="color: darkred">
                 <h3>机器学习</h3>
             </div>
             <div class="item" style="color: teal">
-                Python基础
-                <div class="huge menu" style="font-size: 16px;">
+                一、 Python
+                <div class="huge pad menu" style="font-size: 16px;">
                     <a class="item" href="{% url 'car:py3_introduce' %}">
-                        Python 简介
+                        1.1 Python 简介
                     </a>
                     <a class="item" href="{% url 'car:py3_environment' %}">
-                        Python 环境安装
+                        1.2 Python 环境安装
                     </a>
-                    <a class="item">
-                        Python 基础学习
+                    <a class="item" href="{% url 'car:py3_basic' %}">
+                        1.3 Python 基础学习
                     </a>
                 </div>
             </div>
             <div class="item" style="color: teal">
-                机器学习简介
-                <div class="huge menu" style="font-size: 16px">
+                二、 数学基础
+                <div class="huge pad menu" style="font-size: 16px;">
                     <a class="item">
-                        前提条件和准备工作
+                        2.1 微积分
                     </a>
                     <a class="item">
-                        什么是机器学习？
+                        2.2 线性代数
                     </a>
                     <a class="item">
-                        机器学习主要任务
+                        2.3 概率论与数理统计
+                    </a>
+                </div>
+            </div>
+            <div class="item" style="color: teal">
+                三、 机器学习简介
+                <div class="huge pad menu" style="font-size: 16px">
+                    <a class="item">
+                        3.1 前提条件和准备工作
                     </a>
                     <a class="item">
-                        理解机器学习流程
+                        3.2 什么是机器学习？
                     </a>
                     <a class="item">
-                        环境搭建
+                        3.3 机器学习主要任务
+                    </a>
+                    <a class="item">
+                        3.4 理解机器学习流程
+                    </a>
+                    <a class="item">
+                        3.5 环境搭建
                     </a>
                 </div>
             </div>

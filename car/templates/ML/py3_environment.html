@@ -6,7 +6,7 @@
 {% block navigation %}
     <a class="lab_left" href="{% url 'car:py3_introduce' %}">
         <i class="chevron left icon"></i>Python3 简介</a>
-    <a class="lab_right">
+    <a class="lab_right" href="{% url 'car:py3_basic' %}">
         Python3 基础学习<i class="chevron right icon"></i></a>
 {% endblock %}
 {% block base_panel %}
@@ -14,7 +14,7 @@
     <div class="ui item">
         <div class="middle aligned content">
             <p class = 'pnorm'>
-                Python 是跨平台的，它可以运行在 Windows、Mac 和 Linux/Unix 系统上。在 Windows 上写 Python 程序，放到 Linux 上也是能够运行的。
+                Python 是跨平台的，它可以运行在 Windows、Mac 和 Linux/Unix 系统上。在 Linux 上写 Python 程序，放到别的系统上也能够运行。
                 现在 Python 有两个版本，一个是2.x版，一个是3.x版，这两个版本是不兼容的，教程主要讲述 Python3 版本。
             </p>
         </div>
