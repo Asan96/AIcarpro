@@ -151,6 +151,7 @@ function clear(class_arr) {
 
 $('.before_btn').attr('disabled',true);
 $('.show_btn').click(function () {
+    hide_operation();
     if (this.value === 'gray_img'||this.value === 'color_img'){
         show_flag = 1;
         $('.before_btn').attr('disabled',false)
