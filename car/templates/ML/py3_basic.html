@@ -25,17 +25,22 @@
         Python3 基础学习<i class="chevron right icon"></i></a>
 {% endblock %}
 {% block base_panel %}
-    <center>    <img src="{% static 'plugin/img/python_basic.jpg' %}" class="img min">
-    </center>
-
+    <div style="text-align: center"><img src="{% static 'plugin/img/python_basic.jpg' %}" class="show_img min"></div>
+    <div class="ui fullscreen modal" id="python_modal">
+        <div class="image content" style="padding: 0">
+            <img src="{% static 'plugin/img/python_basic.jpg' %}" class="hide_img max">
+        </div>
+    </div>
 {% endblock %}
 {% block script %}
     <script>
         $(function () {
-            $('.img').click(function () {
-                $(this).toggleClass('min');
-                $(this).toggleClass('max');
-            })
+            $('.show_img').click(function () {
+                $('#python_modal').modal('show');
+            });
+            $('.hide_img').click(function () {
+                $('#python_modal').modal('hide');
+            });
         })
     </script>
 {% endblock %}
