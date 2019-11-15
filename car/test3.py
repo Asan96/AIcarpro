@@ -1,62 +1,62 @@
+#!/usr/bin/env python
+# coding=utf-8
 import socket
 import threading
 import struct
 import time
 import cv2
-import numpy as np
-
-port = 36660
-
-img_fps = 30
-img_size = (640, 480)
-
-def check_option(object, client):
-    # 按格式解码，确定帧数和分辨率
-    info = struct.unpack('lhh', client.recv(8))
-    if info[0] > 888:
-        object.img_fps = int(info[0]) - 888  # 获取帧数
-        object.resolution = list(object.resolution)
-        # 获取分辨率
-        object.resolution[0] = info[1]
-        object.resolution[1] = info[2]
-        object.resolution = tuple(object.resolution)
-        return 1
-    else:
-        return 0
+import numpy
+import queue
 
 
-def get_img(client):
-    # if (check_option(object, client) == 0):
-    #     return
-    camera = cv2.VideoCapture(0)  # 从摄像头中获取视频
-    img_param = [int(cv2.IMWRITE_JPEG_QUALITY), img_fps]  # 设置传送图像格式、帧数
-    while (1):
-        time.sleep(0.1)  # 推迟线程运行0.1s
-        _, img = camera.read()  # 读取视频每一帧
+class Client(object):
+    def __init__(self):
+        self.port = 8890
+        self.ip = '192.168.1.198'
+        self.host = (self.ip, self.port)
 
-        # img = cv2.resize(img, img_size)  # 按要求调整图像大小(resolution必须为元组)
-        _, img_encode = cv2.imencode('.jpg', img, img_param)  # 按格式生成图片
-        img_code = np.array(img_encode)  # 转换成矩阵
-        img_data = img_code.tostring()  # 生成相应的字符串
+    def set_client(self):
+        udp_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        return udp_client
+        # udp_socket.sendto(data, host)
+
+    def close_socket(self):
+        self.set_client().close()
+
+
+def camera(client, host, fps=60, resolution=(640, 480)):
+    cam = cv2.VideoCapture(0)
+    # 设置传送图像格式、帧数
+    if not cam.isOpened():
+        print('没有检测到摄像头')
+        return
+    img_param = [int(cv2.IMWRITE_JPEG_QUALITY), fps]
+    while 1:
+        ret, frame = cam.read()
+        # 定义大小 （resolution 必须为元组）
+        frame = cv2.resize(frame, resolution)
+        # 按格式生成图片
+        ret, img_encode = cv2.imencode('.jpg', frame, img_param)
+        # 矩阵转换
+        img_code = numpy.array(img_encode)
+        # 生成相应字符串
+        img_data = img_code.tostring()
         try:
-            # 按照相应的格式进行打包发送图片
-            client.send(
-                struct.pack("lhh", len(img_data), img_size[0], img_size[1]) + img_data)
+            # 像服务端发送数据
+            client.sendto(img_data, host)
         except Exception as e:
-            camera.release()  # 释放资源
-            print('camera close '+str(e))
+            print('视频异常结束' + str(e))
+            cam.release()  # 释放资源
+            client.close()
             return
 
 
-def server():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('192.168.1.198', 36660))
-    connection = client_socket.makefile('wb')
-    get_img(connection)
+def camera_main():
+    client = Client()
+    host = client.host
+    udp_client = client.set_client()
+    camera(udp_client, host)
 
-def write_py():
-    file = open('tests.py', 'w')
-    file.close()
 
 if __name__ == '__main__':
-    write_py()
+    camera_main()
