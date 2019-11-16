@@ -4,7 +4,7 @@ $('.cam').click(function () {
         last_socket.close()
     }
     if (type=== 'close'){
-        $('#target').attr('src', '../static/plugin/img/cam1.jpg')
+        $('#target').attr('src', '../static/plugin/img/cam1.jpg');
         close_client()
     }else{
         connect(type)

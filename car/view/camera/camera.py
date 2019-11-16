@@ -42,6 +42,7 @@ cam_flag = 0
 
 photo_flag = 0
 photo = None
+lastServer = None
 
 
 class ImgServer(object):
@@ -60,6 +61,11 @@ class ImgServer(object):
         return host
 
     def set_server(self):
+        if lastServer:
+            try:
+                lastServer.close()
+            except Exception as e:
+                print(str(e))
         udp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         udp_server.bind(self.get_addr())
         print('服务端开启')
@@ -69,8 +75,9 @@ class ImgServer(object):
         self.set_server().close()
 
     def img_data(self):
-        global photo, photo_flag
+        global photo, photo_flag, lastServer
         udp_server = self.set_server()
+        lastServer = udp_server
         faceCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_frontalface_alt.xml')
         eyesCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_eye.xml')
         type_dic = {'eyes': faceCascade, 'face': faceCascade}
