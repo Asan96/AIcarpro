@@ -10,5 +10,28 @@ $('.cam').click(function () {
         connect(type)
     }
 });
+/**
+ * 拍照
+ * */
+$('.operate').click(function () {
+    $.ajax({
+        type : "POST",
+        dataType: "json",
+        url : PUB_URL.takePhoto,
+        data : {},
+        success : function(data) {
+            if (data.ret){
+            }
+            else{
+                alert(data.msg)
+            }
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+});
+
 
 

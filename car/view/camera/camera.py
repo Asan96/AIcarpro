@@ -21,6 +21,8 @@ import asyncio
 import json
 import time
 import queue
+
+from car.view.image.image import save_img
 que = queue.Queue()
 lock = threading.Lock()
 count = 0
@@ -37,6 +39,9 @@ def camera_page(request):
 cam_flag = 0
 
 # udp连接 服务端
+
+photo_flag = 0
+photo = None
 
 
 class ImgServer(object):
@@ -64,6 +69,7 @@ class ImgServer(object):
         self.set_server().close()
 
     def img_data(self):
+        global photo, photo_flag
         udp_server = self.set_server()
         faceCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_frontalface_alt.xml')
         eyesCascade = cv2.CascadeClassifier('car/static/plugin/cascade/haarcascade_eye.xml')
@@ -74,11 +80,13 @@ class ImgServer(object):
             img_length = len(data[0])
             img_data = b''
             if img_length:
+                image = cv2.imdecode(np.frombuffer(bytes_img, dtype=np.uint8), cv2.IMREAD_COLOR)
+                photo = image
+                photo_flag = 1
                 try:
                     if self.type == 'origin':
                         img_data = bytes_img
                     else:
-                        image = cv2.imdecode(np.frombuffer(bytes_img, dtype=np.uint8), cv2.IMREAD_COLOR)
                         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
                         squares = type_dic[self.type].detectMultiScale(
                             gray,
@@ -94,6 +102,7 @@ class ImgServer(object):
                                 eyes = eyesCascade.detectMultiScale(face_gray, scaleFactor=1.2, minNeighbors=10, )
                                 for (e_x, e_y, e_w, e_h) in eyes:
                                     cv2.rectangle(face_color, (e_x, e_y), (e_x + e_w, e_y + e_h), (0, 255, 0), 2)
+                        photo = image
                         r, buf = cv2.imencode(".jpg", image)
                         img_data = Image.fromarray(np.uint8(buf)).tobytes()
                 finally:
@@ -116,7 +125,7 @@ class StreamConsumer(WebsocketConsumer):
         self.close(close_code)
 
     def websocket_receive(self, message):
-        global cam_flag
+        global cam_flag, imgObj
         text_data = message["text"]
         cam_flag = 1
         time.sleep(1)
@@ -135,11 +144,22 @@ class StreamConsumer(WebsocketConsumer):
 
 @csrf_exempt
 def close_camera_client(request):
-    global cam_flag
+    global cam_flag, photo, photo_flag
+    mqtt_send('camera_close')
     cam_flag = 1
     result = {'ret': True, 'msg': '客户端接收关闭！'}
-    mqtt_send('camera_close')
     return HttpResponse(json.dumps(result))
+
+
+@csrf_exempt
+def take_photo(request):
+    if photo_flag:
+        save_img('.jpeg', photo)
+        result = {'ret': True, 'msg': ''}
+    else:
+        result = {'ret': False, 'msg': '没有打开摄像头'}
+    return HttpResponse(json.dumps(result))
+
 
 # tcp 视频连接 客户端
 # class CameraConnect(object):

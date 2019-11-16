@@ -13,7 +13,7 @@ from car.view.ML import ML
 app_name = 'car'
 
 urlpatterns = [
-    path(r'', views.home_page_load),
+    path(r'', control.control_page,),
 
 
     # 小车控制
@@ -27,6 +27,7 @@ urlpatterns = [
     # 视频处理
     path(r'camera/', camera.camera_page, name='camera'),
     path(r'close_camera_client/', camera.close_camera_client, name='close_camera_client'),
+    path(r'take_photo/', camera.take_photo, name='take_photo'),
 
     # 图像识别
     path(r'image/', image.image_page, name='image'),
