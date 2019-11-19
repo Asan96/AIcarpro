@@ -152,6 +152,7 @@ class StreamConsumer(WebsocketConsumer):
 @csrf_exempt
 def close_camera_client(request):
     global cam_flag, photo, photo_flag
+    photo_flag = 0
     mqtt_send('camera_close')
     cam_flag = 1
     result = {'ret': True, 'msg': '客户端接收关闭！'}
