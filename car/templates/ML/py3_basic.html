@@ -63,22 +63,16 @@
             <div class="description">
                 <p class="pnorm">关于Python基础学习，推荐几个比较不错的学习资源。</p>
                 <p class="pnorm">
-                    <label class="ui red empty circular label"></label><strong class="subtitle">极力推荐!南京大学 Python 学习视频。讲的比较全面，常用的语法和库都有讲解，是比较全面的入门课程。</strong><br>
+                    <label class="ui red empty circular label"></label><strong class="subtitle">极力推荐!南京大学 Python 学习视频。讲的比较全面，常用的语法和库都有讲解，比较全面的入门课程。</strong><br>
                 </p>
                 <p class="pnorm">
                     <a href="https://www.icourse163.org/course/0809NJU004-1001571005?from=study">地址 ：https://www.icourse163.org/course/0809NJU004-1001571005?from=study</a>
                 </p>
                 <p class="pnorm">
-                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python2.7 中文文档。</strong>
+                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python2.7 中文文档。</strong><a href="https://docs.python.org/zh-cn/2.7/tutorial/">地址 ：https://docs.python.org/zh-cn/2.7/tutorial/</a>
                 </p>
                 <p class="pnorm">
-                    <a href="https://docs.python.org/zh-cn/2.7/tutorial/">地址 ：https://docs.python.org/zh-cn/2.7/tutorial/</a>
-                </p>
-                <p class="pnorm">
-                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python3.7 中文文档。</strong>
-                </p>
-                <p class="pnorm">
-                    <a href="https://docs.python.org/zh-cn/3.7/tutorial/">地址 ：https://docs.python.org/zh-cn/3.7/tutorial/</a>
+                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python3.7 中文文档。</strong><a href="https://docs.python.org/zh-cn/3.7/tutorial/">地址 ：https://docs.python.org/zh-cn/3.7/tutorial/</a>
                 </p>
                 <p class="pnorm">
                     <label class="ui yellow empty circular label"></label><strong class="subtitle">廖雪峰 Python 学习笔记。对于 Python 基础语法知识讲解比较详细。</strong>
@@ -87,28 +81,28 @@
                     <a href="https://blog.csdn.net/datawhale/article/category/7779959">地址 ：https://blog.csdn.net/datawhale/article/category/7779959</a>
                 </p>
                 <p class="pnorm">
-                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python 练习100例。</strong>
-                </p>
-                <p class="pnorm">
-                    <a href="https://www.runoob.com/python/python-100-examples.html">地址 ：https://www.runoob.com/python/python-100-examples.html</a>
+                    <label class="ui orange empty circular label"></label><strong class="subtitle">Python 练习100例。</strong><a href="https://www.runoob.com/python/python-100-examples.html">地址 ：https://www.runoob.com/python/python-100-examples.html</a>
                 </p>
             </div>
             <div class="ui divider"></div>
             <h5 class="ui horizontal divider header">
                 <i class="tag blue icon"><strong class="subtitle">知识图谱</strong></i></h5>
-            <div style="text-align: center"><img src="{% static 'plugin/img/python_basic.jpg' %}" class="show_img min" title="点击查看大图"></div>
+            <div class="description">
+                <div class="pnorm"><a id="show_img">Python学习路线</a></div>
+            </div>
+{#            <div style="text-align: center"><img src="{% static 'plugin/img/python_basic.jpg' %}" class="show_img min" title="点击查看大图"></div>#}
         </div>
     </div>
     <div class="ui fullscreen modal" id="python_modal">
         <div class="image content" style="padding: 0">
-            <img src="{% static 'plugin/img/python_basic.jpg' %}" class="hide_img max" title="点击缩小图片">
+            <img src="{% static 'plugin/img/python_basic.jpg' %}" class="hide_img max" title="点击关闭图片">
         </div>
     </div>
 {% endblock %}
 {% block script %}
     <script>
         $(function () {
-            $('.show_img').click(function () {
+            $('#show_img').click(function () {
                 $('#python_modal').modal('show');
             });
             $('.hide_img').click(function () {
