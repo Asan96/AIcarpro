@@ -49,6 +49,7 @@ urlpatterns = [
     path(r'code/', code.code_page, name='code'),
     path(r'code_run/', code.code_run, name='code_run'),
     path(r'code_import/', code.code_operate, name='code_operate'),
+    path(r'upload_py_file/', code.upload_pyfile, name='upload_pyfile'),
 
     # mqtt
     path(r'get_command', mqtt.get_command, name='get_command'),

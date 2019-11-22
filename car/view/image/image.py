@@ -81,7 +81,9 @@ def upload(request):
         except Exception as e:
             result = {'ret': False, 'msg': str(e)}
             print('文件读写异常 '+str(e))
-        return HttpResponse(json.dumps(result), content_type='application/json')
+    else:
+        result = {'ret': False, 'msg': 'Not Post！'}
+    return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 img_show_dic = {

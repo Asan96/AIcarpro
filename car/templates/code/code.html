@@ -34,6 +34,7 @@
                 <i class="icon green play" id="i_run"></i></div>
             <div class="ui circular right floated icon basic button" data-tooltip="保存代码" id="btn_save" data-position="bottom right" style="margin-right: 30px">
                 <i class="icon orange save"></i></div>
+            <input type="file" name="file" id="py_upload" style="display: none" accept=".py">
             <div class="ui circular right floated icon basic button" data-tooltip="导入代码" id="btn_import" data-position="bottom right" style="margin-right: 30px">
                 <i class="icon yellow folder open"></i></div>
         </div>
@@ -51,6 +52,7 @@
         let CodeURL = {
             'dataCodeRun': '{% url 'car:code_run' %}',
             'dataCodeOperate': '{% url 'car:code_operate' %}',
+            'uploadPyFile': '{% url 'car:upload_pyfile' %}'
         }
     </script>
     <script src="{% static 'js/code/code.js' %}"></script>

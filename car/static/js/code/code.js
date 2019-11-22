@@ -60,8 +60,47 @@ $('#btn_run_in_car').click(function () {
     post_code(params)
 });
 $('#btn_import').click(function () {
-    post_operate({'operate':'import'})
+    $('#py_upload').trigger('click');
 });
+$('#py_upload').change(function () {
+    let pyData = new FormData();
+    let pyInfo =$( '#py_upload')[0].files[0];
+    console.log(pyInfo)
+    let pySize = 0;
+    let pyType = '';
+    if (pyInfo){
+        pySize = (pyInfo.size / 1024).toFixed(0);
+        pyType = pyInfo.name.substring(pyInfo.name.lastIndexOf("."));
+    }
+    if (pySize > 1024){
+        alert('图片文件过大，请选择10M以下的图片');
+        return;
+    }
+    if (pyType !== '.py'){
+        alert('请选择 python文件！');
+        return;
+    }
+    pyData.append('file',pyInfo);
+    $.ajax({
+        url: CodeURL.uploadPyFile,
+        type:'POST',
+        data: pyData,
+        processData: false,  // tell jquery not to process the data
+        contentType: false, // tell jquery not to set contentType
+        success: function(response) {
+            if (response.ret){
+                editor.setValue(response.msg)
+            }
+            else {
+                alert(response.msg)
+            }
+        },
+        error : function(e){
+            console.log(e);
+        }
+    });
+});
+
 $('#btn_save').click(function () {
     let code = editor.getValue();
     post_operate({'operate':'save', 'code':code})
@@ -96,9 +135,6 @@ function post_operate(params) {
         data : params,
         success : function(data) {
             if (data.ret){
-                if(data.type ==='import'){
-                    editor.setValue(data.msg)
-                }
             }
             else{
                 alert(data.msg)

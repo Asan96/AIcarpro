@@ -13,10 +13,11 @@ import time
 import json
 import os
 import subprocess
-import win32ui
 import queue
 
 q = queue.Queue()
+
+code_path = 'car/view/code/run.py'
 
 
 def code_page(request):
@@ -27,7 +28,6 @@ def code_page(request):
 @csrf_exempt
 def code_run(request):
     global q
-    code_path = 'car/view/code/run.py'
     params = request.POST.dict()
     type = params['type']
     if type == 'run':
@@ -63,25 +63,29 @@ save_flag = 0
 
 
 @csrf_exempt
+def upload_pyfile(request):
+    result = {'ret': False, 'msg': 'Not Post！'}
+    code = ''
+    if request.method == 'POST':
+        fileObj = request.FILES.get('file')
+        try:
+            with open(code_path, 'wb+') as f:
+                for chunk in fileObj.chunks():
+                    f.write(chunk)
+                    code += str(chunk, 'utf-8')
+                f.close()
+            result = {'ret': True, 'msg': code}
+        except Exception as e:
+            result = {'ret': False, 'msg': str(e)}
+            print('文件读写异常 '+str(e))
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+@csrf_exempt
 def code_operate(request):
     global save_flag
     operate = request.POST.get('operate', '')
-    if operate == 'import':
-        dialog = win32ui.CreateFileDialog(1)  # 1表示打开文件对话框
-        dialog.SetOFNInitialDir('')  # 设置打开文件对话框中的初始显示目录
-        dialog.DoModal()
-        filepath = dialog.GetPathName()  # 获取选择的文件名称
-        if filepath.endswith('.py'):
-            filepath = filepath.replace('\\', '/')
-            with open(filepath, 'r', encoding='utf-8') as f:
-                code_import = f.read()
-                f.close()
-            result = {'ret': True, 'type': 'import', 'msg': code_import}
-        elif not filepath:
-            result = {'ret': True, 'type': 'other', 'msg': ''}
-        else:
-            result = {'ret': False, 'msg': '请选择python文件！'}
-    elif operate == 'save':
+    if operate == 'save':
         code_save = request.POST.get('code', '')
         if save_flag:
             result = {'ret': False, 'msg': '已打开保存窗口，请勿重复操作'}
