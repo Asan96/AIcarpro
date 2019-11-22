@@ -70,8 +70,9 @@
                 <div class="column">
                     <div class="ui list">
                         <div class="item">
+                            <input type="file" name="file" id="file_upload" style="display: none">
                             <div class="ui buttons">
-                                <button class="ui basic icon button"  data-tooltip="打开图片" data-position="bottom center" id="btn_open_file">
+                                <button class="ui basic icon button"  data-tooltip="打开图片" data-position="bottom center" id="btn_upload_file">
                                     <i class="big folder open orange icon"></i>
                                 </button>
                             </div>
@@ -455,11 +456,11 @@
 {% block script %}
     <script>
         let Image_URL={
-            'dataOpenImageFile':'{% url 'car:open_image_file' %}',
             'dataImgBase': '{% url 'car:image_base'%}',
             'dataImgShow': '{% url 'car:image_show'%}',
             'dataImgDraw': '{% url 'car:image_draw'%}',
             'dataImgCode': '{% url 'car:load_img_code'%}',
+            'dataUpload': '{% url 'car:upload' %}'
         }
     </script>
     <script src="{% static 'js/image/img.js' %}"></script>

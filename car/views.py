@@ -33,3 +33,7 @@ def get_online_status():
         except Exception as e:
             print('get device state error ! msg: '+str(e))
     return device_state, device_id
+
+
+def tes_page(request):
+    return render(request, "test.html", locals())

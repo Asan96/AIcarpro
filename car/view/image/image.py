@@ -14,8 +14,6 @@ import cv2
 import socket
 import json
 import os
-import win32ui
-import shutil
 import tkinter as tk
 
 import queue
@@ -67,44 +65,23 @@ def path_norm(path):
     return path
 
 
-def write_img(imgpath):
-    '''
-    图片缓存到app目录
-    :param imgpath:
-    :return:
-    '''
-    for value in img_dic.values():
-        if not os.path.exists(value):
-            os.mkdir(value)
-    suffix = imgpath.split('.')[1]
-    path = shutil.copyfile(imgpath, img_dic[suffix]) if suffix in img_dic else None
-    if path:
-        return True, path
-    else:
-        return False, '格式不符合要求！'
-
 
 @csrf_exempt
-def open_image_file(request):
-    '''
-    打开图片对话框
-    :param request:
-    :return:
-    '''
-    dialog = win32ui.CreateFileDialog(1)  # 1表示打开文件对话框
-    dialog.SetOFNInitialDir('')  # 设置打开文件对话框中的初始显示目录
-    dialog.DoModal()
-    filepath = dialog.GetPathName()  # 获取选择的文件名称
-    if filepath.endswith('.jpg') or filepath.endswith('.png') or filepath.endswith('.jpeg'):
-        filepath = filepath.replace('\\', '/')
-        ret, msg = write_img(filepath)
-        if ret:
-            result = {"ret": True, 'msg': msg}
-        else:
-            result = {"ret": False, 'msg': msg}
-    else:
-        result = {"ret": False, 'msg': '请选择jpg、jpeg或png等图片格式!'}
-    return HttpResponse(json.dumps(result), content_type='application/json')
+def upload(request):
+    if request.method == 'POST':
+        fileObj = request.FILES.get('file')
+        suffix = fileObj.name.split('.')[-1]
+        cache_path = img_dic[suffix]
+        try:
+            with open(cache_path, 'wb+') as f:
+                for chunk in fileObj.chunks():
+                    f.write(chunk)
+                f.close()
+            result = {'ret': True, 'msg': cache_path}
+        except Exception as e:
+            result = {'ret': False, 'msg': str(e)}
+            print('文件读写异常 '+str(e))
+        return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 img_show_dic = {
@@ -133,7 +110,7 @@ def save_img(name, img):
     if fname:
         save_flag = 0
         cv2.imencode('.'+suffix, img)[1].tofile(str(fname)+'.'+suffix)
-        #cv2.imwrite(str(fname)+'.'+suffix, img) # 中文路径保存会失败
+        # cv2.imwrite(str(fname)+'.'+suffix, img) # 中文路径保存会失败
         return {'ret': True, 'type': 0, 'msg': '保存成功！'}
     else:
         save_flag = 0

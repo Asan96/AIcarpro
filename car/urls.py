@@ -32,7 +32,8 @@ urlpatterns = [
     # 图像识别
     path(r'image/', image.image_page, name='image'),
     path(r'image/home/', image.img_home_page, name='img_home'),
-    path(r'open_image_file/', image.open_image_file, name='open_image_file'),
+    # path(r'open_image_file/', image.open_image_file, name='open_image_file'),
+    path(r'upload/', image.upload, name='upload'),
     path(r'image/show/', image.image_show_page, name='image_show_page'),
     path(r'image/draw/', image.image_draw_page, name='image_draw_page'),
     path(r'image/base/', image.image_base_page, name='image_base_page'),
@@ -60,4 +61,7 @@ urlpatterns = [
     path(r'ML/py3/environment', ML.py3_environment, name='py3_environment'),
     path(r'ML/py3/basic', ML.py3_basic, name='py3_basic'),
 
+
+    # test
+    path(r'test/', views.tes_page, name='tes_page'),
 ]

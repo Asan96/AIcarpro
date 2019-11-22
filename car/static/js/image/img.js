@@ -12,6 +12,57 @@ function regix(num_lst){
     }
     return true
 }
+let img_path = $('#img_main' ).attr('src');
+let show_flag = 0;
+$('#btn_upload_file').click(function () {
+    $('#file_upload').trigger('click');
+});
+$('#file_upload').change(function () {
+    let form_data = new FormData();
+    let file_info =$( '#file_upload')[0].files[0];
+    let fileSize = 0;
+    let fileType = '';
+    if (file_info){
+        fileSize = (file_info.size / 1024).toFixed(0);
+        fileType = file_info.name.substring(file_info.name.lastIndexOf("."));
+    }
+    let typeArray = ['.jpg','.jpeg', '.png'];
+    if (fileSize > 10240){
+        alert('图片文件过大，请选择10M以下的图片');
+        return;
+    }
+    if ($.inArray(fileType,typeArray) === -1){
+        alert('请选择jpg、jpeg或png格式的图片！');
+        return
+    }
+    form_data.append('file',file_info);
+    $('.div_base').hide();
+    hide_operation();
+    show_flag = 0;
+    $.ajax({
+        url: Image_URL.dataUpload,
+        type:'POST',
+        data: form_data,
+        processData: false,  // tell jquery not to process the data
+        contentType: false, // tell jquery not to set contentType
+        success: function(response) {
+            if (response.ret){
+                img_path = response.msg;
+                $('#img_main').attr('src', response.msg.split('car')[1]+'?'+Math.random());
+                if (!show_flag){
+                    $('.before_btn').attr('disabled',true)
+                }
+            }
+            else {
+                alert(response.msg)
+            }
+        },
+        error : function(e){
+            console.log(e);
+        }
+    });
+});
+
 /**
  * 隐藏其他操作
  * */
@@ -63,38 +114,6 @@ $('.codeCls').click(function () {
             if (data.ret){
                 console.log(data.msg);
                 editor.setValue(data.msg)
-            }
-            else{
-                alert(data.msg)
-            }
-        },
-        error : function(e){
-            console.log(e);
-        }
-    });
-});
-
-let img_path = $('#img_main').attr('src');
-let show_flag = 0;
-/**
- * 打开文件
- * */
-$('#btn_open_file').click(function () {
-    $('.div_base').hide();
-    hide_operation();
-    show_flag = 0;
-    $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : Image_URL.dataOpenImageFile,
-        data : {},
-        success : function(data) {
-            if (data.ret){
-                img_path = data.msg;
-                $('#img_main').attr('src', data.msg.split('car')[1]+'?'+Math.random());
-                if (!show_flag){
-                    $('.before_btn').attr('disabled',true)
-                }
             }
             else{
                 alert(data.msg)
