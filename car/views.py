@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import os
 
-config_path = os.path.abspath('.') + '\\car\\view\\control\\mqtt_config.txt'
+config_path = os.path.abspath('.') + '/car/view/control/mqtt_config.txt'
 
 
 def home_page_load(request):
