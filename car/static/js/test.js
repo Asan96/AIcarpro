@@ -1,16 +1,5 @@
-// let username="f=open('ceshi.py','r')";
-// let send_asc = new Uint8Array();
-// for(let i =0; i<username.length;i++){
-//     var str = username.charAt(i);
-//     var code = str.charCodeAt();
-//     send_asc+=code
-// }
-// // document.write(str+'<br />');
-// document.write(send_asc+'<br />');
-// console.log(send_asc)
 /**
- * @author Davide Malvezzi
- * @version 0.1.0
+ * @version 1.0
  * Google Chrome browser app to allow the use of serial ports comunication inside a web page.
  *	The app acts as an wrapper between the web pages and the serial ports.
  * The app use the chrome.serial API to interact with the serial ports and

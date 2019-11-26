@@ -9,6 +9,7 @@ from car.view.image import image
 from car.view.code import code
 from car.view import mqtt
 from car.view.ML import ML
+from car.view.code import serial_code
 
 app_name = 'car'
 
@@ -65,4 +66,9 @@ urlpatterns = [
 
     # test
     path(r'test/', views.tes_page, name='tes_page'),
+    # 编码串口通信
+    path(r'serial/', serial_code.serial_code_page, name='serial_code_page'),
+    path(r'serial_code_run/', serial_code.code_run, name='serial_code_run'),
+    path(r'serial_code_operate/', serial_code.code_operate, name='serial_code_operate'),
+    path(r'serial_upload_py_file/', serial_code.upload_pyfile, name='serial_upload_py_file'),
 ]

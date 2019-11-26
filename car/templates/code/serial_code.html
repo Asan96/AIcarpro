@@ -1,0 +1,80 @@
+{% extends 'home.html' %}
+{% load  static %}
+{% block title_name %}
+    串口编码
+{% endblock %}
+{% block css %}
+    <style>
+        .contain_size{
+            margin-top: 80px;
+        }
+        .console{
+            font-size: 16px;
+            color:whitesmoke;
+        }
+        .result{
+            color: darkorange;
+            padding-left: 65px;
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+    </style>
+{% endblock %}
+{% block self_content %}
+    <div class="ui container contain_size">
+        <div class="ui clearing segment" style="margin-bottom: 0px;background-color: #3B3E3F;border-radius: 4px 4px 0px 0px;padding: 0px;">
+            <button class="ui left floated button" style="background-color:#3B3E3F;color: orange" data-tooltip="编写python代码" data-position="right center" data-inverted="">编辑代码：</button>
+            <div class="ui circular right floated icon basic button" data-tooltip="清空" id="btn_clear" data-position="bottom right" style="margin-right: 30px" >
+                <i class="icon teal trash alternate"></i></div>
+            <div class="ui circular right floated icon basic button" data-tooltip="若本地代码死循环，请点此处终止。慎用！" id="btn_stop" data-position="bottom right" style="margin-right: 30px">
+                <i class="icon red stop"></i></div>
+            <div class="ui circular right floated icon basic button" data-tooltip="本地运行" id="btn_run" data-position="bottom right" style="margin-right: 30px">
+                <i class="icon green play" id="i_run"></i></div>
+            <div class="ui circular right floated icon basic button" data-tooltip="保存代码" id="btn_save" data-position="bottom right" style="margin-right: 30px">
+                <i class="icon orange save"></i></div>
+            <input type="file" name="file" id="py_upload" style="display: none" accept=".py">
+            <div class="ui circular right floated icon basic button" data-tooltip="导入代码" id="btn_import" data-position="bottom right" style="margin-right: 30px">
+                <i class="icon yellow folder open"></i></div>
+        </div>
+        <div class="ui clearing segment" style="margin-top:0;margin-bottom: 0px;background-color: #3B3E3F;border-radius: 0px 0px 0px 0px;padding: 0px;">
+{#            <label style="color: green;margin-left: 20px"><strong>当前选择的串口：</strong></label>#}
+            <select class="ui dropdown" style="color: green;background-color: #3B3E3F;margin-left: 10px" id='devices'></select>
+            <div class="ui circular right floated icon basic button" onclick='sendData()' data-tooltip="串口运行" id="btn_serial" data-position="bottom right" style="margin-right: 30px">
+                <i class="icon blue usb"></i></div>
+            <button class="ui right floated basic button" onclick='closeCurrentPort()'><strong style="color: red;">关闭</strong></button>
+            <button class="ui right floated basic button" onclick='openSelectedPort()'><strong style="color: green;">打开</strong></button>
+            <button class="ui circular right floated icon basic button" onclick='realodDevices()' data-tooltip="重新加载" data-position="bottom right" style="margin-left: 30px">
+                <i class="icon green refresh"></i></button>
+        </div>
+        <textarea id="editor"></textarea>
+    <div class="ui clearing segment" style="margin-top: 0px;background-color: #313335;border-radius: 0px 0px 0px 0px;height: 22px;padding-top: 0px;margin-bottom: 0px;border-bottom: grey 1px solid">
+        <p class="console">Console:</p>
+    </div>
+        <div class="ui clearing segment" style="margin-top: 0px;background-color: #3B3E3F;border-radius: 0px 0px 4px 4px;height: 200px;padding-top: 0px;margin-bottom:50px;overflow: auto">
+            <pre class="result" id ='console'></pre>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        let CodeURL = {
+            'serialCodeRun': '{% url 'car:serial_code_run' %}',
+            'serialCodeOperate': '{% url 'car:serial_code_operate' %}',
+            'serialUploadPyFile': '{% url 'car:serial_upload_py_file' %}'
+        }
+    </script>
+    <script src="{% static 'js/code/serial_code.js' %}"></script>
+    <script>
+        isExtensionInstalled(
+            function(installed){
+                if(!installed){
+                    alert("Serial Port Interface extension is missing. Please install");
+                }
+            }
+        );
+
+        let serialPort = new SerialPort;
+        serialPort.setOnDataReceivedCallback(onNewData);
+        realodDevices();
+    </script>
+{% endblock %}
