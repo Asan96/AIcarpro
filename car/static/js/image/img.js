@@ -1,3 +1,4 @@
+$('.device_state').hide();//取消显示设备状态
 let color;
 let reg=/^[0-9]+.?[0-9]*$/;
 let loading_path = '/static/plugin/img/loading.gif';

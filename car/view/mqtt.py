@@ -109,7 +109,14 @@ def connect_mqtt(request):
             f.write(str(config))
             f.close()
         client.subscribe(client_topic)
-        local_ip = socket.gethostbyname(socket.gethostname())
+        # local_ip = socket.gethostbyname(socket.gethostname())
+        local_ip = ''
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(('8.8.8.8', 26660))
+            local_ip = s.getsockname()[0]
+        except Exception as e:
+            return HttpResponse(json.dumps({'ret': False, 'msg': '获取本地ip失败！'+str(e)}), content_type='application/json')
         mqtt_send('connect:' + local_ip)
         return HttpResponse(json.dumps({'ret': True, 'msg': '连接成功！设备号： '+device_id}), content_type='application/json')
     return HttpResponse(json.dumps({'ret': False, 'msg': '连接失败！'}), content_type='application/json')

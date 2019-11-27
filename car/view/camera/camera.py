@@ -54,7 +54,10 @@ class ImgServer(object):
     def get_addr(self):
         # 获取本机计算机名称
         hostname = socket.gethostname()
-        ip = socket.gethostbyname(hostname)
+        # ip = socket.gethostbyname(hostname)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 26660))
+        ip = s.getsockname()[0]
         # 获取本机ip
         host = (ip, self.port)
         print('主机名： '+str(hostname) + ' 地址：' + str(ip) + ':' +str(self.port))
