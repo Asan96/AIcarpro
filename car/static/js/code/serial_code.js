@@ -1,8 +1,8 @@
 let editor;
 let version = "#!/usr/bin/python\n# coding=utf-8\n# version: Python3\n";
 let codeAreaTip = "# please edit your code here:\n";
-let initValue = version+codeAreaTip;
-// let initValue = '';
+// let initValue = version+codeAreaTip;
+let initValue = '';
 window.onload = function () {
     let el = document.getElementById("editor");
     editor = CodeMirror.fromTextArea(el, {
@@ -158,6 +158,9 @@ function realodDevices(){
     );
 }
 
+/**
+ * 串口显示配置
+ * */
 function openSelectedPort(){
     serialPort.openPort(
         {
@@ -192,28 +195,59 @@ function closeCurrentPort(){
         }
     );
 }
-let response_str = '';
+/**
+* 回显
+* */
+let response_str = ''; // 回显内容
 function onNewData(data){
     let end_flag = "exec(open('mixly.py').read(),globals())";
-    let str = "";
-    let dv = new DataView(data);
-    for(let i = 0; i < dv.byteLength; i++){
-        str = str.concat(String.fromCharCode(dv.getUint8(i, true)));
-    }
+    let str;
+    str = Utf8ArrayToStr(new Uint8Array(data));
     response_str += str;
     if (response_str.indexOf(end_flag)>=0)
     {
         $('#console').empty().append('>>>'+response_str.split(end_flag).slice(-1));
     }
+}
 
+function Utf8ArrayToStr(array) {
+    let out,i, c;
+    let char2, char3;
+    out = "";
+    i = 0;
+    while(i < array.length) {
+        c = array[i++];
+        switch(c >> 4) // 右移位运算
+        {
+            case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+            // 0xxxxxxx
+            out += String.fromCharCode(c);
+            break;
+            case 12: case 13:
+            // 110x xxxx   10xx xxxx
+            char2 = array[i++];
+            out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+            break;
+            case 14:
+                // 1110 xxxx  10xx xxxx  10xx xxxx
+                char2 = array[i++];
+                char3 = array[i++];
+                out += String.fromCharCode(((c & 0x0F) << 12) |
+                    ((char2 & 0x3F) << 6) |
+                    ((char3 & 0x3F) << 0));
+                break;
+        }
+    }
+
+    return out;
 }
 
 function sendData(){
     response_str = '';
     $('#console').val('');
     let code = editor.getValue();
+    code = encodeURI(code).replace(/%/g,'\\x').toLocaleLowerCase();// 字符串转 16进制  替换成 字节串格式的字符串
     code = code.replace(/[\r\n]/g,"\\n").replace(/\n/g,'\\n').replace(/\t/g,'\\t'); //去掉回车换行;
-    console.log(code)
     let mainCode = [
         "f= open('./mixly.py','wb+',encoding='utf-8')",
     ];
@@ -233,7 +267,6 @@ function sendData(){
         }, 100*i);
     }
 }
-
 for (let i = 0; i < 10; i++) {
 
 }
@@ -265,56 +298,20 @@ window.onbeforeunload = function(){
     return null;
 };
 
-/**
- * @version 1.0
- * Google Chrome browser app to allow the use of serial ports comunication inside a web page.
- *	The app acts as an wrapper between the web pages and the serial ports.
- * The app use the chrome.serial API to interact with the serial ports and
- * the chrome.runtime messaging API to exchange information with the web page.
- * It is also provided a simple JavaScript library to use inside the web pages to access the services offered by the app.
- */
-
-/**
- * Extension unique id to start the comunication.
- */
-let extensionId = "helkffleffnhhnoepaimiaebdcagpllc";
+let extensionId = "helkffleffnhhnoepaimiaebdcagpllc"; //插件id
 
 function SerialPort(){
+    let portGUID;//应用分配的端口GUID
+    let port = chrome.runtime.connect(extensionId);//初始化与app的通信
+    let serialConnectionId;//包含唯一的串行端口连接ID
+    let isSerialPortOpen = false;//串行连接是否打开
+    let onDataReceivedCallback = undefined;//如果有新数据从串行端口连接传入，则调用回调函数
+    let onErrorReceivedCallback = undefined;//如果存在连接，则调用回调函数进行调用
     /**
-     * Port GUID assigned by the app.
-     */
-    let portGUID;
-
-    /**
-     * Initialize the comunication with the app.
-     */
-    let port = chrome.runtime.connect(extensionId);
-
-    /**
-     * Contain the unique serial port connection id.
-     */
-    let serialConnectionId;
-
-    /**
-     * Bool that indicates if the serial connection is open.
-     */
-    let isSerialPortOpen = false;
-
-    /**
-     * Callback function to call if there is new data incoming from the serial port connection.
-     */
-    let onDataReceivedCallback = undefined;
-
-    /**
-     * Callback function to call if there is the connection encountered some problems.
-     */
-    let onErrorReceivedCallback = undefined;
-
-    /**
-     * Listener to handle incoming message from the app trought the messaging port.
-     * Handled commands are:
-     * - guid -> received when the connection with the app is established, represent the GUID assigned to the port
-     * - serialdata -> received when new binary data is available on the serial port
+      *处理来自应用程序的传入消息的侦听器占用了消息传递端口。
+      *处理的命令是：
+      *-guid->与应用程序建立连接时收到，代表分配给端口的GUID
+      *-串行数据->当串行端口上有新的二进制数据时收到
      */
     port.onMessage.addListener(
         function(msg) {
@@ -333,35 +330,35 @@ function SerialPort(){
     );
 
     /**
-     * Check if the current port is opened.
+     * 检查当前端口是否打开
      */
     this.isOpen = function(){
         return isSerialPortOpen;
     }
 
     /**
-     * Set the new data callback.
+     * 设置新的数据回调
      */
     this.setOnDataReceivedCallback = function(callBack){
         onDataReceivedCallback = callBack;
     }
 
     /**
-     * Set the error callback.
+     * 设置错误回调
      */
     this.setOnErrorReceivedCallback = function(callBack){
         onErrorReceivedCallback = callBack;
     }
 
     /**
-     * Try to open a serial connection.
-     * portInfo MUST contain:
-     * portName -> path to the port to open
-     * bitrate -> port bit rate as number
-     * dataBits -> data bit ("eight" or "seven")
-     * parityBit -> parity bit ("no", "odd" or "even")
-     * stopBits -> stop bit ("one" or "two")
-     * Callback is a function to call to handle the app result.
+      * 尝试打开串行连接。
+      * portInfo必须包含：
+      * portName->要打开的端口的路径
+      * 波特率->端口比特率作为数字
+      * dataBits->数据位（“八”或“七”）
+      * parityBit->奇偶校验位（“否”，“奇数”或“偶数”）
+      * stopBits->停止位（“一个”或“两个”）
+      *回调是用于处理应用程序结果的函数。
      */
     this.openPort = function(portInfo, callBack){
         chrome.runtime.sendMessage(extensionId,
@@ -381,8 +378,8 @@ function SerialPort(){
     }
 
     /**
-     * Try to close the serial connection.
-     * Callback is a function to call to handle the app result.
+      * 尝试关闭串行连接。
+      * 回调是用于处理app结果的函数。
      */
     this.closePort = function(callBack){
         chrome.runtime.sendMessage(extensionId,
@@ -400,10 +397,10 @@ function SerialPort(){
     }
 
     /**
-     *	Write data on the serial port.
-     * The request MUST contain:
-     * connectionId -> connection unique id provided when the port is opened
-     * data -> Array which contains the bytes to send
+      *	在串口上写数据。
+      * 请求中必须包含：
+      * connectionId->打开端口时提供的连接唯一ID
+      * data->包含要发送的字节的数组
      */
     this.write = function(data, callBack){
         chrome.runtime.sendMessage(extensionId,
@@ -428,21 +425,15 @@ function SerialPort(){
 }
 
 /**
- *	Get the list of all serial devices connected to the pc.
- * If there is no error it will return an array of object containing:
- * - path
- * - vendorId (optional)
- * - productId (optional)
- * - displayName (optional)
- * Callback is a function to call to handle the app result.
+  *	获取连接到PC的所有串口设备的列表
  */
 function getDevicesList(callBack){
     chrome.runtime.sendMessage(extensionId, {cmd: "list"}, callBack);
 }
 
 /**
- * Used to check if the Serial Interface app is installed on the browser.
- * If it's installed return result: "ok" and the current version
+ * 用于检查浏览器上是否安装了串行接口应用程序。
+ * 如果已安装，则返回结果：“确定”和当前版本
  */
 function isExtensionInstalled(callback){
     chrome.runtime.sendMessage(extensionId, { cmd: "installed" },
