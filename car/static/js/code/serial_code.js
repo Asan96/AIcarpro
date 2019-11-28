@@ -210,6 +210,25 @@ function onNewData(data){
     }
 }
 
+/**
+ * 字符串转 16进制  替换成 字节串格式的字符串
+ * */
+function strFormatCN(str){
+    let format = '';
+    let pattern = new RegExp("[\u4E00-\u9FA5]+");
+    for (let i=0;i<str.length;i++){
+        if(pattern.test(str[i])){
+            format += encodeURI(str[i]).replace(/%/g,'\\x').toLocaleLowerCase()
+        }
+        else{
+            format += str[i]
+        }
+    }
+    return format;
+}
+/**
+ * Unit8Array 转 utf8 str
+ * */
 function Utf8ArrayToStr(array) {
     let out,i, c;
     let char2, char3;
@@ -246,8 +265,8 @@ function sendData(){
     response_str = '';
     $('#console').val('');
     let code = editor.getValue();
-    code = encodeURI(code).replace(/%/g,'\\x').toLocaleLowerCase();// 字符串转 16进制  替换成 字节串格式的字符串
     code = code.replace(/[\r\n]/g,"\\n").replace(/\n/g,'\\n').replace(/\t/g,'\\t'); //去掉回车换行;
+    code = strFormatCN(code);
     let mainCode = [
         "f= open('./mixly.py','wb+',encoding='utf-8')",
     ];
