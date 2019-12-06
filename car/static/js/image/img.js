@@ -13,6 +13,24 @@ function regix(num_lst){
     }
     return true
 }
+/**
+ * 代码栏显示
+ * */
+$('.code_bar').click(function () {
+    if(this.value === 'show'){
+        $('.right_div').show();
+        editor.refresh()
+        $('#show_bar').hide();
+        $('#hide_bar').show();
+    }else{
+        $('.right_div').hide();
+        $('#show_bar').show();
+        $('#hide_bar').hide();
+    }
+});
+/**
+ * 图片加载
+ * */
 let img_path = $('#img_main' ).attr('src');
 let show_flag = 0;
 $('#btn_upload_file').click(function () {
@@ -113,7 +131,6 @@ $('.codeCls').click(function () {
         data : {'key':key},
         success : function(data) {
             if (data.ret){
-                console.log(data.msg);
                 editor.setValue(data.msg)
             }
             else{

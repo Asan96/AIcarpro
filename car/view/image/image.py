@@ -29,31 +29,6 @@ def img_page(request):
     return render(request, 'image/img.html', locals())
 
 
-def image_page(request):
-    device_state, device_id = get_online_status()
-    return render(request, 'image/image.html', locals())
-
-
-def img_home_page(request):
-    device_state, device_id = get_online_status()
-    return render(request, 'image/image_home.html', locals())
-
-
-def image_show_page(request):
-    device_state, device_id = get_online_status()
-    return render(request, 'image/image_show.html', locals())
-
-
-def image_draw_page(request):
-    device_state, device_id = get_online_status()
-    return render(request, 'image/image_draw.html', locals())
-
-
-def image_base_page(request):
-    device_state, device_id = get_online_status()
-    return render(request, 'image/image_base.html', locals())
-
-
 def path_norm(path):
     """
     路径处理
@@ -63,7 +38,6 @@ def path_norm(path):
     if not path.startswith('car'):
         return 'car'+path
     return path
-
 
 
 @csrf_exempt
