@@ -19,7 +19,7 @@
             margin-bottom: 50px;
         }
         .left_div{
-            width: 400px;
+            width: 300px;
             float: left;
             padding-top: 50px;
             text-align: center;
@@ -29,7 +29,7 @@
         }
         .center_div{
             width:auto;
-            margin-left: 400px;
+            margin-left: 300px;
             {#margin-right: 500px;#}
             padding-top: 50px;
             padding-bottom: 50px;
@@ -41,7 +41,7 @@
             width: 500px;
             background-color: whitesmoke;
             float: right;
-            padding-top: 50px;
+            padding-top: 35px;
             height: 100%;
             border-left: 3px solid lightgray;
             display: none;
@@ -136,17 +136,17 @@
                     <i class="large font green icon"></i></button>
             </div>
         </div>
-        <div class="right_div">
-            <div class="ui blue header" style="margin-left: 60px"><i class="ui code icon"></i>相关代码</div>
-            <strong><textarea id="code_text"></textarea></strong>
+        <div style="top: 40%;position:fixed;right: 0;">
+            <button class="ui icon black button code_bar" id="show_bar" value="show" style="border-radius: 5px 0px 0px 5px;margin-right: 0;height: 100px;width: 30px;opacity:0.5;padding-right: 15px">
+            相关代码
+            </button>
         </div>
-        <div style="float: right;padding-top: 20%;">
-            <button class="ui icon black button code_bar" id="show_bar" value="show" style="border-radius: 5px 0px 0px 5px;margin-right: 0;height: 100px;width: 30px;opacity:0.5;">
-                <i class="ui large  green icon chevron left" style="padding-right: 20px"></i>
-            </button>
-            <button class="ui icon black button code_bar" id="hide_bar" value="hide" style="border-radius: 5px 0px 0px 5px;margin-right: 0;height: 100px;width: 30px;opacity:0.5;display: none">
-                <i class="ui large  red icon chevron right" style="padding-right: 20px"></i>
-            </button>
+        <div class="right_div">
+            <div style="height: 40px">
+                <button class="ui icon inverted red basic button code_bar" id="hide_bar" value="hide" data-tooltip="关闭" data-position="left center" style="float: right">
+                    <i class="ui red x icon"></i></button>
+            </div>
+            <strong><textarea id="code_text"></textarea></strong>
         </div>
         <div class="center_div">
             <img id="img_main" class="img_size" src="{% static 'plugin/img/example.jpg' %}" alt="示例图片"/>

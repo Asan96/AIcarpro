@@ -21,11 +21,9 @@ $('.code_bar').click(function () {
         $('.right_div').show();
         editor.refresh()
         $('#show_bar').hide();
-        $('#hide_bar').show();
     }else{
         $('.right_div').hide();
         $('#show_bar').show();
-        $('#hide_bar').hide();
     }
 });
 /**
@@ -116,7 +114,7 @@ window.onload = function () {
         autoCloseBrackets: true, // 自动闭合符号
         styleActiveLine: true, // 显示选中行的样式
     });
-    editor.setSize('auto','90%');
+    editor.setSize('auto','95%');
     editor.replaceSelection(initValue);
     editor.on("keypress", function() {
         editor.showHint(); // 注释show-hint.js第132行，阻止自动补全
