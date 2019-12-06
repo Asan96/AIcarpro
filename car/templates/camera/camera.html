@@ -8,37 +8,43 @@
         #div_camera{
             height: 600px;
             margin-top: 80px;
+            width: 1000px;
         }
         #target{
             display:inline;
-            margin-top: 20px;
+            margin-top: 10px;
             width: 640px;
             height: 480px;
-            border: 2px solid grey;
+            {#border: 2px solid grey;#}
         }
     </style>
 {% endblock %}
 {% block self_content %}
-    <div id="div_camera">
-        <div class="ui raised  container segment" style="width: 700px;height: 550px;margin-bottom: 0;border-radius: 5px 5px 0px 0px;border-bottom: none;text-align: center;background-color: #313335">
+    <div id="div_camera" class="ui container">
+        <div class="ui raised segment" style="float: left;padding-left:0;width: 680px;height: 560px;margin-bottom: 0;padding-top:10px;border-radius: 5px 0px 0px 5px;border-bottom: none;text-align: center;background-color: #3B3E3F;padding-right: 0">
+            <label style="font-size: 16px;color: white;margin-bottom: 10px;margin-top: 0;">视频画面</label>
             <img id="target" src="/static/plugin/img/cam1.jpg" />
         </div>
-        <div class="ui raised container segment top_segment" style="width: 700px;padding-bottom: 0;padding-top: 0;margin-top: 0;border-radius: 0px 0px 5px 5px;border-top: none;background-color: gainsboro">
-            <button class="ui button floated left" disabled="disabled"><p style="color: red">视频画面选项：</p></button>
-            <button class="ui icon circular basic button cam" value="origin" data-tooltip="原始画面" data-position="bottom center" style="margin-left: 30px;border: gainsboro 1px solid">
-                <i class="ui black icon desktop"></i>
+        <div class="ui raised segment" style="float: left;width: 200px;height: 560px;margin-bottom: 0;border-radius: 0px 5px 5px 0px;border-bottom: none;text-align: center;margin-top: 0;background-color: #3B3E3F">
+            <div class="ui top attached label" style="background-color: #3B3E3F;color: white;font-size: 16px;">操作选项</div>
+            <button class="ui fluid toggle button active cam" value="origin" data-tooltip="点击出现小车摄像头原始画面" data-position="right center">
+                原始画面
             </button>
-            <button class="ui icon circular basic button cam" value="face" data-tooltip="人脸识别" data-position="bottom center" style="margin-left: 30px;border: gainsboro 1px solid">
-                <i class="ui green icon user"></i>
+            <div class="ui divider"></div>
+            <button class="ui fluid toggle button teal cam" value="face" data-tooltip="点击进行人脸识别" data-position="right center" style="margin-top: 20px">
+                人脸识别
             </button>
-            <button class="ui icon circular basic button cam" value="eyes" data-tooltip="眼部识别" data-position="bottom center" style="margin-left: 30px;border: gainsboro 1px solid">
-                <i class="ui green icon eye"></i>
+            <div class="ui divider"></div>
+            <button class="ui fluid toggle button teal cam" value="eyes" data-tooltip="点击进行眼部识别" data-position="right center" style="margin-top: 20px">
+                眼部识别
             </button>
-            <button class="ui icon circular basic button operate" value="photo" data-tooltip="拍照" data-position="bottom center" style="margin-left: 30px;border: gainsboro 1px solid">
-                <i class="ui orange icon camera retro"></i>
+            <div class="ui divider"></div>
+            <button class="ui fluid toggle button blue operate" value="photo" data-tooltip="点击截图弹窗保存" data-position="right center" style="margin-top: 20px">
+                截图
             </button>
-            <button class="ui icon circular basic button cam" value="close" data-tooltip="关闭" data-position="bottom center" style="margin-left: 30px;border: gainsboro 1px solid">
-                <i class="ui red icon close"></i>
+            <div class="ui divider"></div>
+            <button class="ui negative fluid button cam" value="close" data-tooltip="关闭" data-position="right center" style="margin-top: 20px">
+                关闭
             </button>
         </div>
     </div>
