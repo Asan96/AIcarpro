@@ -2,4 +2,6 @@
 # coding=utf-8
 # version: Python3
 # please edit your code here:
-print(11111)
+import Car
+Car.go_Left(80,3)
+Car.go_Stop()

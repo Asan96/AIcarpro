@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # coding=utf-8
-from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from tkinter import filedialog
 from car.view.mqtt import mqtt_send
-from car.views import get_online_status
 
 import tkinter as tk
-import time
 import json
-import os
 import subprocess
 import queue
 
@@ -34,7 +30,7 @@ def code_run(request):
         code = params.get('code', '')
         if isCar:
             code = 'code'+code
-            result = mqtt_send(code)
+            result = mqtt_send(request,code)
             result['type'] = 'car'
         else:
             with open(code_path, 'w+', encoding='utf-8') as f:

@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
-from django.shortcuts import render
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
 from car.view.mqtt import mqtt_send
-from car.views import get_online_status
-from car.view import config_path
 
 
 import numpy as np
@@ -32,7 +29,8 @@ count = 0
 
 
 def camera_page(request):
-    device_state, device_id = get_online_status()
+    device_state = request.session.get('device_state')
+    device_id = request.session.get('mqtt_device_id')
     return render(request, 'camera/camera.html', locals())
 
 
@@ -139,7 +137,8 @@ class StreamConsumer(WebsocketConsumer):
         text_data = message["text"]
         cam_flag = 1
         time.sleep(1)
-        mqtt_send('camera_open')
+        self.scope['session'].session = self.scope['session']._session
+        mqtt_send(self.scope['session'], 'camera_open')
         cam = ImgServer(text_data)
         img = cam.img_data()
         cam_flag = 0
@@ -156,7 +155,7 @@ class StreamConsumer(WebsocketConsumer):
 def close_camera_client(request):
     global cam_flag, photo, photo_flag
     photo_flag = 0
-    mqtt_send('camera_close')
+    mqtt_send(request, 'camera_close')
     cam_flag = 1
     result = {'ret': True, 'msg': '客户端接收关闭！'}
     return HttpResponse(json.dumps(result))
