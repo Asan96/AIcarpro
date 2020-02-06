@@ -10,10 +10,11 @@ import tkinter as tk
 import json
 import subprocess
 import queue
+import os
 
 q = queue.Queue()
 
-code_path = 'car/view/code/run.py'
+code_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'run.py')
 
 
 def code_page(request):
@@ -39,7 +40,8 @@ def code_run(request):
                 f.write(code)
                 f.close()
             try:
-                sub = subprocess.Popen("python "+code_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                sub = subprocess.Popen("python " + code_path, shell=True, stdout=subprocess.PIPE,
+                                           stderr=subprocess.PIPE)
                 q.put(sub)
                 sub.wait()
                 output = sub.stdout.read().decode(encoding='utf-8') if sub.stdout else ''
@@ -54,9 +56,6 @@ def code_run(request):
             sub.kill()
         result = {'ret': True, 'type': 'stop', 'msg': 'local stop ok !'}
     return HttpResponse(json.dumps(result), content_type='application/json')
-
-
-save_flag = 0
 
 
 @csrf_exempt
@@ -75,32 +74,4 @@ def upload_pyfile(request):
         except Exception as e:
             result = {'ret': False, 'msg': str(e)}
             print('文件读写异常 '+str(e))
-    return HttpResponse(json.dumps(result), content_type='application/json')
-
-
-@csrf_exempt
-def code_operate(request):
-    global save_flag
-    operate = request.POST.get('operate', '')
-    if operate == 'save':
-        code_save = request.POST.get('code', '')
-        if save_flag:
-            result = {'ret': False, 'msg': '已打开保存窗口，请勿重复操作'}
-        else:
-            save_flag = 1
-            root = tk.Tk()
-            root.withdraw()
-            filename = tk.filedialog.asksaveasfilename(title=u'保存文件', filetypes=[('python文件', '.py')])
-            root.destroy()
-            if filename:
-                save_flag = 0
-                with open(filename+'.py', 'w', encoding='utf-8') as f:
-                    f.write(code_save)
-                    f.close()
-                result = {'ret': True, 'type': 'save', 'msg': '保存成功！'}
-            else:
-                save_flag = 0
-                result = {'ret': True, 'type': 'save', 'msg': '取消保存'}
-    else:
-        result = {'ret': False, 'msg': 'operate error!'}
     return HttpResponse(json.dumps(result), content_type='application/json')

@@ -103,7 +103,23 @@ $('#py_upload').change(function () {
 
 $('#btn_save').click(function () {
     let code = editor.getValue();
-    post_operate({'operate':'save', 'code':code})
+    exportRaw('code.py',code);
+
+    function fakeClick(obj) {
+        let ev = document.createEvent("MouseEvents");
+        ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        obj.dispatchEvent(ev);
+        // obj.click()
+    }
+
+    function exportRaw(name, data) {
+        let urlObject = window.URL || window.webkitURL || window;
+        let export_blob = new Blob([data]);
+        let save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+        save_link.href = urlObject.createObjectURL(export_blob);
+        save_link.download = name;
+        fakeClick(save_link);
+    }
 });
 function post_code(params) {
     $.ajax({
@@ -119,25 +135,6 @@ function post_code(params) {
             }
             else{
                 print(data.msg)
-            }
-        },
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
-        }
-    });
-}
-function post_operate(params) {
-    $.ajax({
-        type : "POST",
-        dataType: "json",
-        url : CodeURL.dataCodeOperate,
-        data : params,
-        success : function(data) {
-            if (data.ret){
-            }
-            else{
-                alert(data.msg)
             }
         },
         error : function(e){
