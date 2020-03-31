@@ -21,7 +21,7 @@
 {% endblock %}
 {% block self_content %}
     <div class="ui container" style="width: 1000px;height: 800px;margin-top: 80px">
-        <div class="ui segment" style="width: 643px;height: 675px;float: left;padding:0;margin-top: 0;margin-bottom:0;
+        <div class="ui segment" style="width: 643px;height: 710px;float: left;padding:0;margin-top: 0;margin-bottom:0;
         border-radius: 5px 0px 0px 5px;border:3px solid skyblue;border-right:none;">
             <div class="column" style="text-align: center;height: 38px;background-color: #E8E8E8">
                 <h3 style="padding-top: 6px;color:teal">小 车 摄 像 头 原 始 画 面</h3>
@@ -33,7 +33,7 @@
                     <label> 开 关 </label>
                 </div>
             </div>
-            <div class="column" style="height: 111px;background-color: #E8E8E8;padding-top:0;">
+            <div class="column" style="height: 146px;background-color: #E8E8E8;padding-top:0;">
                 <div class="ui divided selection list">
                     <a class="item explain">
                         <div class="ui red horizontal label">注 意</div>
@@ -52,10 +52,14 @@
                         |<strong style="color: black"> Q ： 旋转 </strong>
                         |<strong style="color: black"> E ： 停止 </strong>
                     </a>
+                    <a class="item explain">
+                        <div class="ui orange horizontal label">注 意</div>
+                        物体跟随时使用摄像头，暂时无法打开摄像头画面
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="ui segment" style="width: 240px;height: 675px;float: left;margin-top: 0;margin-bottom:0;border-radius: 0px 5px 5px 0px;
+        <div class="ui segment" style="width: 240px;height: 710px;float: left;margin-top: 0;margin-bottom:0;border-radius: 0px 5px 5px 0px;
         border: 3px solid skyblue;border-left: none;background-color: #E8E8E8;">
             <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="sign-in green icon"></i>
@@ -75,6 +79,16 @@
 {#                    配 置#}
 {#                </button>#}
 {#            </div>#}
+            <h4 class="ui horizontal divider header" style="margin: 13px">
+                <i class="recycle orange icon"></i>
+                物体跟随
+            </h4>
+            <div class="column" style="text-align: center;" >
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" id="follow_switch" />
+                    <label>O F F / O N</label>
+                </div>
+            </div>
             <h4 class="ui horizontal divider header" style="margin: 13px">
                 <i class="map signs red icon"></i>
                 避障模式

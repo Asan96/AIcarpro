@@ -79,16 +79,21 @@ $('#camera_switch').change(function () {
 $('#travel_switch').change(function () {
     switch_operate('travel_switch')
 });
+$('#follow_switch').change(function () {
+    switch_operate('follow_switch')
+});
 
 let closeCmdDic = {
     'avoid_switch' : 'avoid_off',
     'travel_switch': 'travel_off',
+    'follow_switch': 'follow_off',
 };
 let openCmdDic = {
     'avoid_switch' : 'avoid_on',
     'travel_switch': 'travel_on',
+    'follow_switch': 'follow_on',
 };
-let op_lst = ['avoid_switch','travel_switch'];
+let op_lst = ['avoid_switch','travel_switch','follow_switch'];
 function switch_operate(action){
     for (let i = 0;i < op_lst.length;i++){
         let switchObj = $('#'+op_lst[i]);

@@ -32,7 +32,7 @@ def code_run(request):
         isCar = int(params['isCar'])
         code = params.get('code', '')
         if isCar:
-            code = 'code'+code
+            code = 'code:'+code
             result = mqtt_send(request, code)
             result['type'] = 'car'
         else:
